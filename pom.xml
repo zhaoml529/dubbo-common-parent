@@ -10,10 +10,10 @@
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	
 	<!-- common projects -->
-	<oa-common.version>1.0-SNAPSHOT</oa-common.version>
-	<oa-common-config.version>1.0-SNAPSHOT</oa-common-config.version>
-	<oa-common-core.version>1.0-SNAPSHOT</oa-common-core.version>
-	<oa-common-web.version>1.0-SNAPSHOT</oa-common-web.version>
+	<dubbo-common.version>1.0-SNAPSHOT</dubbo-common.version>
+	<dubbo-common-config.version>1.0-SNAPSHOT</dubbo-common-config.version>
+	<dubbo-common-core.version>1.0-SNAPSHOT</dubbo-common-core.version>
+	<dubbo-common-web.version>1.0-SNAPSHOT</dubbo-common-web.version>
 	
 	<zkclient.version>0.1</zkclient.version>
 	<spring.version>3.2.10.RELEASE</spring.version>
@@ -235,4 +235,7 @@
 		<version>1.1.3</version>
 	</dependency>
   </dependencies>
+  <modules>
+  	<module>dubbo-commo-config</module>
+  </modules>
 </project>
