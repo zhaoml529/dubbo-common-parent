@@ -238,5 +238,6 @@
   <modules>
   	<module>dubbo-commo-config</module>
   	<module>dubbo-common</module>
+  	<module>dubbo-common-core</module>
   </modules>
 </project>
