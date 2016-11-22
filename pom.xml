@@ -237,5 +237,6 @@
   </dependencies>
   <modules>
   	<module>dubbo-commo-config</module>
+  	<module>dubbo-common</module>
   </modules>
 </project>
