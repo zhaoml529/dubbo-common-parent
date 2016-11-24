@@ -15,8 +15,12 @@
 	<dubbo-common-core.version>1.0-SNAPSHOT</dubbo-common-core.version>
 	<dubbo-common-web.version>1.0-SNAPSHOT</dubbo-common-web.version>
 	
+	<!-- facade projects -->
+	<dubbo-facade-user.version>1.0-SNAPSHOT</dubbo-facade-user.version>
+	
+	<!-- system version -->
 	<zkclient.version>0.1</zkclient.version>
-	<spring.version>3.2.10.RELEASE</spring.version>
+	<spring.version>4.2.8.RELEASE</spring.version>
 	<mybatis.version>3.2.7</mybatis.version>
 	<mybatis-spring.version>1.2.2</mybatis-spring.version>
 	<mysql.driver.version>5.1.31</mysql.driver.version>
@@ -146,6 +150,7 @@
 		<version>${mysql.driver.version}</version>
 	</dependency>
 	<!-- end Mysql Driver -->
+	
 	<!-- begin connection pool druid -->
 	<dependency>
 		<groupId>com.alibaba</groupId>
@@ -153,6 +158,21 @@
 		<version>${druid.version}</version>
 	</dependency>
 	<!-- end connection pool druid -->
+	
+    <!-- begin Spring-Date-Redis相关 -->
+    <!-- Spring Data Redis 1.x binaries requires JDK level 6.0 and above, and Spring Framework 4.2.8.RELEASE and above. -->
+    <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-redis</artifactId>
+        <version>1.7.2.RELEASE</version>
+    </dependency>                
+     <dependency>
+        <groupId>redis.clients</groupId>
+        <artifactId>jedis</artifactId>
+        <version>2.7.3</version>
+    </dependency>
+    <!-- end Spring-Date-Redis相关 -->
+    
 	<!-- begin dubbo -->
 	<dependency>
 		<groupId>com.alibaba</groupId>
@@ -210,6 +230,17 @@
 	</dependency>
 	
 	<dependency>
+		<groupId>org.codehaus.jackson</groupId>
+		<artifactId>jackson-core-asl</artifactId>
+		<version>1.9.13</version>
+	</dependency>
+	<dependency>
+		<groupId>org.codehaus.jackson</groupId>
+		<artifactId>jackson-mapper-asl</artifactId>
+		<version>1.9.13</version>
+	</dependency>
+	
+	<dependency>
 		<groupId>commons-fileupload</groupId>
 		<artifactId>commons-fileupload</artifactId>
 		<version>1.3.1</version>
@@ -239,5 +270,6 @@
   	<module>dubbo-commo-config</module>
   	<module>dubbo-common</module>
   	<module>dubbo-common-core</module>
+  	<module>dubbo-facade-user</module>
   </modules>
 </project>

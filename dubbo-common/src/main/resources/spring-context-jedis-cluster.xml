@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<description>Jedis Cluster Configuration</description>
+	<!-- <context:component-scan base-package="net.lbtech.redis" /> -->
+	<!-- 加载配置属性文件 -->
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:redis.properties" />
+	<bean id="redisClusterConfiguration" class="org.springframework.data.redis.connection.RedisClusterConfiguration">
+		<property name="maxRedirects" value="${redis.maxRedirects}"></property>
+		<property name="clusterNodes">
+			<set>
+				<bean class="org.springframework.data.redis.connection.RedisClusterNode">
+					<constructor-arg name="host" value="${redis.host1}"></constructor-arg>
+					<constructor-arg name="port" value="${redis.port1}"></constructor-arg>
+				</bean>
+				<bean class="org.springframework.data.redis.connection.RedisClusterNode">
+					<constructor-arg name="host" value="${redis.host2}"></constructor-arg>
+					<constructor-arg name="port" value="${redis.port2}"></constructor-arg>
+				</bean>
+				<bean class="org.springframework.data.redis.connection.RedisClusterNode">
+					<constructor-arg name="host" value="${redis.host3}"></constructor-arg>
+					<constructor-arg name="port" value="${redis.port3}"></constructor-arg>
+				</bean>
+				<bean class="org.springframework.data.redis.connection.RedisClusterNode">
+					<constructor-arg name="host" value="${redis.host4}"></constructor-arg>
+					<constructor-arg name="port" value="${redis.port4}"></constructor-arg>
+				</bean>
+				<bean class="org.springframework.data.redis.connection.RedisClusterNode">
+					<constructor-arg name="host" value="${redis.host5}"></constructor-arg>
+					<constructor-arg name="port" value="${redis.port5}"></constructor-arg>
+				</bean>
+				<bean class="org.springframework.data.redis.connection.RedisClusterNode">
+					<constructor-arg name="host" value="${redis.host6}"></constructor-arg>
+					<constructor-arg name="port" value="${redis.port6}"></constructor-arg>
+				</bean>
+			</set>
+		</property>
+	</bean>
+	<bean id="jedisPoolConfig"   class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="100" />			<!-- 最大连接数, 默认8个 -->
+		<property name="maxIdle" value="20" />				<!-- 最大空闲连接数, 默认8个 -->
+		<property name="minIdle" value="10" />				<!-- 最小空闲连接数, 默认0 -->
+		<property name="blockWhenExhausted" value="true"></property>
+		<property name="maxWaitMillis" value="3000" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="testWhileIdle" value="true" />		<!-- 在空闲时检查有效性 -->
+		<property name="minEvictableIdleTimeMillis" value="60000" />	<!-- 逐出连接的最小空闲时间 默认1800000毫秒(30分钟) -->
+		<property name="timeBetweenEvictionRunsMillis" value="30000" />	<!-- 逐出扫描的时间间隔(毫秒) 如果为负数,则不运行逐出线程, 默认-1 -->
+		<property name="numTestsPerEvictionRun" value="-1" />			<!-- 每次逐出检查时 逐出的最大数目 如果为负数就是 : 1/abs(n), 默认3 -->
+   </bean>
+   <bean id="jeidsConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"  >
+		<property name="poolConfig" ref="jedisPoolConfig" />
+		<property name="clusterConfig" ref="redisClusterConfiguration" />
+        <property name="port" value="${redis.port}" />
+        <property name="hostName" value="${redis.host}" />
+        <property name="timeout" value="${redis.timeout}" />
+        <property name="database" value="${redis.database}" />
+   </bean>
+	
+   <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="jeidsConnectionFactory"/>
+        <!-- 对于普通K-V操作时，key采取String序列化策略,在 redis 端用命令好读 不然默认的序列化(JdkSerializationRedisSerializer)没办法读 -->
+        <property name="keySerializer">  
+	        <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>  
+	    </property>  
+	    <property name="hashKeySerializer">  
+	        <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>  
+	    </property>
+   </bean>
+   
+   <bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
+		<!-- 构造函数注入redisTemplate -->
+		<constructor-arg name="redisOperations" value="redisTemplate"></constructor-arg>
+   </bean>
+</beans>
