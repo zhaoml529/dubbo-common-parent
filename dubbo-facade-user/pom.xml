@@ -13,4 +13,11 @@
   	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   
+  <dependencies>
+	<dependency>
+		<groupId>com.zml</groupId>
+		<artifactId>dubbo-common</artifactId>
+		<version>${dubbo-common.version}</version>
+	</dependency>
+  </dependencies>
 </project>
