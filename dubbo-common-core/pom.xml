@@ -4,6 +4,7 @@
     <groupId>com.zml</groupId>
     <artifactId>dubbo-common-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <relativePath>../dubbo-common-parent</relativePath>
   </parent>
   <artifactId>dubbo-common-core</artifactId>
   <version>${dubbo-common-core.version}</version>
