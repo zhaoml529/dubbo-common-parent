@@ -18,6 +18,9 @@
 	<!-- facade projects -->
 	<dubbo-facade-user.version>1.0-SNAPSHOT</dubbo-facade-user.version>
 	
+	<!-- service projects -->
+	<dubbo-service-user.version>1.0-SNAPSHOT</dubbo-service-user.version>
+	
 	<!-- system version -->
 	<zkclient.version>0.1</zkclient.version>
 	<spring.version>4.2.8.RELEASE</spring.version>
@@ -186,7 +189,7 @@
 		<version>${dubbo.version}</version>
 	</dependency>
 	
-	<!-- <dependency>
+	<dependency>
         <groupId>javassist</groupId>
         <artifactId>javassist</artifactId>
         <version>3.12.1.GA</version>
@@ -196,9 +199,23 @@
         <groupId>io.netty</groupId>
         <artifactId>netty</artifactId>
         <version>3.7.0.Final</version>
-    </dependency> -->
+    </dependency>
     
 	<!-- end dubbo -->
+	
+	<!-- Zookeeper 用于分布式服务管理 -->
+	<dependency>
+		<groupId>org.apache.zookeeper</groupId>
+		<artifactId>zookeeper</artifactId>
+		<version>${zookeeper.version}</version>
+	</dependency>
+
+	<dependency>
+		<groupId>com.101tec</groupId>
+		<artifactId>zkclient</artifactId>
+		<version>0.3</version>
+	</dependency>
+	<!-- Zookeeper 用于分布式服务管理 end -->
 
 	<!--begin web -->
 	<dependency>
@@ -271,5 +288,6 @@
   	<module>dubbo-common</module>
   	<module>dubbo-common-core</module>
   	<module>dubbo-facade-user</module>
+  	<module>dubbo-service-user</module>
   </modules>
 </project>
