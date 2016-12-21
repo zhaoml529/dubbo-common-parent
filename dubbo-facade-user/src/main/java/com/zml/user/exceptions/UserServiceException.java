@@ -4,6 +4,11 @@ import com.zml.common.exceptions.ServiceException;
 
 public class UserServiceException extends ServiceException {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1203720255300239670L;
+	
 	/***
 	 * 登录：用户名不存在
 	 */
