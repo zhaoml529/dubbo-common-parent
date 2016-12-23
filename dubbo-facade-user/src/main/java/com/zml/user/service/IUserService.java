@@ -9,10 +9,10 @@ import com.zml.user.entity.User;
  */
 public interface IUserService {
 
-	public User getUserByName(String user_name) throws Exception;
+	public User getUserByName(String userName) throws Exception;
 	
 	public User getUserByStaffId(String staffId) throws Exception;
 
-	public User getUserById(Integer id) throws Exception;
+	public User getUserById(Long id) throws Exception;
 	
 }
