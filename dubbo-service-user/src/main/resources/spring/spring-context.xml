@@ -94,7 +94,7 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	<!--======= 事务配置 End =================== -->
 		
-	<import resource="classpath:spring/spring-activemq.xml" />
+	<!-- <import resource="classpath:spring/spring-activemq.xml" /> -->
 	<import resource="classpath:spring/spring-dubbo-consumer.xml" />
     <import resource="classpath:spring/spring-dubbo-provider.xml" />
     

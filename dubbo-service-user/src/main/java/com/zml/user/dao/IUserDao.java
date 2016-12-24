@@ -1,11 +1,13 @@
 package com.zml.user.dao;
 
+import com.zml.core.dao.BaseDao;
 import com.zml.user.entity.User;
 
-public interface IUserDao {
-	public User getUserByName(String userName) throws Exception;
+public interface IUserDao extends BaseDao<User>{
 	
-	public User getUserByStaffId(String staffId) throws Exception;
+	public User getUserByName(String userName);
+	
+	public User getUserByStaffId(String staffId);
 
-	public User getUserById(Long userId) throws Exception;
+	public User getUserById(Long userId);
 }

@@ -6,6 +6,11 @@ import com.zml.common.entity.BaseEntity;
 
 public class User extends BaseEntity{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2643312501176930880L;
+
 	private String userName;
 	
 	private String staffId;
