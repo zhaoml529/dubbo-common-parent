@@ -9,5 +9,4 @@ public interface IUserDao extends BaseDao<User>{
 	
 	public User getUserByStaffId(String staffId);
 
-	public User getUserById(Long userId);
 }

@@ -30,7 +30,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	public User getUserById(Long id) throws UserServiceException {
-		return this.userDao.getUserById(id);
+		return this.userDao.getById(id);
 	}
 
 }

@@ -19,7 +19,11 @@ public class User extends BaseEntity{
 	
 	private String salt;
 	
-	private Date registerDate;
+	private Date registerDate = new Date();
+	
+	private Integer isLock = 100;	// 100=正常 101=锁定
+	
+	private Integer status = 100;	// 100=正常 101=禁用
 
 	public String getUserName() {
 		return userName;
@@ -59,6 +63,22 @@ public class User extends BaseEntity{
 
 	public void setRegisterDate(Date registerDate) {
 		this.registerDate = registerDate;
+	}
+
+	public Integer getIsLock() {
+		return isLock;
+	}
+
+	public void setIsLock(Integer isLock) {
+		this.isLock = isLock;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 	
 }

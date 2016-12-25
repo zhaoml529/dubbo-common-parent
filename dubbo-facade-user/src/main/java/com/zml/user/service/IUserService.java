@@ -15,7 +15,7 @@ public interface IUserService {
 	public User getUserByName(String userName) throws UserServiceException;
 	
 	public User getUserByStaffId(String staffId) throws UserServiceException;
-
-	public User getUserById(Long id) throws UserServiceException;
 	
+	public User getUserById(Long id) throws UserServiceException;
+
 }

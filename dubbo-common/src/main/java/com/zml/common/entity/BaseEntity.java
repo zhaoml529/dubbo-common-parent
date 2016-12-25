@@ -12,12 +12,9 @@ import java.util.Date;
 public class BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Long id;				// 主键id
-	private Integer version = 0;	// 数据版本号-乐观锁
-	/**
-	 * 创建时间
-	 */
-	protected Date createTime = new Date();
+	private Long id;						// 主键id
+	private Integer version = 0;			// 数据版本号-乐观锁
+	private Date createTime = new Date();	// 创建日期
 
 	public Long getId() {
 		return id;

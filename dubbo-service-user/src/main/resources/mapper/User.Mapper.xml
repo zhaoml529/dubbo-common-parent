@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zml.user.dao.IUserDao">
+
+	<sql id="table">TB_USER</sql>
+
+	<insert id="insert" parameterType="User" keyProperty="id" useGeneratedKeys="true">
+		insert into
+		<include refid="table" />
+		(version, createTime, userName, staffId, passwd, salt, registerDate, isLock, status)
+		values (0, #{createTime}, #{userName}, #{staffId}, #{passwd}, #{salt}, #{registerDate}, #{isLock}, #{status})
+	</insert>
+
+	<!-- 更新:version+1 实现乐观锁 -->
+	<update id="update" parameterType="User">
+		update
+		<include refid="table" />
+		<set>
+			version = #{version}+1 ,
+			userName = #{userName},
+			staffId = #{staffId},
+			passwd = #{passwd},
+			salt = #{salt},
+			isLock = #{isLock},
+			status = #{status}
+		</set>
+		<where>
+			id = #{id} and version = #{version}
+		</where>
+	</update>
+
+	<select id="getById" parameterType="long" resultMap="User">
+		select * from
+		<include refid="table" />
+		where id = #{id}
+	</select>
+
+	<sql id="condition_sql">
+		<if test="userName != null and userName !=''"> and userName = #{userName} </if>
+		<if test="staffId != null and staffId != ''"> and staffId = #{staffId} </if>
+		<if test="status != null and status != ''"> and STATUS = #{status} </if>
+		<if test="isLock != null and isLock != ''"> and isLock = #{isLock} </if>
+		<if test="startDate != null and startDate != '' and endDate != '' and endDate != null">
+			and CREATETIME between #{startDate} and CONCAT(#{endDate}, ' 23:59:59')
+		</if>
+	</sql>
+
+	<!-- 根据多参数进行查询数据 -->
+	<select id="listPage" parameterType="java.util.Map" resultMap="User">
+		select * from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		<![CDATA[ order by id desc]]>
+	</select>
+
+	<select id="listBy" parameterType="java.util.Map" resultMap="User">
+		select * from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+
+	<select id="getUserByName" parameterType="String" resultType="User">
+		select * from TB_USER where userName = #{userName} limit 1
+	</select>
+	
+	<select id="getUserByStaffId" parameterType="String" resultType="User">
+		select * from TB_USER where staffId = #{staffId} limit 1
+	</select>
+	
+</mapper>
