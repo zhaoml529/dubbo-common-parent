@@ -13,7 +13,7 @@
 <configuration>
 
 	<!-- 引用系统全局配置文件 -->
-	<properties resource="public_system.properties" />
+	<properties resource="system.properties" />
 	
 	<settings>
 		<!-- 这个配置使全局的映射器启用或禁用 缓存 -->
@@ -40,27 +40,24 @@
 
 	<!-- 类型别名是为 Java类型命名一个短的名字。 它只和 XML配置有关,只用来减少类完全 限定名的多余部分 -->
 	<typeAliases>
+		<package name="com.zml.user.entity"/>
 	</typeAliases>
 
 	<!-- 放在mappers定义之前 -->
-	<typeHandlers>
+<!-- 	<typeHandlers>
 		<typeHandler javaType="Boolean" jdbcType="SMALLINT"  handler="wusc.edu.pay.common.core.mybatis.BooleanTypeHandler" />
-	</typeHandlers>
+	</typeHandlers> -->
 	
 	<!-- 数据库适配器 -->
-	<plugins>
+<!-- 	<plugins>
 		<plugin interceptor="wusc.edu.pay.common.core.mybatis.interceptor.ExecutorInterceptor">
 			<property name="dialectClass" value="${dialectClass}" />
 		</plugin>
-	</plugins>
+	</plugins> -->
 
 	<mappers>
-		<mapper resource="mybatis/mapper/CalCostInterfaceMapper.xml" />
-		<mapper resource="mybatis/mapper/CalCostOrderMapper.xml" />
-		<mapper resource="mybatis/mapper/CalDimensionMapper.xml" />
-		<mapper resource="mybatis/mapper/CalFeeFlowMapper.xml" />
-		<mapper resource="mybatis/mapper/CalFeeRateFormulaMapper.xml" />
-		<mapper resource="mybatis/mapper/CalFeeWayMapper.xml" />
+		<mapper resource="mapper/UserMapper.xml" />
+		<!-- <mapper resource="mybatis/mapper/CalCostOrderMapper.xml" /> -->
 	</mappers>
 
 </configuration>
