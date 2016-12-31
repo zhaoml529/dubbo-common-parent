@@ -75,9 +75,17 @@
 	
 	<!-- 将数据源映射到sqlSessionFactory中 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+		<property name="configLocation" value="classpath:spring/mybatis-config.xml" />
 		<property name="dataSource" ref="dataSource" />
 	</bean>
+	
+	<!--配置扫描Dao接口包,动态实现DAO接口,注入到spring容器-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--注入SqlSessionFactory-->
+        <!-- <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/> -->
+        <!-- 给出需要扫描的Dao接口-->
+        <property name="basePackage" value="com.zml.user.dao"/>
+    </bean>
 	
 	<!-- SqlSession模板类实例 -->
 	<bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="close">
@@ -95,7 +103,7 @@
 	<!--======= 事务配置 End =================== -->
 		
 	<!-- <import resource="classpath:spring/spring-activemq.xml" /> -->
-	<import resource="classpath:spring/spring-dubbo-consumer.xml" />
-    <import resource="classpath:spring/spring-dubbo-provider.xml" />
+	<!-- <import resource="classpath:dubbo/spring-dubbo-consumer.xml" /> -->
+    <import resource="classpath:dubbo/spring-dubbo-provider.xml" />
     
 </beans>
