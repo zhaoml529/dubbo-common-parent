@@ -9,7 +9,7 @@ import com.zml.user.entity.User;
 import com.zml.user.exceptions.UserServiceException;
 import com.zml.user.service.IUserService;
 
-@Service
+@Service("userService")
 //@Transactional(rollbackFor = Exception.class)
 public class UserServiceImpl implements IUserService {
 
