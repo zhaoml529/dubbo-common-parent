@@ -56,12 +56,10 @@
 	<dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-web</artifactId>
-		<version>${spring.version}</version>
 	</dependency>
 	<dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-test</artifactId>
-		<version>${spring.version}</version>
 		<scope>test</scope>
 	</dependency>
 	<!-- Spring Dependency End -->
@@ -70,7 +68,6 @@
     <dependency>
         <groupId>io.netty</groupId>
         <artifactId>netty</artifactId>
-        <version>3.7.0.Final</version>
     </dependency>
 	<dependency>
 		<groupId>com.alibaba</groupId>
@@ -81,17 +78,14 @@
 				<artifactId>spring</artifactId>
 			</exclusion>
 		</exclusions>
-		<version>${dubbo.version}</version>
 	</dependency>
 	<dependency>
 		<groupId>org.apache.zookeeper</groupId>
 		<artifactId>zookeeper</artifactId>
-		<version>${zookeeper.version}</version>
 	</dependency>
 	<dependency>
 		<groupId>com.101tec</groupId>
 		<artifactId>zkclient</artifactId>
-		<version>0.3</version>
 	</dependency>
 	<!-- dubbo required jars end -->
 	

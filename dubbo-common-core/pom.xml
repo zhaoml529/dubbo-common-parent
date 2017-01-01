@@ -20,5 +20,44 @@
   		<artifactId>dubbo-common</artifactId>
   		<version>${dubbo-common.version}</version>
   	</dependency>
+ 	<!-- Spring Dependency Begin -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-jdbc</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-orm</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-tx</artifactId>
+	</dependency>
+	<!-- Spring Dependency End -->
+	
+	<!-- MyBatis Dependency Begin -->
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis-spring</artifactId>
+	</dependency>
+	<!-- MyBatis Dependency End -->
+	
+	<!-- Database connect Begin -->
+	<dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>druid</artifactId>
+	</dependency>
+	<!-- Database connect End -->
+
+	<!-- Mysql Driver Begin -->
+	<!-- <dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+	</dependency> -->
+	<!-- Mysql Driver End -->
   </dependencies>
 </project>
