@@ -12,7 +12,20 @@
   
   <properties>
   	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<log4j.leve>debug</log4j.leve>
+	<log4j.ale>debug</log4j.ale>
   </properties>
+  
+  <!-- 过虑日志中的变量 -->
+  <profiles>
+	  <profile>
+		  <build>
+			 <filters>
+				<filter>WEB-INF/classes/log4j.properties</filter>
+			 </filters>
+		  </build>
+	  </profile>
+  </profiles>
   
   <dependencies>
 	<dependency>
