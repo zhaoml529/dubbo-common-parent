@@ -16,7 +16,7 @@ public class DepartmentServiceException extends ServiceException {
 	
 	public static final DepartmentServiceException ADD_DEPT_FAIL = new DepartmentServiceException(10030001, "添加部门失败！");
 	
-	public static final DepartmentServiceException UPDATE_DEPT_FAIL = new DepartmentServiceException(10030002, "更新部门失败！");
+	public static final DepartmentServiceException UPDATE_DEPT_FAIL = new DepartmentServiceException(10030002, "更新部门信息失败！");
 	
 	public DepartmentServiceException() {
 		
