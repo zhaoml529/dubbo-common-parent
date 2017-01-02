@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.zml.common.entity.BaseEntity;
 
-public class User extends BaseEntity{
+public class User extends BaseEntity {
 
 	/**
 	 * 
@@ -13,7 +13,7 @@ public class User extends BaseEntity{
 
 	private String userName;
 	
-	private String staffId;
+	private Long staffId;		// 编制id
 	
 	private String passwd;
 	
@@ -33,11 +33,11 @@ public class User extends BaseEntity{
 		this.userName = userName;
 	}
 
-	public String getStaffId() {
+	public Long getStaffId() {
 		return staffId;
 	}
 
-	public void setStaffId(String staffId) {
+	public void setStaffId(Long staffId) {
 		this.staffId = staffId;
 	}
 
