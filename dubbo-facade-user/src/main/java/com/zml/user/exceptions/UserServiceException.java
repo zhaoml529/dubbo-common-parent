@@ -12,36 +12,36 @@ public class UserServiceException extends ServiceException {
 	/***
 	 * 登录：用户名不存在
 	 */
-	public static final int LOGIN_LOGNAME_NOT_EXIST = 20020001;
+	public static final int LOGIN_LOGNAME_NOT_EXIST = 10010001;
 	/***
 	 * 登录：密码错误
 	 */
-	public static final int LOGIN_PWD_ERROR = 20020002;
+	public static final int LOGIN_PWD_ERROR = 10010002;
 
 	/***
 	 * 登录：密码错误次数超限
 	 */
-	public static final int LOGIN_PWDERRORTIMES_OVERRUN = 20020003;
+	public static final int LOGIN_PWDERRORTIMES_OVERRUN = 10010003;
 
 	/***
 	 * 登录：操作员状态为冻结
 	 */
-	public static final int LOGIN_OPERATORSTATUS_INACTIVE = 20020004;
+	public static final int LOGIN_OPERATORSTATUS_INACTIVE = 10010004;
 	
 	/***
 	 * 登录：操作员被销户
 	 */
-	public static final int LOGIN_OPERATORSTATUS_CANCELLATION = 20020005;
+	public static final int LOGIN_OPERATORSTATUS_CANCELLATION = 10010005;
 
 	/***
 	 * 用户已存在
 	 */
-	public static final int USERINFO_IS_EXIST = 20020006;
+	public static final int USERINFO_IS_EXIST = 10010006;
 
 	/***
 	 * 用户不存在
 	 */
-	public static final int USERINFO_NOT_EXIST = 20020007;
+	public static final int USERINFO_NOT_EXIST = 10010007;
 	
 	public UserServiceException() {
 		
