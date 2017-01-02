@@ -1,11 +1,9 @@
 package com.zml.user.entity;
 
-import java.util.Date;
-
 import com.zml.common.entity.BaseEntity;
 
 /**
- * 组织架构-编制(java初级工程师1、java初级工程师2、产品经理1、产品经理2、前端工程师1、前端工程师2)
+ * 组织架构-编制(java初级工程师1、java初级工程师2、java高级工程师1、产品经理1、产品经理2、前端工程师1、前端工程师2)
  * @author zhao
  *
  */
@@ -23,8 +21,6 @@ public class Staff extends BaseEntity {
 	private Long deptId;		// 所属部门
 
 	private Long postId;		// 所属岗位		
-	
-	private Date createDate = new Date();	// 创建日期
 	
 	private Integer status = 100;	// 100=正常 101=禁用
 
@@ -58,14 +54,6 @@ public class Staff extends BaseEntity {
 
 	public void setPostId(Long postId) {
 		this.postId = postId;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
 	}
 
 	public Integer getStatus() {

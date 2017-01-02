@@ -1,7 +1,5 @@
 package com.zml.user.entity;
 
-import java.util.Date;
-
 import com.zml.common.entity.BaseEntity;
 
 /**
@@ -20,8 +18,6 @@ public class Department extends BaseEntity {
 	
 	private Long companyId;		// 所属公司
 	
-	private Date createDate = new Date();	// 创建日期
-	
 	private Integer status = 100;	// 100=正常 101=禁用
 
 	public String getName() {
@@ -38,14 +34,6 @@ public class Department extends BaseEntity {
 
 	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
 	}
 
 	public Integer getStatus() {
