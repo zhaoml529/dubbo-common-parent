@@ -17,6 +17,7 @@ dubbo分布式demo，功能完善中。
 未来功能
 --------
 <ul>
+<li>前端AngularJS</li>
 <li>Redis集群高可用</li>
 <li>消息中间件ActiveMQ</li>
 <li>分布式文件系统FastDFS</li>
