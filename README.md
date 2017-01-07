@@ -11,4 +11,14 @@ dubbo分布式demo，功能完善中。
 <li>Shiro-1.2.3</li>
 <li>Spring-Data-Redis-1.7.2.RELEASE</li>
 <li>Fastjson-1.2.7</li>
+<li>MySql5.5</li>
+</ul>
+
+未来功能
+--------
+<ul>
+<li>Redis集群高可用</li>
+<li>消息中间件ActiveMQ</li>
+<li>分布式文件系统FastDFS</li>
+<li>Zookeeper集群高可用</li>
 </ul>
