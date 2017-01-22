@@ -1,30 +1,38 @@
 package com.zml.user.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zml.user.dao.ICompanyDao;
 import com.zml.user.entity.Company;
 import com.zml.user.exceptions.CompanyServiceException;
 import com.zml.user.service.ICompanyService;
 
 @Service("companyService")
 public class CompanyServiceImpl implements ICompanyService {
+	
+	@Autowired
+	private ICompanyDao companyDao;
 
 	public Long addCompany(Company company) throws CompanyServiceException {
-		// TODO Auto-generated method stub
-		return null;
+		return this.companyDao.insert(company);
 	}
 
 	public Long updateCompany(Company company) throws CompanyServiceException {
-		// TODO Auto-generated method stub
-		return null;
+		return this.companyDao.update(company);
 	}
 
 	public List<Company> findAll(Map<String, Object> map) throws CompanyServiceException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Company> list = this.companyDao.getList(map);
+		if(list != null) {
+			return list;
+		} else {
+			return Collections.emptyList();
+		}
 	}
 
 }
