@@ -1,0 +1,64 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.zml</groupId>
+    <artifactId>dubbo-common-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <relativePath>../dubbo-common-parent</relativePath>
+  </parent>
+  
+  <artifactId>dubbo-web-user</artifactId>
+  <version>${dubbo-web-user.version}</version>
+  <packaging>war</packaging>
+  <name>dubbo-web-user</name>
+  
+  <properties>
+  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<log4j.leve>debug</log4j.leve>
+	<log4j.ale>debug</log4j.ale>
+  </properties>
+  
+    <!-- 过虑日志中的变量 -->
+  <profiles>
+	  <profile>
+		  <build>
+			 <filters>
+				<filter>WEB-INF/classes/log4j.properties</filter>
+			 </filters>
+		  </build>
+	  </profile>
+  </profiles>
+  
+  <dependencies>
+  	<dependency>
+		<groupId>com.zml</groupId>
+		<artifactId>dubbo-common</artifactId>
+		<version>${dubbo-common.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.zml</groupId>
+		<artifactId>dubbo-common-web</artifactId>
+		<version>${dubbo-common-web.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.zml</groupId>
+		<artifactId>dubbo-common-config</artifactId>
+		<version>${dubbo-common-config.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.zml</groupId>
+		<artifactId>dubbo-common-core</artifactId>
+		<version>${dubbo-common-core.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.zml</groupId>
+		<artifactId>dubbo-facade-user</artifactId>
+		<version>${dubbo-facade-user.version}</version>
+	</dependency>
+  </dependencies>
+  
+</project>
