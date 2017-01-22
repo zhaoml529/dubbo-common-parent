@@ -22,6 +22,7 @@
 	<dubbo-service-user.version>1.0-SNAPSHOT</dubbo-service-user.version>
 	
 	<!-- web projects -->
+	<dubbo-web-user.version>1.0-SNAPSHOT</dubbo-web-user.version>
 	<dubbo-web-shrio.version>1.0-SNAPSHOT</dubbo-web-shrio.version>
 	
 	<!-- system version -->
@@ -315,6 +316,17 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
 		</dependency>
+		<dependency>
+		    <groupId>com.octo.captcha</groupId>
+		    <artifactId>jcaptcha-all</artifactId>
+		    <version>1.0-RC4</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.octo.captcha/jcaptcha -->
+		<!-- <dependency>
+		    <groupId>com.octo.captcha</groupId>
+		    <artifactId>jcaptcha</artifactId>
+		    <version>1.0</version>
+		</dependency> -->		
 	  </dependencies>
   </dependencyManagement>
   <modules>
@@ -324,5 +336,7 @@
   	<module>dubbo-facade-user</module>
   	<module>dubbo-service-user</module>
   	<module>dubbo-web-shiro</module>
+  	<module>dubbo-web-user</module>
+  	<module>dubbo-common-web</module>
   </modules>
 </project>

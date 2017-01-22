@@ -54,6 +54,7 @@
 	        <artifactId>spring-data-redis</artifactId>
 	    </dependency> 
 		<!-- 后期调整spring-web只在web曾单独引用，不继承 -->
+		<!-- FileUploadUtils方法中暂时用到了spring-web模块，以后改成FastDFS后去掉spring-web依赖 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
