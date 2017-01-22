@@ -11,7 +11,7 @@ public interface IRoleAndResourceService {
 	
 	public Long add(RoleAndResource rar) throws Exception;
 	
-	public Long delete(RoleAndResource rar) throws Exception;
+	public Long delete(Long id) throws Exception;
 	
 	public Long deleteByRole(Long roleId) throws Exception;
 	
