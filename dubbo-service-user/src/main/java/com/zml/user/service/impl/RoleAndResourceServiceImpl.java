@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.zml.user.dao.IRoleAndResourceDao;
 import com.zml.user.entity.RoleAndResource;
@@ -21,6 +22,7 @@ public class RoleAndResourceServiceImpl implements IRoleAndResourceService {
 		return this.rarDao.getList(map);
 	}
 
+	@Transactional(rollbackFor = Exception.class, readOnly = false)
 	public Long add(RoleAndResource rar) throws Exception {
 		return this.rarDao.insert(rar);
 	}

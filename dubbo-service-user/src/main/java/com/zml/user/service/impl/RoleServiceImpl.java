@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.zml.user.dao.IRoleDao;
 import com.zml.user.entity.Role;
@@ -18,6 +19,7 @@ public class RoleServiceImpl implements IRoleService {
 	@Autowired
 	private IRoleDao roleDao;
 	
+	@Transactional(rollbackFor = Exception.class, readOnly = false)
 	public Long addRole(Role role) throws RoleServiceException {
 		return this.roleDao.insert(role);
 	}

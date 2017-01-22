@@ -6,18 +6,20 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.zml.user.dao.IResourceDao;
 import com.zml.user.entity.Resource;
 import com.zml.user.exceptions.ResourceServiceException;
 import com.zml.user.service.IResourceService;
 
-@Service
+@Service("resourceService")
 public class ResourceServiceImpl implements IResourceService {
 
 	@Autowired
 	private IResourceDao resourceDao;
 	
+	@Transactional(rollbackFor = Exception.class, readOnly = false)
 	public Long addResource(Resource resource) throws ResourceServiceException {
 		return this.resourceDao.insert(resource);
 	}

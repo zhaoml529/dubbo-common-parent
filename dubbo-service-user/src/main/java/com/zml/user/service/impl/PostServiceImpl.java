@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.zml.user.dao.IPostDao;
 import com.zml.user.entity.Post;
@@ -18,6 +19,7 @@ public class PostServiceImpl implements IPostService {
 	@Autowired
 	private IPostDao postDao;
 	
+	@Transactional(rollbackFor = Exception.class, readOnly = false)
 	public Long addPost(Post post) throws PostServiceException {
 		return this.postDao.insert(post);
 	}

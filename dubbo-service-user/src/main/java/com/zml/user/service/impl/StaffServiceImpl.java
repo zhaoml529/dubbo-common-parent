@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.zml.user.dao.IStaffDao;
 import com.zml.user.entity.Staff;
@@ -18,6 +19,7 @@ public class StaffServiceImpl implements IStaffService {
 	@Autowired
 	private IStaffDao staffDao;
 	
+	@Transactional(rollbackFor = Exception.class, readOnly = false)
 	public Long addStaff(Staff staff) throws StaffServiceException {
 		return this.staffDao.insert(staff);
 	}
