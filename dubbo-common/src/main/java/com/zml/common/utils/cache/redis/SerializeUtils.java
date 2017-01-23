@@ -2,8 +2,9 @@ package com.zml.common.utils.cache.redis;
 
 import java.nio.charset.Charset;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.data.redis.serializer.SerializationException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
 * 不使用sdr自带的json序列化工具，一切操作基于string
