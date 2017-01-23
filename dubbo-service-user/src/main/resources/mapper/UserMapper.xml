@@ -7,8 +7,8 @@
 	<insert id="insert" parameterType="User" keyProperty="id" useGeneratedKeys="true">
 		insert into
 		<include refid="table" />
-		(version, createTime, userName, staffId, passwd, salt, registerDate, isLock, status)
-		values (0, #{createTime}, #{userName}, #{staffId}, #{passwd}, #{salt}, #{registerDate}, #{isLock}, #{status})
+		(version, createDate, userName, staffId, passwd, salt, registerDate, isLock, status)
+		values (0, #{createDate}, #{userName}, #{staffId}, #{passwd}, #{salt}, #{registerDate}, #{isLock}, #{status})
 	</insert>
 
 	<!-- 更新:version+1 实现乐观锁 -->
@@ -41,7 +41,7 @@
 		<if test="status != null and status != ''"> and STATUS = #{status} </if>
 		<if test="isLock != null and isLock != ''"> and isLock = #{isLock} </if>
 		<if test="startDate != null and startDate != '' and endDate != '' and endDate != null">
-			and CREATETIME between #{startDate} and CONCAT(#{endDate}, ' 23:59:59')
+			and createDate between #{startDate} and CONCAT(#{endDate}, ' 23:59:59')
 		</if>
 	</sql>
 
