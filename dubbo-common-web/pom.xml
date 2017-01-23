@@ -38,6 +38,10 @@
 		<groupId>com.octo.captcha</groupId>
 		<artifactId>jcaptcha-all</artifactId>
 	</dependency>
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-databind</artifactId>
+	</dependency>
 	<!-- Others End -->
 	
   </dependencies>
