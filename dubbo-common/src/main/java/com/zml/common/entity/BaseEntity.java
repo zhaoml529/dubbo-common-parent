@@ -16,7 +16,7 @@ public class BaseEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = -1612599078907464818L;
 	private Long id;						// 主键id
-	private Integer version = 0;			// 数据版本号-乐观锁
+	private Long version = 0L;			// 数据版本号-乐观锁
 	private Date createDate = new Date();	// 创建日期
 
 	public Long getId() {
@@ -27,11 +27,11 @@ public class BaseEntity implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getVersion() {
+	public Long getVersion() {
 		return version;
 	}
 
-	public void setVersion(Integer version) {
+	public void setVersion(Long version) {
 		this.version = version;
 	}
 
