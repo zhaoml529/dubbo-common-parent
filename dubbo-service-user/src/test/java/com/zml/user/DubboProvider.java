@@ -5,11 +5,10 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * 
- * @描述: 启动Dubbo服务用的MainClass.
- * @作者: WuShuicheng .
- * @创建时间: 2013-11-5,下午9:47:55 .
- * @版本: 1.0 .
+ * 启动Dubbo服务
+ * @Description
+ * @author zhaomingliang
+ * @date 2017年1月24日
  */
 public class DubboProvider {
 	

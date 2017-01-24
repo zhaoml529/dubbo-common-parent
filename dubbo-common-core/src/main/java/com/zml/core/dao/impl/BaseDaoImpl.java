@@ -26,7 +26,7 @@ import com.zml.core.dao.BaseDao;
  * @author zhaomingliang
  * @date 2016年11月18日
  */
-@Repository
+//@Repository
 public class BaseDaoImpl<T extends BaseEntity> extends SqlSessionDaoSupport implements BaseDao<T> {
 	
 	public static final String SQL_INSERT = "insert";
@@ -45,6 +45,14 @@ public class BaseDaoImpl<T extends BaseEntity> extends SqlSessionDaoSupport impl
 	
 	@Autowired
 	private DruidDataSource druidDataSource;
+
+	public SqlSessionTemplate getSessionTemplate() {
+		return sessionTemplate;
+	}
+
+	public void setSessionTemplate(SqlSessionTemplate sessionTemplate) {
+		this.sessionTemplate = sessionTemplate;
+	}
 
 	@Override
 	public long insert(T entity) {
