@@ -31,8 +31,12 @@
 	<!-- 服务提供者暴露服务配置: 声明需要暴露的服务接口 -->
 	<!-- retries:远程服务调用重试次数，不包括第一次调用，不需要重试请设为0 -->
 	<dubbo:service retries="0"  interface="com.zml.user.service.IUserService" ref="userService" />
-	
-	<!-- 提供给手机端使用 -->
-	<!-- <dubbo:service retries="0"  interface="wusc.edu.pay.facade.mobile.service.MobileServiceFacade" ref="mobileServiceFacade" /> -->
+	<dubbo:service retries="0"  interface="com.zml.user.service.ICompanyService" ref="companyService" />
+	<dubbo:service retries="0"  interface="com.zml.user.service.IDepartmentService" ref="departmentService" />
+	<dubbo:service retries="0"  interface="com.zml.user.service.IPostService" ref="postService" />
+	<dubbo:service retries="0"  interface="com.zml.user.service.IStaffService" ref="staffService" />
+	<dubbo:service retries="0"  interface="com.zml.user.service.IRoleService" ref="roleService" />
+	<dubbo:service retries="0"  interface="com.zml.user.service.IRoleAndResourceService" ref="roleAndResourceService" />
+	<dubbo:service retries="0"  interface="com.zml.user.service.IResourceService" ref="resourceService" />
 	
 </beans>  
