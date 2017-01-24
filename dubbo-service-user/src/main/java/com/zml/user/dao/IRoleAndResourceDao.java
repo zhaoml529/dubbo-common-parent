@@ -1,11 +1,13 @@
 package com.zml.user.dao;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.zml.core.dao.BaseDao;
 import com.zml.user.entity.RoleAndResource;
 
 public interface IRoleAndResourceDao extends BaseDao<RoleAndResource> {
 
-	public long deleteByRole(Long roleId);
+	public long deleteByRole(@Param("roleId") Long roleId);
 	
-	public long deleteByResource(Long resourceId);
+	public long deleteByResource(@Param("resourceId") Long resourceId);
 }

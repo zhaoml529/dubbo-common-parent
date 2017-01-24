@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zml.user.dao.ICompanyDao">
+<mapper namespace="com.zml.user.dao.IDepartmentDao">
 
-	<sql id="table">TB_COMPANY</sql>
+	<sql id="table">TB_DEPARTMENT</sql>
 
-	<insert id="insert" parameterType="Company" keyProperty="id" useGeneratedKeys="true">
+	<insert id="insert" parameterType="Department" keyProperty="id" useGeneratedKeys="true">
 		insert into
 		<include refid="table" />
-		(version, createDate, name, address, phone, status)
-		values (0, #{createDate}, #{name}, #{address}, #{phone}, #{status})
+		(version, createDate, name, companyId, status)
+		values (0, #{createDate}, #{name}, #{companyId}, #{status})
 	</insert>
 
 	<!-- 更新:version+1 实现乐观锁 -->
-	<update id="update" parameterType="Company">
+	<update id="update" parameterType="Department">
 		update
 		<include refid="table" />
 		<set>
 			version = #{version}+1 ,
 			<if test="name != null and name != '' ">name = #{name},</if>
-			<if test="address != null and address != '' ">address = #{address},</if>
-			<if test="phone != null and phone != '' ">phone = #{phone},</if>
+			<if test="companyId != null and companyId != '' ">companyId = #{companyId},</if>
 			<if test="status != null and status != '' ">status = #{status},</if>
 		</set>
 		<where>
@@ -27,7 +26,7 @@
 		</where>
 	</update>
 
-	<select id="getById" parameterType="long" resultMap="Company">
+	<select id="getById" parameterType="long" resultMap="Department">
 		select * from
 		<include refid="table" />
 		where id = #{id}
@@ -35,13 +34,12 @@
 
 	<sql id="condition_sql">
 		<if test="name != null and name !=''"> and name = #{name} </if>
-		<if test="address != null and address != ''"> and address CONCAT('%',#{address},'%') </if>
-		<if test="phone != null and phone != ''"> and phone = #{phone} </if>
+		<if test="companyId != null and companyId != ''"> and companyId = #{companyId} </if>
 		<if test="status != null and status != ''"> and status = #{status} </if>
 	</sql>
 
 	<!-- 根据多参数进行查询数据 -->
-	<select id="listPage" parameterType="java.util.Map" resultMap="Company">
+	<select id="listPage" parameterType="java.util.Map" resultMap="Department">
 		select * from
 		<include refid="table" />
 		<where>
@@ -50,7 +48,7 @@
 		<![CDATA[ order by id desc]]>
 	</select>
 
-	<select id="listBy" parameterType="java.util.Map" resultMap="Company">
+	<select id="listBy" parameterType="java.util.Map" resultMap="Department">
 		select * from
 		<include refid="table" />
 		<where>

@@ -14,11 +14,11 @@ public class Role extends BaseEntity {
 	 */
 	private static final long serialVersionUID = -365859061449776757L;
 	
-	private String name;	// 角色名称
+	private String name;		// 角色名称
 	
-	private Long postId;	// 岗位
+	private Long postId;		// 岗位
 	
-	private String logo;	// 角色标识
+	private String roleLogo;	// 角色标识
 	
 	private Integer status = 100;	// 100=正常 101=禁用
 
@@ -38,12 +38,12 @@ public class Role extends BaseEntity {
 		this.postId = postId;
 	}
 
-	public String getLogo() {
-		return logo;
+	public String getRoleLogo() {
+		return roleLogo;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setRoleLogo(String roleLogo) {
+		this.roleLogo = roleLogo;
 	}
 
 	public Integer getStatus() {

@@ -5,4 +5,5 @@ import com.zml.user.entity.Department;
 
 public interface IDepartmentDao extends BaseDao<Department> {
 
+	//public Department getByCompanyId(@Param("companyId") Long companyId);
 }

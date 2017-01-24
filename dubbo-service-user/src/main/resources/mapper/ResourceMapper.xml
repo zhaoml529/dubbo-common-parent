@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zml.user.dao.IUserDao">
+<mapper namespace="com.zml.user.dao.IResourceDao">
 
-	<sql id="table">TB_USER</sql>
+	<sql id="table">TB_RESOURCE</sql>
 
 	<insert id="insert" parameterType="User" keyProperty="id" useGeneratedKeys="true">
 		insert into
 		<include refid="table" />
-		(version, createDate, userName, staffId, passwd, salt, registerDate, isLock, status)
-		values (0, #{createDate}, #{userName}, #{staffId}, #{passwd}, #{salt}, #{registerDate}, #{isLock}, #{status})
+		(version, createDate, name, type, url, permission, parentId, sort, remark, status)
+		values (0, #{createDate}, #{name}, #{type}, #{url}, #{permission}, #{parentId}, #{sort}, #{remark}, #{status})
 	</insert>
 
 	<!-- 更新:version+1 实现乐观锁 -->
@@ -17,12 +17,14 @@
 		<include refid="table" />
 		<set>
 			version = #{version}+1 ,
-			userName = #{userName},
-			staffId = #{staffId},
-			passwd = #{passwd},
-			salt = #{salt},
-			isLock = #{isLock},
-			status = #{status}
+			<if test="name != null and name != '' ">name = #{name},</if>
+			<if test="type != null and type != '' ">type = #{type},</if>
+			<if test="url != null and url != '' ">url = #{url},</if>
+			<if test="permission != null and permission != '' ">permission = #{permission},</if>
+			<if test="parentId != null and parentId != '' ">parentId = #{parentId},</if>
+			<if test="sort != null and sort != '' ">sort = #{sort},</if>
+			<if test="remark != null and remark != '' ">remark = #{remark},</if>
+			<if test="status != null and status != '' ">status = #{status},</if>
 		</set>
 		<where>
 			id = #{id} and version = #{version}
@@ -36,13 +38,10 @@
 	</select>
 
 	<sql id="condition_sql">
-		<if test="userName != null and userName !=''"> and userName = #{userName} </if>
-		<if test="staffId != null and staffId != ''"> and staffId = #{staffId} </if>
-		<if test="status != null and status != ''"> and STATUS = #{status} </if>
-		<if test="isLock != null and isLock != ''"> and isLock = #{isLock} </if>
-		<if test="startDate != null and startDate != '' and endDate != '' and endDate != null">
-			and createDate between #{startDate} and CONCAT(#{endDate}, ' 23:59:59')
-		</if>
+		<if test="name != null and name != '' "> and name = #{name}</if>
+		<if test="type != null and type != '' "> and type = #{type}</if>
+		<if test="parentId != null and parentId != '' "> and parentId = #{parentId}</if>
+		<if test="status != null and status != '' "> and status = #{status}</if>
 	</sql>
 
 	<!-- 根据多参数进行查询数据 -->
@@ -69,13 +68,5 @@
 		<include refid="table" />
 		where id = #{id}
 	</delete>
-
-	<select id="getUserByName" parameterType="String" resultType="User">
-		select * from TB_USER where userName = #{userName} limit 1
-	</select>
-	
-	<select id="getUserByStaffId" parameterType="String" resultType="User">
-		select * from TB_USER where staffId = #{staffId} limit 1
-	</select>
 	
 </mapper>

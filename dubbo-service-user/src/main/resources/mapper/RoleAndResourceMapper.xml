@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zml.user.dao.IRoleAndResourceDao">
+
+	<sql id="table">TB_ROLE_RESOURCE</sql>
+
+	<insert id="insert" parameterType="Post" keyProperty="id" useGeneratedKeys="true">
+		insert into
+		<include refid="table" />
+		(version, createDate, roleId, resourceId)
+		values (0, #{createDate}, #{roleId}, #{resourceId})
+	</insert>
+
+	<!-- 更新:version+1 实现乐观锁 -->
+	<update id="update" parameterType="Post">
+		update
+		<include refid="table" />
+		<set>
+			version = #{version}+1 ,
+			<if test="roleId != null and roleId != '' ">roleId = #{roleId},</if>
+			<if test="resourceId != null and resourceId != '' ">resourceId = #{resourceId},</if>
+			<if test="status != null and status != '' ">status = #{status},</if>
+		</set>
+		<where>
+			id = #{id} and version = #{version}
+		</where>
+	</update>
+
+	<select id="getById" parameterType="long" resultMap="Post">
+		select * from
+		<include refid="table" />
+		where id = #{id}
+	</select>
+
+	<sql id="condition_sql">
+		<if test="roleId != null and roleId !=''"> and roleId = #{roleId} </if>
+		<if test="resourceId != null and resourceId != ''"> and resourceId = #{resourceId} </if>
+		<if test="status != null and status != ''"> and status = #{status} </if>
+	</sql>
+
+	<!-- 根据多参数进行查询数据 -->
+	<select id="listPage" parameterType="java.util.Map" resultMap="Post">
+		select * from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		<![CDATA[ order by id desc]]>
+	</select>
+
+	<select id="listBy" parameterType="java.util.Map" resultMap="Post">
+		select * from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+	
+	<delete id="deleteByRole" parameterType="long">
+		delete from
+		<include refid="table" />
+		where roleId = #{roleId}
+	</delete>
+	
+	<delete id="deleteByResource" parameterType="long">
+		delete from
+		<include refid="table" />
+		where resourceId = #{resourceId}
+	</delete>
+	
+</mapper>
