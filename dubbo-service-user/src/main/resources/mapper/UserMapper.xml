@@ -16,7 +16,7 @@
 		update
 		<include refid="table" />
 		<set>
-			version = #{version}+1 ,
+			version = #{version}+1,
 			userName = #{userName},
 			staffId = #{staffId},
 			passwd = #{passwd},

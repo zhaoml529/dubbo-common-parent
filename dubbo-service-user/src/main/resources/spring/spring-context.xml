@@ -4,26 +4,36 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop" 
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans  
            http://www.springframework.org/schema/beans/spring-beans-4.2.xsd  
            http://www.springframework.org/schema/aop   
            http://www.springframework.org/schema/aop/spring-aop-4.2.xsd  
            http://www.springframework.org/schema/tx  
-           http://www.springframework.org/schema/tx/spring-tx-4.2.xsd  
+           http://www.springframework.org/schema/tx/spring-tx-4.2.xsd 
+           http://www.springframework.org/schema/mvc
+       	   http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd 
            http://www.springframework.org/schema/context  
            http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
-	
-	<!-- 配置要扫描的包 -->
-    <context:component-scan base-package="com.zml.user" use-default-filters="true">
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-    </context:component-scan>
-	
 	<!-- 读入配置属性文件 -->
 	<context:property-placeholder location="classpath:system.properties,classpath:db.properties"/>
 	
+	<!-- 开启注解支持，默认向工厂中注册了几个Bean，此处为context:component-scan做准备 -->
+	<!-- <mvc:annotation-driven /> -->
+	
+	<!-- 配置要扫描的包 -->
+    <!-- <context:component-scan base-package="com.zml.user" use-default-filters="true">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan> -->
+    
+    <context:component-scan base-package="com.zml" use-default-filters="false">
+        <!-- <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/> -->
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+    </context:component-scan>
+    
 	<!-- 基于Druid数据库链接池的数据源配置 -->
-	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="clone">
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init">
 		<!-- 基本属性driverClassName、 url、user、password -->
 		<property name="driverClassName" value="${jdbc.driverClassName}" />
 		<property name="url" value="${user.jdbc.url}" />
@@ -68,9 +78,9 @@
 		<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
 		
 		<!-- 解密密码必须要配置的项 -->
-		<property name="filters" value="config" />
+		<!-- <property name="filters" value="config" /> -->
 		<!-- 密码加密: java -cp druid-0.2.23.jar com.alibaba.druid.filter.config.ConfigTools you_password -->
-		<property name="connectionProperties" value="config.decrypt=true" />
+		<!-- <property name="connectionProperties" value="config.decrypt=true" /> -->
 	</bean>
 	
 	<!-- 将数据源映射到sqlSessionFactory中 -->
@@ -88,7 +98,7 @@
     </bean>
 	
 	<!-- SqlSession模板类实例 -->
-	<bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="close">
+	<bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
 	
