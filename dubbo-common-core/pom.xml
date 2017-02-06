@@ -54,10 +54,10 @@
 	<!-- Database connect End -->
 
 	<!-- Mysql Driver Begin -->
-	<!-- <dependency>
+	<dependency>
 		<groupId>mysql</groupId>
 		<artifactId>mysql-connector-java</artifactId>
-	</dependency> -->
+	</dependency>
 	<!-- Mysql Driver End -->
   </dependencies>
 </project>

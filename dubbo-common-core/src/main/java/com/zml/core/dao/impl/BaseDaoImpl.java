@@ -11,7 +11,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.zml.common.entity.BaseEntity;
@@ -26,7 +25,7 @@ import com.zml.core.dao.BaseDao;
  * @author zhaomingliang
  * @date 2016年11月18日
  */
-//@Repository
+
 public class BaseDaoImpl<T extends BaseEntity> extends SqlSessionDaoSupport implements BaseDao<T> {
 	
 	public static final String SQL_INSERT = "insert";
@@ -41,7 +40,7 @@ public class BaseDaoImpl<T extends BaseEntity> extends SqlSessionDaoSupport impl
 	private SqlSessionTemplate sessionTemplate;
 	
 	@Autowired
-	protected SqlSessionFactory sqlSessionFactory;
+	private SqlSessionFactory sqlSessionFactory;
 	
 	@Autowired
 	private DruidDataSource druidDataSource;
@@ -52,6 +51,14 @@ public class BaseDaoImpl<T extends BaseEntity> extends SqlSessionDaoSupport impl
 
 	public void setSessionTemplate(SqlSessionTemplate sessionTemplate) {
 		this.sessionTemplate = sessionTemplate;
+	}
+
+	public SqlSessionFactory getSqlSessionFactory() {
+		return sqlSessionFactory;
+	}
+
+	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+		this.sqlSessionFactory = sqlSessionFactory;
 	}
 
 	@Override
