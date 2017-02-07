@@ -5,7 +5,7 @@
 		<groupId>com.zml</groupId>
 		<artifactId>dubbo-common-parent</artifactId>
 		<version>1.0-SNAPSHOT</version>
-		<relativePath>../dubbo-common-parent</relativePath>
+		<relativePath>../../dubbo-common-parent</relativePath>
 	</parent>
 	<artifactId>dubbo-common</artifactId>
 	<version>${dubbo-common.version}</version>
@@ -98,10 +98,15 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
+		</dependency> -->
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>servlet-api</artifactId>
 		</dependency>
+		
 		<!-- <dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-core-asl</artifactId>

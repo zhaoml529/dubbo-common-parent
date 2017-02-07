@@ -4,8 +4,9 @@
     <groupId>com.zml</groupId>
     <artifactId>dubbo-common-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <relativePath>../dubbo-common-parent</relativePath>
+    <relativePath>../../dubbo-common-parent</relativePath>
   </parent>
+  
   <artifactId>dubbo-facade-user</artifactId>
   <version>${dubbo-facade-user.version}</version>
   <name>dubbo-facade-user</name>

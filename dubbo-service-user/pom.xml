@@ -4,8 +4,9 @@
     <groupId>com.zml</groupId>
     <artifactId>dubbo-common-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <relativePath>../dubbo-common-parent</relativePath>
+    <relativePath>../../dubbo-common-parent</relativePath>
   </parent>
+  
   <artifactId>dubbo-service-user</artifactId>
   <version>${dubbo-service-user.version}</version>
   <name>dubbo-service-user</name>
