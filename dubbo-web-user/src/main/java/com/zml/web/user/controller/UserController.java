@@ -1,5 +1,7 @@
 package com.zml.web.user.controller;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +20,11 @@ public class UserController {
 	
 	@Autowired
 	private IUserService userService;
+	
+	@PostConstruct
+	public void init() {
+		System.out.println("!!!!!!!!!");
+	}
 
 	@RequestMapping(value="/user/{id}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> getDetail(@PathVariable("id") long id) {
