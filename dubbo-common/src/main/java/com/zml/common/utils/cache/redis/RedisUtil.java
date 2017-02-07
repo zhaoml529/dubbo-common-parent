@@ -329,8 +329,8 @@ public class RedisUtil {
         });
     }*/
     
-    public long del(final byte[] key) {  
-        return (long) redisTemplateSerializable.execute(new RedisCallback<Object>() {  
+    public Long del(final byte[] key) {  
+        return (Long) redisTemplateSerializable.execute(new RedisCallback<Object>() {  
             public Long doInRedis(RedisConnection connection) {  
                 return connection.del(key);  
             }  
