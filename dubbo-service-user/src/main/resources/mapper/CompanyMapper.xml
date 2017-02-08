@@ -27,7 +27,7 @@
 		</where>
 	</update>
 
-	<select id="getById" parameterType="long" resultMap="Company">
+	<select id="getById" parameterType="long" resultType="Company">
 		select * from
 		<include refid="table" />
 		where id = #{id}
@@ -41,7 +41,7 @@
 	</sql>
 
 	<!-- 根据多参数进行查询数据 -->
-	<select id="listPage" parameterType="java.util.Map" resultMap="Company">
+	<select id="listPage" parameterType="java.util.Map" resultType="Company">
 		select * from
 		<include refid="table" />
 		<where>
@@ -50,7 +50,7 @@
 		<![CDATA[ order by id desc]]>
 	</select>
 
-	<select id="listBy" parameterType="java.util.Map" resultMap="Company">
+	<select id="listBy" parameterType="java.util.Map" resultType="Company">
 		select * from
 		<include refid="table" />
 		<where>
