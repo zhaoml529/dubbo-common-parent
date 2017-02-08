@@ -1,5 +1,11 @@
 package com.zml.user.service.impl;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +26,17 @@ public class UserServiceImpl implements IUserService {
 		return this.userDao.insert(user);
 	}
 	
+	@Transactional(rollbackFor = Exception.class, readOnly = false)
+	public void updateUser(User user) throws UserServiceException {
+		this.userDao.update(user);
+	}
+
+	@Transactional(rollbackFor = Exception.class, readOnly = false)
+	public void deleteUser(Long id) throws UserServiceException {
+		this.userDao.deleteById(id);
+		
+	}
+	
 	public User getUserByName(String userName) throws UserServiceException {
 		return this.userDao.getUserByName(userName);
 	}
@@ -30,6 +47,25 @@ public class UserServiceImpl implements IUserService {
 
 	public User getUserById(Long id) throws UserServiceException {
 		return this.userDao.getById(id);
+	}
+
+	public boolean isUserExist(User user) throws UserServiceException {
+		User u = this.getUserByName(user.getUserName());
+		if(u != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public List<User> getAllUser() throws UserServiceException {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		List<User> list = this.userDao.getList(paramMap);
+		if(CollectionUtils.isEmpty(list)) {
+			return Collections.emptyList();
+		} else {
+			return list;
+		}
 	}
 
 }

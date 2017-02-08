@@ -56,13 +56,13 @@
 	</plugins> -->
 
 	<mappers>
-		<mapper resource="mapper/CompanyMapper.xml" />
+		<!-- <mapper resource="mapper/CompanyMapper.xml" />
 		<mapper resource="mapper/DepartmentMapper.xml" />
 		<mapper resource="mapper/PostMapper.xml" />
 		<mapper resource="mapper/ResourceMapper.xml" />
 		<mapper resource="mapper/RoleAndResourceMapper.xml" />
 		<mapper resource="mapper/RoleMapper.xml" />
-		<mapper resource="mapper/StaffMapper.xml" /> 
+		<mapper resource="mapper/StaffMapper.xml" /> --> 
 		<mapper resource="mapper/UserMapper.xml" />
 	</mappers>
 

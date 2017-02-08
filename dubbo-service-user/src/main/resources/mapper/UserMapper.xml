@@ -38,7 +38,7 @@
 	<sql id="condition_sql">
 		<if test="userName != null and userName !=''"> and userName = #{userName} </if>
 		<if test="staffId != null and staffId != ''"> and staffId = #{staffId} </if>
-		<if test="status != null and status != ''"> and STATUS = #{status} </if>
+		<if test="status != null and status != ''"> and status = #{status} </if>
 		<if test="isLock != null and isLock != ''"> and isLock = #{isLock} </if>
 		<if test="startDate != null and startDate != '' and endDate != '' and endDate != null">
 			and createDate between #{startDate} and CONCAT(#{endDate}, ' 23:59:59')
@@ -76,6 +76,14 @@
 	
 	<select id="getUserByStaffId" parameterType="String" resultType="User">
 		select * from TB_USER where staffId = #{staffId} limit 1
+	</select>
+	
+	<select id="getList" parameterType="map" resultType="User">
+		select * from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
 	</select>
 	
 </mapper>
