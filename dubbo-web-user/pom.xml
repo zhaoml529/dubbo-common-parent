@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.zml</groupId>
@@ -11,26 +13,10 @@
   <version>${dubbo-web-user.version}</version>
   <packaging>war</packaging>
   <name>dubbo-web-user</name>
-  
-  <properties>
-  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	<log4j.leve>debug</log4j.leve>
-	<log4j.ale>debug</log4j.ale>
-  </properties>
-  
-    <!-- 过虑日志中的变量 -->
-  <profiles>
-	  <profile>
-		  <build>
-			 <filters>
-				<filter>WEB-INF/classes/log4j.properties</filter>
-			 </filters>
-		  </build>
-	  </profile>
-  </profiles>
+  <url>http://maven.apache.org</url>
   
   <dependencies>
-  	<dependency>
+    <dependency>
 		<groupId>com.zml</groupId>
 		<artifactId>dubbo-common</artifactId>
 		<version>${dubbo-common.version}</version>
@@ -40,12 +26,6 @@
 				<artifactId>servlet-api</artifactId>
 			</exclusion>
 		</exclusions>
-	</dependency>
-	
-	<dependency>
-		<groupId>com.zml</groupId>
-		<artifactId>dubbo-common-web</artifactId>
-		<version>${dubbo-common-web.version}</version>
 	</dependency>
 	
 	<dependency>
@@ -65,6 +45,50 @@
 		<artifactId>dubbo-facade-user</artifactId>
 		<version>${dubbo-facade-user.version}</version>
 	</dependency>
+	
+	<!-- Spring Dependency Begin -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-web</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-webmvc</artifactId>
+	</dependency>
+	<!-- Spring Dependency End -->
+	
+	<!-- dubbo required jars start -->
+    <dependency>
+        <groupId>io.netty</groupId>
+        <artifactId>netty</artifactId>
+    </dependency>
+	<dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>dubbo</artifactId>
+		<exclusions>
+			<exclusion>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring</artifactId>
+			</exclusion>
+			<exclusion>
+				<artifactId>javax.servlet-api</artifactId>
+				<groupId>javax.servlet</groupId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.zookeeper</groupId>
+		<artifactId>zookeeper</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>com.101tec</groupId>
+		<artifactId>zkclient</artifactId>
+	</dependency>
+	<!-- dubbo required jars end -->
+	
   </dependencies>
+  <build>
+    <finalName>dubbo-web-user</finalName>
+  </build>
   
 </project>

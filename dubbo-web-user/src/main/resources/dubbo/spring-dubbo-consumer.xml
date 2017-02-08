@@ -11,16 +11,16 @@
 	<!-- 使用zookeeper注册中心暴露服务地址 -->
 	<!-- 多注册中心配置，竖号分隔表示同时连接多个不同注册中心，同一注册中心的多个集群地址用逗号分隔 -->
 	<!-- 注册中心地址 -->
-	<dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}" />
+	<dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}"/>
 	
 	<!-- 监控中心配置，protocol="registry"，表示从注册中心发现监控中心地址 -->
 	<dubbo:monitor protocol="registry"/>
 
 	<!-- 生成远程服务代理，可以和本地bean一样使用userFacade -->
 	<!-- 用户服务接口 -->
-	<dubbo:reference retries="0" interface="com.zml.user.service.IUserService" id="userService" />
+	<dubbo:reference retries="0" interface="com.zml.user.service.IUserService" id="userService" check="false"/>
 	
 	<!-- 公司服务接口 -->
-	<dubbo:reference retries="0" interface="com.zml.user.service.ICompanyService" id="companyService" />
+	<!-- <dubbo:reference retries="0" interface="com.zml.user.service.ICompanyService" id="companyService" check="false"/> -->
 	
 </beans>  

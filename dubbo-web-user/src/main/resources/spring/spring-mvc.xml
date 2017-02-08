@@ -15,14 +15,21 @@
 
 	<!-- 读入配置属性文件 -->
 	<context:property-placeholder location="classpath:system.properties"/>
+	<import resource="classpath:dubbo/spring-dubbo-consumer.xml" />
 	
-	<!-- 开启注解支持，默认向工厂中注册了几个Bean，此处为context:component-scan做准备 -->
-	<mvc:annotation-driven />
-	
-	<!-- 配置要扫描的包 -->
+	<!-- 配置要扫描的包 @Component @Controller @Service @Repository-->
 	<context:component-scan base-package="com.zml.web.user.controller" use-default-filters="false">
 	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
+	
+	<!-- 开启注解支持，默认向工厂中注册了几个Bean(@Controller @RequestMapping)，此处为context:component-scan做准备 -->
+	<mvc:annotation-driven />
+	
+	<!--静态资源默认servlet配置
+    	1、加入对静态资源的处理:js,css,gif,png
+    	2、允许使用"/"做整体映射
+    -->
+    <mvc:default-servlet-handler/>
 	
 	<!--视图处理器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -31,7 +38,5 @@
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
-	
-	<import resource="classpath:dubbo/spring-dubbo-consumer.xml" />
     
 </beans>

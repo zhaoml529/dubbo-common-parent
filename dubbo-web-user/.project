@@ -3,6 +3,10 @@
 	<name>dubbo-web-user</name>
 	<comment></comment>
 	<projects>
+		<project>dubbo-common</project>
+		<project>dubbo-facade-user</project>
+		<project>dubbo-common-core</project>
+		<project>dubbo-commo-config</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
