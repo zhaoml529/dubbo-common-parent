@@ -23,7 +23,19 @@
 	</context:component-scan>
 	
 	<!-- 开启注解支持，默认向工厂中注册了几个Bean(@Controller @RequestMapping)，此处为context:component-scan做准备 -->
-	<mvc:annotation-driven />
+	<mvc:annotation-driven>
+		<mvc:message-converters>  
+	        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
+	            <!-- <property name="objectMapper" value="#{jsonUtil.mapper}"/> -->  
+	            <property name="supportedMediaTypes">  
+	                <list>  
+	                    <value>application/json;charset=UTF-8</value>
+	                    <value>text/html;charset=UTF-8</value>
+	                </list>  
+	            </property>    
+	        </bean>  
+    	</mvc:message-converters>  
+	</mvc:annotation-driven>
 	
 	<!--静态资源默认servlet配置
     	1、加入对静态资源的处理:js,css,gif,png
