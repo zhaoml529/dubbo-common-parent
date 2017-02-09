@@ -14,7 +14,7 @@
 	<dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}"/>
 	
 	<!-- 监控中心配置，protocol="registry"，表示从注册中心发现监控中心地址 -->
-	<dubbo:monitor protocol="registry"/>
+	<!-- <dubbo:monitor protocol="registry"/> -->
 
 	<!-- 生成远程服务代理，可以和本地bean一样使用userFacade -->
 	<!-- 用户服务接口 -->

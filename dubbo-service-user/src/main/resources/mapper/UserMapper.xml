@@ -4,9 +4,9 @@
 
 	<sql id="table">TB_USER</sql>
 
-	<insert id="insert" parameterType="User" keyProperty="id" useGeneratedKeys="true">
+	<insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
 		insert into
-		<include refid="table" />
+		<include refid="table"/>
 		(version, createDate, userName, staffId, passwd, salt, registerDate, isLock, status)
 		values (0, #{createDate}, #{userName}, #{staffId}, #{passwd}, #{salt}, #{registerDate}, #{isLock}, #{status})
 	</insert>

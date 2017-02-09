@@ -19,7 +19,7 @@
 	<dubbo:protocol name="dubbo" port="20880" />
 	
 	<!-- 监控中心配置，protocol="registry"，表示从注册中心发现监控中心地址 -->
-	<dubbo:monitor protocol="registry"/>
+	<!-- <dubbo:monitor protocol="registry"/> -->
 
 	<!-- 服务提供者缺省值配置: 当ProtocolConfig和ServiceConfig某属性没有配置时,采用此缺省值 -->
 	<!-- 

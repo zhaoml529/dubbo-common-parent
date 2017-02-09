@@ -24,9 +24,18 @@
 	
 	<!-- 开启注解支持，默认向工厂中注册了几个Bean(@Controller @RequestMapping)，此处为context:component-scan做准备 -->
 	<mvc:annotation-driven>
+		<!-- 处理@responseBody里面日期类型 -->  
 		<mvc:message-converters>  
 	        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
-	            <!-- <property name="objectMapper" value="#{jsonUtil.mapper}"/> -->  
+	            <property name="objectMapper">
+	               <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+	                   <property name="dateFormat">
+	                       <bean class="java.text.SimpleDateFormat">
+	                           <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
+	                       </bean>
+	                   </property>
+	               </bean>
+	            </property>
 	            <property name="supportedMediaTypes">  
 	                <list>  
 	                    <value>application/json;charset=UTF-8</value>

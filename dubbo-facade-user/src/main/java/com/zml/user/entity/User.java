@@ -2,6 +2,7 @@ package com.zml.user.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zml.common.entity.BaseEntity;
 
 public class User extends BaseEntity {
@@ -19,6 +20,7 @@ public class User extends BaseEntity {
 	
 	private String salt;
 	
+	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date registerDate = new Date();
 	
 	private Integer isLock = 100;	// 100=正常 101=锁定
