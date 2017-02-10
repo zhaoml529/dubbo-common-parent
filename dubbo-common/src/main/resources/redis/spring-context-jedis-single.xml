@@ -32,6 +32,6 @@
 	
 	<bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
 		<!-- 构造函数注入redisTemplate -->
-		<constructor-arg name="redisOperations" value="redisTemplate"></constructor-arg>
+		<constructor-arg name="redisOperations" ref="redisTemplate"></constructor-arg>
 	</bean>
 </beans>
