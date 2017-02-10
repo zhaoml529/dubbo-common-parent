@@ -85,10 +85,21 @@
 		<artifactId>zkclient</artifactId>
 	</dependency>
 	<!-- dubbo required jars end -->
-	
   </dependencies>
+  
   <build>
     <finalName>dubbo-web-user</finalName>
+    <resources>
+		<resource>
+			<targetPath>${project.build.directory}/classes</targetPath>
+			<directory>src/main/resources</directory>
+			<filtering>true</filtering>
+			<includes>
+				<include>**/*.xml</include>
+				<include>**/*.properties</include>
+			</includes>
+		</resource>
+	</resources>
   </build>
   
 </project>
