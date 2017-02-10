@@ -22,11 +22,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RedisUtil {
+public class RedisUtil<T> {
 
     @Autowired 
     @Qualifier("redisTemplate")
-    public RedisTemplate<String, Object> redisTemplate;
+    public RedisTemplate<String, T> redisTemplate;
     
     @Autowired
     @Qualifier("redisTemplate")
@@ -38,7 +38,7 @@ public class RedisUtil {
      * @param value    缓存的值
      * @return        缓存的对象
      */
-    public void setCacheObject(String key, Object value) {
+    public void setCacheObject(String key, T value) {
         redisTemplate.opsForValue().set(key,value);
     }
     
@@ -48,7 +48,7 @@ public class RedisUtil {
      * @param operation
      * @return            缓存键值对应的数据
      */
-    public Object getCacheObject(String key/*,ValueOperations<String,T> operation*/) {
+    public T getCacheObject(String key/*,ValueOperations<String,T> operation*/) {
         return redisTemplate.opsForValue().get(key); 
     }
     
@@ -58,8 +58,8 @@ public class RedisUtil {
      * @param dataList    待缓存的List数据
      * @return            缓存的对象
      */
-    public Object setCacheList(String key, List<Object> dataList) {
-        ListOperations<String, Object> listOperation = redisTemplate.opsForList();
+    public ListOperations<String, T>  setCacheList(String key, List<T> dataList) {
+        ListOperations<String, T> listOperation = redisTemplate.opsForList();
         if(null != dataList)
         {
             int size = dataList.size();
@@ -72,15 +72,14 @@ public class RedisUtil {
     }
     
     /**
-     * 获得缓存的list对象
+     * 移出并获取列表的第一个元素
      * @param key    缓存的键值
-     * @return        缓存键值对应的数据
+     * @return       缓存键值对应的数据
      */
-    public List<Object> getCacheList(String key) {
-        List<Object> dataList = new ArrayList<Object>();
-        ListOperations<String, Object> listOperation = redisTemplate.opsForList();
+    public List<T> getCacheList(String key) {
+        List<T> dataList = new ArrayList<T>();
+        ListOperations<String, T> listOperation = redisTemplate.opsForList();
         Long size = listOperation.size(key);
-        
         for(int i = 0 ; i < size ; i ++)
         {
             dataList.add(listOperation.leftPop(key));
@@ -89,9 +88,8 @@ public class RedisUtil {
     }
     
     /**
-     * 获得缓存的list对象
-     * @Title: range 
-     * @Description: TODO(这里用一句话描述这个方法的作用) 
+     * 获取list指定范围内的元素
+     * @Title: lrange 
      * @param @param key
      * @param @param start
      * @param @param end
@@ -99,8 +97,8 @@ public class RedisUtil {
      * @return List<T>    返回类型 
      * @throws
      */
-    public List<Object> range(String key, long start, long end) {
-        ListOperations<String, Object> listOperation = redisTemplate.opsForList();
+    public List<T> lrange(String key, long start, long end) {
+        ListOperations<String, T> listOperation = redisTemplate.opsForList();
         return listOperation.range(key, start, end);
     }
     
@@ -121,7 +119,7 @@ public class RedisUtil {
      *            value 值
      * @return 状态码
      * */
-    public void listSet(String key, int index, Object obj) {
+    public void listSet(String key, int index, T obj) {
         redisTemplate.opsForList().set(key, index, obj);
     }
         
@@ -134,7 +132,7 @@ public class RedisUtil {
      *            value
      * @return 记录总数
      * */
-    public long leftPush(String key, Object obj) {
+    public long leftPush(String key, T obj) {
         return redisTemplate.opsForList().leftPush(key, obj);
     }
 
@@ -147,7 +145,7 @@ public class RedisUtil {
      *            value
      * @return 记录总数
      * */
-    public long rightPush(String key, Object obj) {
+    public long rightPush(String key, T obj) {
         return redisTemplate.opsForList().rightPush(key, obj);
     }
     
@@ -174,7 +172,7 @@ public class RedisUtil {
      *            obj 要匹配的值
      * @return 删除后的List中的记录数
      * */
-    public long remove(String key, long i, Object obj) {
+    public long remove(String key, long i, T obj) {
         return redisTemplate.opsForList().remove(key, i, obj);
     }
     
@@ -184,12 +182,13 @@ public class RedisUtil {
      * @param dataSet    缓存的数据
      * @return            缓存数据的对象
      */
-    public BoundSetOperations<String, Object> setCacheSet(String key,Set<Object> dataSet) {
-        BoundSetOperations<String, Object> setOperation = redisTemplate.boundSetOps(key);    
+    @SuppressWarnings("unchecked")
+	public BoundSetOperations<String, T> setCacheSet(String key, Set<T> dataSet) {
+        BoundSetOperations<String, T> setOperation = redisTemplate.boundSetOps(key);    
         /*T[] t = (T[]) dataSet.toArray();
              setOperation.add(t);*/
         
-        Iterator<Object> it = dataSet.iterator();
+        Iterator<T> it = dataSet.iterator();
         while(it.hasNext())
         {
             setOperation.add(it.next());
@@ -203,9 +202,9 @@ public class RedisUtil {
      * @param operation
      * @return
      */
-    public Set<Object> getCacheSet(String key/*,BoundSetOperations<String,T> operation*/) {
-        Set<Object> dataSet = new HashSet<Object>();
-        BoundSetOperations<String,Object> operation = redisTemplate.boundSetOps(key);    
+    public Set<T> getCacheSet(String key/*,BoundSetOperations<String,T> operation*/) {
+        Set<T> dataSet = new HashSet<T>();
+        BoundSetOperations<String,T> operation = redisTemplate.boundSetOps(key);    
         
         Long size = operation.size();
         for(int i = 0 ; i < size ; i++)
@@ -312,10 +311,37 @@ public class RedisUtil {
     public long increment(String key, long step) {
         return redisTemplate.opsForValue().increment(key, step);
     }
-
     
-    //redisTemplateSerializable
+    /**
+     * 根据key删除
+     * @param key
+     */
+    public void delete(String key) {
+    	redisTemplate.delete(key);
+    }
     
+    /**
+     * 判断key是否存在
+     * @param key
+     * @return
+     */
+    public boolean isExistKey(String key) {
+    	return redisTemplate.hasKey(key);
+    }
+    
+    /**
+     * 根据key获取过期时间
+     * @param key
+     * @param timeUnit
+     * @return
+     */
+    public long getExpire(String key, TimeUnit... timeUnit) {
+    	if(timeUnit.length > 0) {
+    		return redisTemplate.getExpire(key, timeUnit[0]);
+    	} else {
+    		return redisTemplate.getExpire(key);
+    	}
+    }
     /**
      * 删除redis的所有数据
      */
