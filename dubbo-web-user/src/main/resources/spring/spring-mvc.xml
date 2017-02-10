@@ -14,11 +14,9 @@
            http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
 	<!-- 读入配置属性文件 -->
-	<context:property-placeholder location="classpath:system.properties,classpath:redis.properties"/>
-	<!-- <context:property-placeholder location="classpath:redis.properties"/> -->
+	<context:property-placeholder location="classpath:system.properties"/>
 	
 	<import resource="classpath:dubbo/spring-dubbo-consumer.xml" />
-	<import resource="classpath:redis/spring-context-jedis-cluster.xml"/>
 	
 	<!-- 配置要扫描的包 @Component @Controller @Service @Repository-->
 	<context:component-scan base-package="com.zml.web.user.controller" use-default-filters="false">

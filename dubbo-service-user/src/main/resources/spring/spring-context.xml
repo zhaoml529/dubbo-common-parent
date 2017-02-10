@@ -17,13 +17,10 @@
            http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
 	<!-- 读入配置属性文件 -->
-	<context:property-placeholder location="classpath:system.properties,classpath:db.properties"/>
-	
-	<!-- 开启注解支持，默认向工厂中注册了几个Bean，此处为context:component-scan做准备 -->
-	<!-- <mvc:annotation-driven /> -->
+	<context:property-placeholder location="classpath:system.properties,classpath:db.properties,classpath:redis.properties"/>
 	
 	<!-- 配置要扫描的包 -->
-    <context:component-scan base-package="com.zml.user" use-default-filters="true">
+    <context:component-scan base-package="com.zml" use-default-filters="true">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
     
@@ -108,7 +105,7 @@
 	<!--======= 事务配置 End =================== -->
 		
 	<!-- <import resource="classpath:spring/spring-activemq.xml" /> -->
-	<!-- <import resource="classpath:dubbo/spring-dubbo-consumer.xml" /> -->
     <import resource="classpath:dubbo/spring-dubbo-provider.xml" />
+    <import resource="classpath:redis/spring-context-jedis-cluster.xml"/>
     
 </beans>
