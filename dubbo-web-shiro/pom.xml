@@ -29,4 +29,98 @@
 	</profile>
   </profiles>
   
+  <dependencies>
+    <dependency>
+		<groupId>com.zml</groupId>
+		<artifactId>dubbo-common</artifactId>
+		<version>${dubbo-common.version}</version>
+		<exclusions>
+			<exclusion>
+				<groupId>org.apache.tomcat</groupId>
+				<artifactId>servlet-api</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.zml</groupId>
+		<artifactId>dubbo-common-config</artifactId>
+		<version>${dubbo-common-config.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.zml</groupId>
+		<artifactId>dubbo-common-core</artifactId>
+		<version>${dubbo-common-core.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.zml</groupId>
+		<artifactId>dubbo-facade-user</artifactId>
+		<version>${dubbo-facade-user.version}</version>
+	</dependency>
+	
+	<!-- Spring Dependency Begin -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-web</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-webmvc</artifactId>
+	</dependency>
+	<!-- Spring Dependency End -->
+	
+	<!-- dubbo required jars start -->
+    <dependency>
+        <groupId>io.netty</groupId>
+        <artifactId>netty</artifactId>
+    </dependency>
+	<dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>dubbo</artifactId>
+		<exclusions>
+			<exclusion>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring</artifactId>
+			</exclusion>
+			<exclusion>
+				<artifactId>javax.servlet-api</artifactId>
+				<groupId>javax.servlet</groupId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.zookeeper</groupId>
+		<artifactId>zookeeper</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>com.101tec</groupId>
+		<artifactId>zkclient</artifactId>
+	</dependency>
+	<!-- dubbo required jars end -->
+	
+	<!-- shiro start -->
+	<dependency>
+	    <groupId>org.apache.shiro</groupId>
+	    <artifactId>shiro-all</artifactId>
+	</dependency>
+	<!-- shiro end -->
+  </dependencies>
+  
+  <build>
+    <finalName>dubbo-web-user</finalName>
+    <resources>
+		<resource>
+			<targetPath>${project.build.directory}/classes</targetPath>
+			<directory>src/main/resources</directory>
+			<filtering>true</filtering>
+			<includes>
+				<include>**/*.xml</include>
+				<include>**/*.properties</include>
+			</includes>
+		</resource>
+	</resources>
+  </build>
+  
 </project>
