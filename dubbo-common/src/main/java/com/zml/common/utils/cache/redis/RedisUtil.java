@@ -321,6 +321,14 @@ public class RedisUtil<T> {
     }
     
     /**
+     * 模糊删除前缀key的值(数据量大的时候慎用)
+     * @param key
+     */
+    public void deleteByPrex(String key) {
+    	redisTemplate.delete(keys(key));
+    }
+    
+    /**
      * 判断key是否存在
      * @param key
      * @return
@@ -330,12 +338,12 @@ public class RedisUtil<T> {
     }
     
     /**
-     * 模糊匹配keys,KEYS * 命令，当数据规模较大时使用，会严重影响Redis性能
+     * 模糊匹配keys,KEYS * 命令，当数据规模较大时使用，会严重影响Redis性能 慎用
      * @param keysPattern
      * @return
      */
     public Set<String> keys(String keysPattern) {
-    	return redisTemplate.keys(keysPattern);
+    	return redisTemplate.keys(keysPattern+"*");
     }
     
     /**

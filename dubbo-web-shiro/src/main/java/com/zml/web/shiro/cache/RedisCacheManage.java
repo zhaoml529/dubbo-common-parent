@@ -1,5 +1,8 @@
 package com.zml.web.shiro.cache;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.cache.CacheManager;
@@ -14,12 +17,18 @@ public class RedisCacheManage implements CacheManager {
 	
 	private static final Logger logger = LoggerFactory.getLogger(RedisCacheManage.class);  
 	
+	// fast lookup by name map  
+    private final ConcurrentMap<String, Cache> caches = new ConcurrentHashMap<String, Cache>();  
+	
 	@Autowired
 	private RedisUtil<Session> redisUtil;
 
 	public <K, V> Cache<K, V> getCache(String name) throws CacheException {
 		logger.info("获取名称为: " + name + " 的RedisCache实例!");  
-		Cache c = this.getCache(name);
+		Cache c = caches.get(name); 
+		if (c == null) {  
+			
+		}
 		
 		return null;
 	}
