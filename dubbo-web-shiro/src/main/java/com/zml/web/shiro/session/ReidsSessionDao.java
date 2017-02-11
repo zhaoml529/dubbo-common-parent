@@ -70,6 +70,7 @@ public class ReidsSessionDao extends CachingSessionDAO {
         		sessions.add(s);
         	}
         }
+        logger.info("getActiveSessions!");
         return sessions;  
     }
 	

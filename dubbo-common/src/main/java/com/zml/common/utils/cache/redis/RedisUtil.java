@@ -330,6 +330,15 @@ public class RedisUtil<T> {
     }
     
     /**
+     * 模糊匹配keys,KEYS * 命令，当数据规模较大时使用，会严重影响Redis性能
+     * @param keysPattern
+     * @return
+     */
+    public Set<String> keys(String keysPattern) {
+    	return redisTemplate.keys(keysPattern);
+    }
+    
+    /**
      * 根据key获取过期时间
      * @param key
      * @param timeUnit
