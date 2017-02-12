@@ -19,6 +19,10 @@ import com.zml.common.utils.cache.redis.SerializeUtils;
 public class RedisCache<K,V> implements Cache<K,V> {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());  
 	private RedisUtil<V> redisUtil;
+	
+	public RedisCache(RedisUtil<V> redisUtil) {
+		this.redisUtil = redisUtil;
+	}
 
 	public V get(K key) throws CacheException {
 		logger.debug("根据key获取,key=" + key + " RedisCacheKey: " + this.getRedisCacheKey(key));  
@@ -39,7 +43,7 @@ public class RedisCache<K,V> implements Cache<K,V> {
 	}
 
 	/**
-	 * 数据量大的时候慎用
+	 * 数据量大的时候慎用，线上慎用
 	 */
 	public void clear() throws CacheException {
 		this.redisUtil.deleteByPrex(CacheConstant.SHIRO_REDIS_CACHE);

@@ -25,6 +25,10 @@ public class ReidsSessionDao extends CachingSessionDAO {
 	
 	private long expire = 3600000;	// 会话过期时间1小时
 
+	public void setExpire(long expire) {
+		this.expire = expire;
+	}
+
 	@Override
 	protected void doDelete(Session session) {
 		if(session == null || session.getId() == null){  
@@ -79,7 +83,7 @@ public class ReidsSessionDao extends CachingSessionDAO {
 			logger.error("session or session id is null");  
 			throw new UnknownSessionException("session or sessionId returned from saveSession implementation is null!");
         }  
-		session.setTimeout(expire);
+		session.setTimeout(expire); // session失效是由Redis决定，此处只是标识一下。
 		this.redisUtil.setCacheObject(this.getRedisSessionKey(session.getId()), session);
 		this.redisUtil.expire(this.getRedisSessionKey(session.getId()), expire, TimeUnit.MILLISECONDS);
 	}
