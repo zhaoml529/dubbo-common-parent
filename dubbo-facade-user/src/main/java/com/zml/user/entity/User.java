@@ -2,7 +2,6 @@ package com.zml.user.entity;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zml.common.entity.BaseEntity;
 
 public class User extends BaseEntity {
@@ -14,7 +13,7 @@ public class User extends BaseEntity {
 
 	private String userName;
 	
-	private Long staffId;		// 编制id
+	private Long staffNum;		// 编制id
 	
 	private String passwd;
 	
@@ -35,12 +34,12 @@ public class User extends BaseEntity {
 		this.userName = userName;
 	}
 
-	public Long getStaffId() {
-		return staffId;
+	public Long getStaffNum() {
+		return staffNum;
 	}
 
-	public void setStaffId(Long staffId) {
-		this.staffId = staffId;
+	public void setStaffNum(Long staffNum) {
+		this.staffNum = staffNum;
 	}
 
 	public String getPasswd() {

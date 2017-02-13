@@ -13,4 +13,6 @@ public interface IRoleService {
 	public Long updateRole(Role role) throws RoleServiceException;
 	
 	public List<Role> findAll(Map<String, Object> map) throws RoleServiceException;
+	
+	public List<Role> findRoleByUserId(Long userId) throws RoleServiceException;
 }

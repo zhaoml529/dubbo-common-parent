@@ -13,4 +13,5 @@ public interface IResourceService {
 	public Long updateResrouce(Resource resource) throws ResourceServiceException;
 	
 	public List<Resource> findAll(Map<String, Object> map) throws ResourceServiceException;
+	
 }

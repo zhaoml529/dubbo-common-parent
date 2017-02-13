@@ -14,7 +14,9 @@ public class Staff extends BaseEntity {
 	 */
 	private static final long serialVersionUID = -8988301044345373155L;
 	
-	private String name;
+	private String name;		// 编制名称
+	
+	private Long staffNum;		// 编号-唯一(可用作用户登录)
 	
 	private Long companyId;		// 所属公司
 	
@@ -62,6 +64,14 @@ public class Staff extends BaseEntity {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public Long getStaffNum() {
+		return staffNum;
+	}
+
+	public void setStaffNum(Long staffNum) {
+		this.staffNum = staffNum;
 	}
 	
 }

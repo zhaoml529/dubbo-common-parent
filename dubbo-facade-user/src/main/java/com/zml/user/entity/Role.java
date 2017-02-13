@@ -16,9 +16,7 @@ public class Role extends BaseEntity {
 	
 	private String name;		// 角色名称
 	
-	private Long postId;		// 岗位
-	
-	private String roleLogo;	// 角色标识
+	private String roleType;	// 角色标识
 	
 	private Integer status = 100;	// 100=正常 101=禁用
 
@@ -30,20 +28,12 @@ public class Role extends BaseEntity {
 		this.name = name;
 	}
 
-	public Long getPostId() {
-		return postId;
+	public String getRoleType() {
+		return roleType;
 	}
 
-	public void setPostId(Long postId) {
-		this.postId = postId;
-	}
-
-	public String getRoleLogo() {
-		return roleLogo;
-	}
-
-	public void setRoleLogo(String roleLogo) {
-		this.roleLogo = roleLogo;
+	public void setRoleType(String roleType) {
+		this.roleType = roleType;
 	}
 
 	public Integer getStatus() {
