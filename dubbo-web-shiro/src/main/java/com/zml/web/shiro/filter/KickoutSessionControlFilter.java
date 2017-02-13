@@ -1,11 +1,16 @@
 package com.zml.web.shiro.filter;
 
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.shiro.cache.Cache;
@@ -16,6 +21,8 @@ import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;
+
+import com.alibaba.fastjson.JSON;
 
 /**
  * 用户踢出
@@ -102,6 +109,22 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
 
         //如果被踢出了，直接退出，重定向到踢出后的地址
         if (session.getAttribute("kickout") != null) {
+        	// ajax请求时需要验证
+        	HttpServletRequest httpServletRequest = WebUtils.toHttp(request);; 
+        	if ("XMLHttpRequest".equalsIgnoreCase(httpServletRequest.getHeader("X-Requested-With"))){  
+        		Map<String, String> resultMap = new HashMap<String, String>();
+        		//resultMap.put("status", "300");
+				resultMap.put("message", "您已经在其他地方登录，请重新登录！");
+				
+        		HttpServletResponse res = WebUtils.toHttp(response);
+        		res.setCharacterEncoding("UTF-8");
+        		PrintWriter out = res.getWriter();
+        		out.println(JSON.toJSONString(resultMap));
+    			out.flush();
+    			out.close();
+        		//res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        	}
+        	
             //会话被踢出了
             try {
                 subject.logout();
@@ -112,7 +135,6 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
             WebUtils.issueRedirect(request, response, kickoutUrl);
             return false;
         }
-
         return true;
     }
 }
