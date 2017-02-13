@@ -46,7 +46,7 @@
 		<version>${dubbo-facade-user.version}</version>
 	</dependency>
 	
-	<!-- <dependency>
+	<dependency>
 		<groupId>com.zml</groupId>
 		<artifactId>dubbo-web-shiro</artifactId>
 		<version>${dubbo-web-shiro.version}</version>
@@ -55,8 +55,12 @@
 				<groupId>org.apache.tomcat</groupId>
 				<artifactId>servlet-api</artifactId>
 			</exclusion>
+			<exclusion>
+				<artifactId>spring</artifactId>
+				<groupId>org.springframework</groupId>
+			</exclusion>
 		</exclusions>
-	</dependency> -->
+	</dependency>
 	
 	<!-- Spring Dependency Begin -->
 	<dependency>
