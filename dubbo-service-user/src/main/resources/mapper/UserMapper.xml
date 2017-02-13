@@ -7,8 +7,8 @@
 	<insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
 		insert into
 		<include refid="table"/>
-		(version, createDate, userName, staffId, passwd, salt, registerDate, isLock, status)
-		values (0, #{createDate}, #{userName}, #{staffId}, #{passwd}, #{salt}, #{registerDate}, #{isLock}, #{status})
+		(version, createDate, userName, staffNum, passwd, salt, registerDate, isLock, status)
+		values (0, #{createDate}, #{userName}, #{staffNum}, #{passwd}, #{salt}, #{registerDate}, #{isLock}, #{status})
 	</insert>
 
 	<!-- 更新:version+1 实现乐观锁 -->
@@ -18,7 +18,7 @@
 		<set>
 			version = #{version}+1,
 			userName = #{userName},
-			staffId = #{staffId},
+			staffNum = #{staffNum},
 			passwd = #{passwd},
 			salt = #{salt},
 			isLock = #{isLock},
@@ -37,7 +37,7 @@
 
 	<sql id="condition_sql">
 		<if test="userName != null and userName !=''"> and userName = #{userName} </if>
-		<if test="staffId != null and staffId != ''"> and staffId = #{staffId} </if>
+		<if test="staffNum != null and staffNum != ''"> and staffNum = #{staffNum} </if>
 		<if test="status != null and status != ''"> and status = #{status} </if>
 		<if test="isLock != null and isLock != ''"> and isLock = #{isLock} </if>
 		<if test="startDate != null and startDate != '' and endDate != '' and endDate != null">
@@ -55,7 +55,7 @@
 		<![CDATA[ order by id desc]]>
 	</select>
 
-	<select id="listBy" parameterType="java.util.Map" resultType="User">
+	<select id="getList" parameterType="java.util.Map" resultType="User">
 		select * from
 		<include refid="table" />
 		<where>
@@ -74,8 +74,8 @@
 		select * from TB_USER where userName = #{userName} limit 1
 	</select>
 	
-	<select id="getUserByStaffId" parameterType="String" resultType="User">
-		select * from TB_USER where staffId = #{staffId} limit 1
+	<select id="getUserByStaffNum" parameterType="String" resultType="User">
+		select * from TB_USER where staffNum = #{staffNum} limit 1
 	</select>
 	
 	<select id="getList" parameterType="map" resultType="User">

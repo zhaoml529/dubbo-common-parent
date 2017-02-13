@@ -7,6 +7,6 @@ public interface IUserDao extends BaseDao<User> {
 	
 	public User getUserByName(String userName);
 	
-	public User getUserByStaffId(String staffId);
+	public User getUserByStaffNum(String staffId);
 
 }

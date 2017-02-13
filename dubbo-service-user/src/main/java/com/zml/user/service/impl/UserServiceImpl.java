@@ -47,8 +47,8 @@ public class UserServiceImpl implements IUserService {
 		return this.userDao.getUserByName(userName);
 	}
 
-	public User getUserByStaffId(String staffId) throws UserServiceException {
-		return this.userDao.getUserByStaffId(staffId);
+	public User getUserByStaffId(String staffNum) throws UserServiceException {
+		return this.userDao.getUserByStaffNum(staffNum);
 	}
 
 	public User getUserById(Long id) throws UserServiceException {

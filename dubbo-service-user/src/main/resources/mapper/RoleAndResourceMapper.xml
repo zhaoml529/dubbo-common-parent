@@ -12,7 +12,7 @@
 	</insert>
 
 	<!-- 更新:version+1 实现乐观锁 -->
-	<update id="update" parameterType="Post">
+	<update id="update" parameterType="RoleAndResource">
 		update
 		<include refid="table" />
 		<set>
@@ -26,7 +26,7 @@
 		</where>
 	</update>
 
-	<select id="getById" parameterType="long" resultType="Post">
+	<select id="getById" parameterType="long" resultType="RoleAndResource">
 		select * from
 		<include refid="table" />
 		where id = #{id}
@@ -39,7 +39,7 @@
 	</sql>
 
 	<!-- 根据多参数进行查询数据 -->
-	<select id="listPage" parameterType="java.util.Map" resultType="Post">
+	<select id="listPage" parameterType="java.util.Map" resultType="RoleAndResource">
 		select * from
 		<include refid="table" />
 		<where>
@@ -48,12 +48,18 @@
 		<![CDATA[ order by id desc]]>
 	</select>
 
-	<select id="listBy" parameterType="java.util.Map" resultType="Post">
+	<select id="getList" parameterType="java.util.Map" resultType="RoleAndResource">
 		select * from
 		<include refid="table" />
 		<where>
 			<include refid="condition_sql" />
 		</where>
+	</select>
+	
+	<select id="getResourceByRoleId" parameterType="long" resultType="Resource">
+		select r.*
+		from <include refid="table" /> t
+		left join TB_RESOURCE r on r.id = t.resourceId
 	</select>
 	
 	<delete id="deleteByRole" parameterType="long">

@@ -54,7 +54,7 @@
 		<![CDATA[ order by id desc]]>
 	</select>
 
-	<select id="listBy" parameterType="java.util.Map" resultType="Resource">
+	<select id="getList" parameterType="java.util.Map" resultType="Resource">
 		select * from
 		<include refid="table" />
 		<where>

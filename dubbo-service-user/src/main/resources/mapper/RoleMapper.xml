@@ -7,8 +7,8 @@
 	<insert id="insert" parameterType="Role" keyProperty="id" useGeneratedKeys="true">
 		insert into
 		<include refid="table" />
-		(version, createDate, name, postId, roleLogo, status)
-		values (0, #{createDate}, #{name}, #{postId}, #{roleLogo}, #{status})
+		(version, createDate, name, roleType, status)
+		values (0, #{createDate}, #{name}, #{roleType}, #{status})
 	</insert>
 
 	<!-- 更新:version+1 实现乐观锁 -->
@@ -18,8 +18,7 @@
 		<set>
 			version = #{version}+1 ,
 			<if test="name != null and name != '' ">name = #{name},</if>
-			<if test="postId != null and postId != '' ">postId = #{postId},</if>
-			<if test="roleLogo != null and roleLogo != '' ">roleLogo = #{roleLogo},</if>
+			<if test="roleType != null and roleType != '' ">roleType = #{roleType},</if>
 			<if test="status != null and status != '' ">status = #{status},</if>
 		</set>
 		<where>
@@ -35,8 +34,7 @@
 
 	<sql id="condition_sql">
 		<if test="name != null and name !=''"> and name = #{name} </if>
-		<if test="postId != null and postId != ''"> and postId = #{postId} </if>
-		<if test="roleLogo != null and roleLogo != ''"> and roleLogo = #{roleLogo} </if>
+		<if test="roleType != null and roleType != ''"> and roleType = #{roleType} </if>
 		<if test="status != null and status != ''"> and status = #{status} </if>
 	</sql>
 
@@ -50,12 +48,21 @@
 		<![CDATA[ order by id desc]]>
 	</select>
 
-	<select id="listBy" parameterType="java.util.Map" resultType="Role">
+	<select id="getList" parameterType="java.util.Map" resultType="Role">
 		select * from
 		<include refid="table" />
 		<where>
 			<include refid="condition_sql" />
 		</where>
+	</select>
+	
+	<select id="findRoleByUserId" parameterType="java.lang.String" resultType="Role">
+		select r.*
+		from TB_ROLE r
+		left join TB_POST p on p.roleId = r.id
+		left join TB_STAFF s on s.postId = p.id
+		left join TB_USER u on u.staffNum = s.staffNum and u.id = #{userId}
+		where r.status = 100
 	</select>
 	
 </mapper>

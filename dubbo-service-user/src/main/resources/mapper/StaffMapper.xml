@@ -5,10 +5,13 @@
 	<sql id="table">TB_ROLE</sql>
 
 	<insert id="insert" parameterType="Staff" keyProperty="id" useGeneratedKeys="true">
+		<selectKey statementType="CALLABLE" resultType="long" keyProperty="staffNum">    
+	        select currval('staff_num')    
+	    </selectKey>    
 		insert into
 		<include refid="table" />
-		(version, createDate, name, companyId, deptId, postId, status)
-		values (0, #{createDate}, #{name}, #{companyId}, #{deptId}, #{postId}, #{status})
+		(version, createDate, name, staffNum, companyId, deptId, postId, status)
+		values (0, #{createDate}, #{name}, #{staffNum}, #{companyId}, #{deptId}, #{postId}, #{status})
 	</insert>
 
 	<!-- 更新:version+1 实现乐观锁 -->
@@ -18,6 +21,7 @@
 		<set>
 			version = #{version}+1 ,
 			<if test="name != null and name != '' ">name = #{name},</if>
+			<if test="staffNum != null and staffNum != '' ">staffNum = #{staffNum},</if>
 			<if test="companyId != null and companyId != '' ">companyId = #{companyId},</if>
 			<if test="deptId != null and deptId != '' ">deptId = #{deptId},</if>
 			<if test="postId != null and postId != '' ">postId = #{postId},</if>
@@ -36,6 +40,7 @@
 
 	<sql id="condition_sql">
 		<if test="name != null and name !=''"> and name = #{name} </if>
+		<if test="staffNum != null and staffNum !=''"> and staffNum = #{staffNum} </if>
 		<if test="companyId != null and companyId != ''"> and companyId = #{companyId} </if>
 		<if test="deptId != null and deptId != ''"> and deptId = #{deptId} </if>
 		<if test="postId != null and postId != ''"> and postId = #{postId} </if>
@@ -52,7 +57,7 @@
 		<![CDATA[ order by id desc]]>
 	</select>
 
-	<select id="listBy" parameterType="java.util.Map" resultType="Staff">
+	<select id="getList" parameterType="java.util.Map" resultType="Staff">
 		select * from
 		<include refid="table" />
 		<where>
