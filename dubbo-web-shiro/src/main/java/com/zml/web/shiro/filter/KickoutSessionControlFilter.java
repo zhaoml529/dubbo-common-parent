@@ -50,7 +50,7 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
     }
 
     public void setCacheManager(CacheManager cacheManager) {
-        this.cache = cacheManager.getCache("shiro-kickout-session");
+        this.cache = cacheManager.getCache("shiroKickoutCache");
     }
 
 	@Override
@@ -70,7 +70,7 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
         String username = (String) subject.getPrincipal();
         Serializable sessionId = session.getId();
 
-        //TODO 同步控制
+        // 同步控制
         Deque<Serializable> deque = cache.get(username);
         if(deque == null) {
             deque = new LinkedList<Serializable>();

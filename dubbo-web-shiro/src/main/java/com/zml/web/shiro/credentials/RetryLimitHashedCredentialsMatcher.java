@@ -55,7 +55,7 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
         //匹配用户输入的token的凭证（未加密）与系统提供的凭证（已加密）  
         boolean matches = super.doCredentialsMatch(token, info);
         if(matches) {
-            //clear retry count
+            //clear redis cache
             passwordRetryCache.remove(staffId);
             jcaptchaCache.remove("jcaptchaEnabled");
         }
