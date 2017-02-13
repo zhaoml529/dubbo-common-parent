@@ -88,7 +88,7 @@ public class UserController {
         }
  
         //currentUser.setUserName(user.getUserName());
-        currentUser.setStaffId(user.getStaffId());
+        currentUser.setStaffNum(user.getStaffNum());
         currentUser.setPasswd(user.getPasswd());
         
         this.userService.updateUser(currentUser);
