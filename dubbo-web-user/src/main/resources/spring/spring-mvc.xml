@@ -61,4 +61,10 @@
         <property name="suffix" value=".jsp"/>
     </bean>
     
+    <!-- 添加 Shiro Spring AOP 权限注解支持 -->
+    <!-- <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+    
+    <import resource="classpath:shiro/spring-shiro.xml"/> -->
 </beans>

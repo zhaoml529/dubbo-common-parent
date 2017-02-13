@@ -37,6 +37,35 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
     
+    <!-- shiro过虑器，DelegatingFilterProxy通过代理模式将spring容器中的bean和filter关联起来 -->
+    <!-- <filter>
+        <filter-name>shiroFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <async-supported>true</async-supported>
+        设置true由servlet容器控制filter的生命周期
+        <init-param>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping> -->
+	
+    <!-- 验证码过滤器需要放到Shiro之后 因为Shiro将包装HttpSession 如果不，可能造成两次的sesison id 不一样 -->
+    <!-- <filter>
+        <filter-name>JCaptchaFilter</filter-name>
+        <filter-class>com.hdc.shiro.jcaptcha.JCaptchaFilter</filter-class>
+        <async-supported>true</async-supported>
+    </filter>
+    <filter-mapping>
+        <filter-name>JCaptchaFilter</filter-name>
+        <url-pattern>/jcaptcha.jpg</url-pattern>
+    </filter-mapping> -->
+    
     <!-- druid -->
 	<servlet>
 		<servlet-name>DruidStatView</servlet-name>
