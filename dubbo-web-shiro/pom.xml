@@ -9,8 +9,7 @@
   
   <artifactId>dubbo-web-shiro</artifactId>
   <name>dubbo-web-shiro</name>
-  <version>${dubbo-web-shrio.version}</version>
-  <packaging>war</packaging>
+  <version>${dubbo-web-shiro.version}</version>
   
   <properties>
 	 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -42,17 +41,17 @@
 		</exclusions> -->
 	</dependency>
 	
-	<dependency>
+	<!-- <dependency>
 		<groupId>com.zml</groupId>
 		<artifactId>dubbo-common-config</artifactId>
 		<version>${dubbo-common-config.version}</version>
-	</dependency>
+	</dependency> -->
 	
-	<dependency>
+<!-- 	<dependency>
 		<groupId>com.zml</groupId>
 		<artifactId>dubbo-common-core</artifactId>
 		<version>${dubbo-common-core.version}</version>
-	</dependency>
+	</dependency> -->
 	
 	<dependency>
 		<groupId>com.zml</groupId>
@@ -61,18 +60,18 @@
 	</dependency>
 	
 	<!-- Spring Dependency Begin -->
-	<dependency>
+	<!-- <dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-web</artifactId>
 	</dependency>
 	<dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-webmvc</artifactId>
-	</dependency>
+	</dependency> -->
 	<!-- Spring Dependency End -->
 	
 	<!-- dubbo required jars start -->
-    <dependency>
+    <!-- <dependency>
         <groupId>io.netty</groupId>
         <artifactId>netty</artifactId>
     </dependency>
@@ -97,7 +96,7 @@
 	<dependency>
 		<groupId>com.101tec</groupId>
 		<artifactId>zkclient</artifactId>
-	</dependency>
+	</dependency> -->
 	<!-- dubbo required jars end -->
 	
 	<!-- shiro start -->
@@ -114,7 +113,7 @@
   </dependencies>
   
   <build>
-    <finalName>dubbo-web-user</finalName>
+    <finalName>dubbo-web-shiro</finalName>
     <resources>
 		<resource>
 			<targetPath>${project.build.directory}/classes</targetPath>

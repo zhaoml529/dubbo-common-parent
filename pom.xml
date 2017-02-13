@@ -23,7 +23,7 @@
 	
 	<!-- web projects -->
 	<dubbo-web-user.version>1.0-SNAPSHOT</dubbo-web-user.version>
-	<dubbo-web-shrio.version>1.0-SNAPSHOT</dubbo-web-shrio.version>
+	<dubbo-web-shiro.version>1.0-SNAPSHOT</dubbo-web-shiro.version>
 	
 	<!-- system version -->
 	<zkclient.version>0.1</zkclient.version>
