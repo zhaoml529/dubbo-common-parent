@@ -52,7 +52,7 @@
 		<![CDATA[ order by id desc]]>
 	</select>
 
-	<select id="listBy" parameterType="java.util.Map" resultType="Post">
+	<select id="getList" parameterType="java.util.Map" resultType="Post">
 		select * from
 		<include refid="table" />
 		<where>

@@ -78,12 +78,4 @@
 		select * from TB_USER where staffNum = #{staffNum} limit 1
 	</select>
 	
-	<select id="getList" parameterType="map" resultType="User">
-		select * from
-		<include refid="table" />
-		<where>
-			<include refid="condition_sql" />
-		</where>
-	</select>
-	
 </mapper>
