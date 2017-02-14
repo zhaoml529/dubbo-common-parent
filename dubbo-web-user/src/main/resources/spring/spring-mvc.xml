@@ -18,7 +18,7 @@
 	
 	<import resource="classpath:dubbo/spring-dubbo-consumer.xml" />
 	
-	<import resource="classpath:shiro/spring-shiro.xml"/>
+	<!-- <import resource="classpath:shiro/spring-shiro.xml"/> -->
 	
 	<!-- 配置要扫描的包 @Component @Controller @Service @Repository-->
 	<context:component-scan base-package="com.zml.web.user.controller" use-default-filters="false">
@@ -64,8 +64,8 @@
     </bean>
     
     <!-- 添加 Shiro Spring AOP 权限注解支持 -->
-    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+    <!-- <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
-    </bean>
+    </bean> -->
     
 </beans>

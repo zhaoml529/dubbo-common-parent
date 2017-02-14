@@ -46,7 +46,7 @@
 		<version>${dubbo-facade-user.version}</version>
 	</dependency>
 	
-	<dependency>
+	<!-- <dependency>
 		<groupId>com.zml</groupId>
 		<artifactId>dubbo-web-shiro</artifactId>
 		<version>${dubbo-web-shiro.version}</version>
@@ -60,7 +60,7 @@
 				<groupId>org.springframework</groupId>
 			</exclusion>
 		</exclusions>
-	</dependency>
+	</dependency> -->
 	
 	<!-- Spring Dependency Begin -->
 	<dependency>
