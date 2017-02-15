@@ -41,17 +41,11 @@
 		</exclusions> -->
 	</dependency>
 	
-	<!-- <dependency>
+	<dependency>
 		<groupId>com.zml</groupId>
 		<artifactId>dubbo-common-config</artifactId>
 		<version>${dubbo-common-config.version}</version>
-	</dependency> -->
-	
-<!-- 	<dependency>
-		<groupId>com.zml</groupId>
-		<artifactId>dubbo-common-core</artifactId>
-		<version>${dubbo-common-core.version}</version>
-	</dependency> -->
+	</dependency>
 	
 	<dependency>
 		<groupId>com.zml</groupId>
@@ -59,19 +53,8 @@
 		<version>${dubbo-facade-user.version}</version>
 	</dependency>
 	
-	<!-- Spring Dependency Begin -->
-	<!-- <dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-web</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-webmvc</artifactId>
-	</dependency> -->
-	<!-- Spring Dependency End -->
-	
 	<!-- dubbo required jars start -->
-    <!-- <dependency>
+    <dependency>
         <groupId>io.netty</groupId>
         <artifactId>netty</artifactId>
     </dependency>
@@ -96,7 +79,7 @@
 	<dependency>
 		<groupId>com.101tec</groupId>
 		<artifactId>zkclient</artifactId>
-	</dependency> -->
+	</dependency>
 	<!-- dubbo required jars end -->
 	
 	<!-- shiro start -->
@@ -110,6 +93,7 @@
 	    <groupId>com.octo.captcha</groupId>
 	    <artifactId>jcaptcha-all</artifactId>
 	</dependency>
+	
   </dependencies>
   
   <build>
