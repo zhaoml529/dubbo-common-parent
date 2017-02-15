@@ -7,8 +7,5 @@
 
 	<!-- 服务消费者引用服务配置 -->
 	<!-- check: 启动时检查提供者是否存在，true报错，false忽略 -->
-	<!-- <dubbo:reference interface="wusc.edu.pay.facade.account.service.AccountManagementFacade" id="accountManagementFacade" check="false" />
-	<dubbo:reference interface="wusc.edu.pay.facade.account.service.AccountQueryFacade" id="accountQueryFacade" check="false" />
-	<dubbo:reference interface="wusc.edu.pay.facade.settlement.service.SettManagementFacade" id="settManagementFacade" check="false" /> -->
 
 </beans>  
