@@ -100,8 +100,10 @@
 		<!-- 关联数据源 -->
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
+	
+    <!-- <aop:config proxy-target-class="true"></aop:config> -->
 	<!-- 注解事务 -->
-	<tx:annotation-driven transaction-manager="transactionManager" />
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 	<!--======= 事务配置 End =================== -->
 		
 	<!-- <import resource="classpath:spring/spring-activemq.xml" /> -->
