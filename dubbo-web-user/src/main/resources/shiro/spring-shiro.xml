@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
-       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+       http://www.springframework.org/schema/beans  
+       http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-4.2.xsd">
 
     <!-- 凭证匹配器 -->
     <bean id="credentialsMatcher" class="com.zml.web.shiro.credentials.RetryLimitHashedCredentialsMatcher">
@@ -58,8 +58,8 @@
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
         <property name="globalSessionTimeout" value="3600000"/> 	<!-- 设置全局会话超时时间 1小时 -->
         <property name="deleteInvalidSessions" value="true"/> 		<!-- 是否在会话过期后会调用SessionDAO的delete方法删除会话 默认true -->
-        <property name="sessionValidationSchedulerEnabled" value="fasle"/> 				<!-- 是否开启会话验证器 默认开启 如果用redis实现session共享则不需要开启，借助redis自身的过期策略来完成 -->
-        <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/> 	<!-- 设置会话调度器 -->
+        <property name="sessionValidationSchedulerEnabled" value="false"/> 				<!-- 是否开启会话验证器 默认开启 如果用redis实现session共享则不需要开启，借助redis自身的过期策略来完成 -->
+        <!-- <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/> --> 	<!-- 设置会话调度器 -->
         <property name="sessionDAO" ref="sessionDAO"/>
         <!-- 是否启用Session Id Cookie,默认是启动；如果是禁用则默认使用servlet容器的 JSESSIONID -->
         <property name="sessionIdCookieEnabled" value="true"/>
@@ -73,10 +73,10 @@
     </bean>
 
     <!-- 会话验证调度器 -->
-    <bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">
-        <property name="sessionValidationInterval" value="1800000"/> <!--设置调度时间间隔 半小时  默认值为1小时-->
+    <!-- <bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">
+        <property name="sessionValidationInterval" value="1800000"/> 设置调度时间间隔 半小时  默认值为1小时
         <property name="sessionManager" ref="sessionManager"/>
-    </bean>
+    </bean> -->
 
     <!-- 安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
@@ -104,7 +104,7 @@
     
 	<!-- 验证码 -->
     <bean id="jCaptchaValidateFilter" class="com.zml.web.shiro.jcaptchar.JCaptchaValidateFilter">
-    	<property name="cacheManager" ref="cacheManager"/>		<!-- 用于保存用户—会话之间的关系的 -->
+    	<!-- <property name="cacheManager" ref="cacheManager"/> -->		<!-- 用于保存用户—会话之间的关系的 -->
         <property name="jcaptchaEnabled" value="true"/>			<!-- 开启验证码支持 -->
         <property name="jcaptchaParam" value="jcaptchaCode"/>	<!-- 前台提交的验证码参数名 -->
         <property name="failureKeyAttribute" value="shiroLoginFailure"/>	<!-- 验证码验证失败后存储到的属性名 -->

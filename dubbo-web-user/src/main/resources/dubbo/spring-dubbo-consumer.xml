@@ -23,4 +23,8 @@
 	<!-- 公司服务接口 -->
 	<dubbo:reference retries="0" interface="com.zml.user.service.ICompanyService" id="companyService" check="false"/>
 	
+	<dubbo:reference retries="0" interface="com.zml.user.service.IRoleService" id="roleService" check="false"/>
+	
+	<dubbo:reference retries="0" interface="com.zml.user.service.IRoleAndResourceService" id="rarService" check="false"/>
+	
 </beans>  

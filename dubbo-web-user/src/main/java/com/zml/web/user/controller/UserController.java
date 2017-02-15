@@ -2,6 +2,7 @@ package com.zml.web.user.controller;
 
 import java.util.List;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,7 @@ public class UserController {
 	 * @param id
 	 * @return
 	 */
+	@RequiresAuthentication
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> getDetail(@PathVariable("id") long id) {
 		User user = this.userService.getUserById(id);
