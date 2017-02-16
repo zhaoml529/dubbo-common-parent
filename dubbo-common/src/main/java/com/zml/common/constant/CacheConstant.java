@@ -21,4 +21,11 @@ public class CacheConstant {
 	 * The Redis key prefix for the caches  
 	 */
 	public static final String SHIRO_REDIS_CACHE = "SHIRO_REDIS_CACHE_";
+	
+	public static final String PWD_RETRY_COUNT =  "PWD_RETRY_COUNT_";
+	
+	/**
+	 * 是否显示验证码的缓存key
+	 */
+	public static final String JCAPTCHA_ENABLED =  "JCAPTCHA_ENABLED_";
 }
