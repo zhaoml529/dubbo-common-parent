@@ -16,11 +16,17 @@
   </properties>
 	
   <dependencies>
-  	<!-- <dependency>
+  	<dependency>
 		<groupId>com.zml</groupId>
 		<artifactId>dubbo-common</artifactId>
 		<version>${dubbo-common.version}</version>
-	</dependency> -->
+  	</dependency>
+	
+	<dependency>
+		<groupId>com.zml</groupId>
+		<artifactId>dubbo-facade-user</artifactId>
+		<version>${dubbo-facade-user.version}</version>
+	</dependency>
 	
 	<!-- Spring Dependency Begin -->
 	<dependency>
@@ -35,12 +41,19 @@
 	
 	<!-- Others Begin -->
 	<dependency>
-		<groupId>com.octo.captcha</groupId>
-		<artifactId>jcaptcha-all</artifactId>
+	    <groupId>org.apache.shiro</groupId>
+	    <artifactId>shiro-all</artifactId>
 	</dependency>
+	
 	<dependency>
-	    <groupId>com.fasterxml.jackson.core</groupId>
-	    <artifactId>jackson-databind</artifactId>
+	    <groupId>com.octo.captcha</groupId>
+	    <artifactId>jcaptcha-all</artifactId>
+	    <exclusions>
+	    	<exclusion>
+	    		<artifactId>spring</artifactId>
+	    		<groupId>org.springframework</groupId>
+	    	</exclusion>
+	    </exclusions>
 	</dependency>
 	<!-- Others End -->
 	
