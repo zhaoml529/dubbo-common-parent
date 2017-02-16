@@ -48,30 +48,9 @@
 	
 	<dependency>
 		<groupId>com.zml</groupId>
-		<artifactId>dubbo-web-shiro</artifactId>
-		<version>${dubbo-web-shiro.version}</version>
-		<exclusions>
-			<!-- <exclusion>
-				<groupId>org.apache.tomcat</groupId>
-				<artifactId>servlet-api</artifactId>
-			</exclusion> -->
-			<exclusion>
-				<artifactId>spring</artifactId>
-				<groupId>org.springframework</groupId>
-			</exclusion>
-		</exclusions>
+		<artifactId>dubbo-common-web</artifactId>
+		<version>${dubbo-common-web.version}</version>
 	</dependency>
-	
-	<!-- Spring Dependency Begin -->
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-web</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-webmvc</artifactId>
-	</dependency>
-	<!-- Spring Dependency End -->
 	
 	<!-- dubbo required jars start -->
     <dependency>

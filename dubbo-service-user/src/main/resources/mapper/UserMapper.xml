@@ -7,8 +7,8 @@
 	<insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
 		insert into
 		<include refid="table"/>
-		(version, createDate, userName, staffNum, passwd, salt, registerDate, isLock, status, pwdErrorCount, lastLoginTime, pwdErrorLastTime, lastUpdatePwdTime)
-		values (0, #{createDate}, #{userName}, #{staffNum}, #{passwd}, #{salt}, #{registerDate}, #{isLock}, #{status}, #{pwdErrorCount}, #{lastLoginTime}, #{pwdErrorLastTime}, #{lastUpdatePwdTime})
+		(version, createDate, userName, staffNum, passwd, salt, registerDate, isLock, status, lastLoginTime, pwdErrorLastTime, lastUpdatePwdTime)
+		values (0, #{createDate}, #{userName}, #{staffNum}, #{passwd}, #{salt}, #{registerDate}, #{isLock}, #{status}, #{lastLoginTime}, #{pwdErrorLastTime}, #{lastUpdatePwdTime})
 	</insert>
 
 	<!-- 更新:version+1 实现乐观锁 -->
@@ -23,7 +23,6 @@
 			salt = #{salt},
 			isLock = #{isLock},
 			status = #{status},
-			pwdErrorCount = #{pwdErrorCount},
 			lastLoginTime = #{lastLoginTime},
 			pwdErrorLastTime = #{pwdErrorLastTime},
 			lastUpdatePwdTime = #{lastUpdatePwdTime}

@@ -43,6 +43,11 @@ public class UserServiceException extends ServiceException {
 	 */
 	public static final int USERINFO_NOT_EXIST = 10010007;
 	
+	/**
+	 * 用户id不存在
+	 */
+	public static final int USER_ID_NOT_EXIST = 10010008;
+	
 	public UserServiceException() {
 		
 	}

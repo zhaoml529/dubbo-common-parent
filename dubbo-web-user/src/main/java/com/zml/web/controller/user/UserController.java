@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.zml.user.entity.User;
+import com.zml.user.exceptions.CompanyServiceException;
+import com.zml.user.exceptions.UserServiceException;
 import com.zml.user.service.IUserService;
 
 @RestController
@@ -32,12 +34,19 @@ public class UserController {
 	@RequiresAuthentication
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> getDetail(@PathVariable("id") long id) {
-		User user = this.userService.getUserById(id);
-		if(user != null) {
-			return new ResponseEntity<User>(user, HttpStatus.OK);
-		} else {
+		try {
+			User user = this.userService.getUserById(id);
+			if(user != null) {
+				return new ResponseEntity<User>(user, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+			}
+		} catch (UserServiceException e) {
+			System.out.println(e.getCode() + "--" +e.getErrMsg());
+			e.printStackTrace();
 			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
 		}
+		
 	}
 	
 	/**

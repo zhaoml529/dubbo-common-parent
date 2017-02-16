@@ -52,6 +52,9 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	public User getUserById(Long id) throws UserServiceException {
+		if(id == 666) {
+			throw new UserServiceException(UserServiceException.USER_ID_NOT_EXIST, "用户id不存在！");
+		}
 		return this.userDao.getById(id);
 	}
 

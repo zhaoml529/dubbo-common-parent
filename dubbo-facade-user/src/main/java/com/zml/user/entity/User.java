@@ -26,13 +26,11 @@ public class User extends BaseEntity {
 	
 	private Integer status = 100;	// 100=正常 101=禁用
 	
-	private Integer pwdErrorCount;	// 登录密码错误次数(5次锁定)
-	
 	private Date lastLoginTime;		// 最后登录时间
 	
 	private Date pwdErrorLastTime;	// 最后一次登录密码错误时间
 	
-	private Date lastUpdatePwdTime;	// 最后一次修改时间 
+	private Date lastUpdatePwdTime;	// 最后一次修改密码时间 
 
 	public String getUserName() {
 		return userName;
@@ -88,14 +86,6 @@ public class User extends BaseEntity {
 
 	public void setStatus(Integer status) {
 		this.status = status;
-	}
-
-	public Integer getPwdErrorCount() {
-		return pwdErrorCount;
-	}
-
-	public void setPwdErrorCount(Integer pwdErrorCount) {
-		this.pwdErrorCount = pwdErrorCount;
 	}
 
 	public Date getLastLoginTime() {
