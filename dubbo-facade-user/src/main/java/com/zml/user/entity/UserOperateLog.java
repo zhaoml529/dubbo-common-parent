@@ -8,7 +8,7 @@ import com.zml.common.entity.BaseEntity;
  * @author zhaomingliang
  * @date 2017年2月16日
  */
-public class UserOperatorLog extends BaseEntity {
+public class UserOperateLog extends BaseEntity {
 	
 	/**
 	 * 
