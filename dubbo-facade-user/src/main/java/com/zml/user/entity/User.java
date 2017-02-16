@@ -13,7 +13,7 @@ public class User extends BaseEntity {
 
 	private String userName;
 	
-	private Long staffNum;		// 编制id
+	private Long staffNum;		// 编制号
 	
 	private String passwd;
 	
@@ -25,6 +25,14 @@ public class User extends BaseEntity {
 	private Integer isLock = 100;	// 100=正常 101=锁定
 	
 	private Integer status = 100;	// 100=正常 101=禁用
+	
+	private Integer pwdErrorCount;	// 登录密码错误次数(5次锁定)
+	
+	private Date lastLoginTime;		// 最后登录时间
+	
+	private Date pwdErrorLastTime;	// 最后一次登录密码错误时间
+	
+	private Date lastUpdatePwdTime;	// 最后一次修改时间 
 
 	public String getUserName() {
 		return userName;
@@ -81,5 +89,37 @@ public class User extends BaseEntity {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	
+
+	public Integer getPwdErrorCount() {
+		return pwdErrorCount;
+	}
+
+	public void setPwdErrorCount(Integer pwdErrorCount) {
+		this.pwdErrorCount = pwdErrorCount;
+	}
+
+	public Date getLastLoginTime() {
+		return lastLoginTime;
+	}
+
+	public void setLastLoginTime(Date lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
+	}
+
+	public Date getPwdErrorLastTime() {
+		return pwdErrorLastTime;
+	}
+
+	public void setPwdErrorLastTime(Date pwdErrorLastTime) {
+		this.pwdErrorLastTime = pwdErrorLastTime;
+	}
+
+	public Date getLastUpdatePwdTime() {
+		return lastUpdatePwdTime;
+	}
+
+	public void setLastUpdatePwdTime(Date lastUpdatePwdTime) {
+		this.lastUpdatePwdTime = lastUpdatePwdTime;
+	}
+
 }
