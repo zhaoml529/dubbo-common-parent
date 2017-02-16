@@ -12,6 +12,7 @@ package com.zml.common.exceptions;
  * 角色服务接口 1006
  * 资源服务接口 1007
  * 
+ * 用户操作日志异常8008
  * 系统异常 9009
  * 
  * @author zhaomingliang
