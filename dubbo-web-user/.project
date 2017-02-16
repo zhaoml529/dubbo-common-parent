@@ -7,7 +7,7 @@
 		<project>dubbo-common</project>
 		<project>dubbo-common-core</project>
 		<project>dubbo-facade-user</project>
-		<project>dubbo-web-shiro</project>
+		<project>dubbo-common-web</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
