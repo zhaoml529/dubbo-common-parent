@@ -23,7 +23,6 @@
 	
 	<!-- web projects -->
 	<dubbo-web-user.version>1.0-SNAPSHOT</dubbo-web-user.version>
-	<dubbo-web-shiro.version>1.0-SNAPSHOT</dubbo-web-shiro.version>
 	
 	<!-- system version -->
 	<zkclient.version>0.1</zkclient.version>
@@ -353,10 +352,9 @@
   	<module>dubbo-commo-config</module>
   	<module>dubbo-common</module>
   	<module>dubbo-common-core</module>
+  	<module>dubbo-common-web</module>
   	<module>dubbo-facade-user</module>
   	<module>dubbo-service-user</module>
-  	<module>dubbo-web-shiro</module>
   	<module>dubbo-web-user</module>
-  	<module>dubbo-common-web</module>
   </modules>
 </project>
