@@ -1,4 +1,4 @@
-package com.zml.web.user.controller;
+package com.zml.web.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;

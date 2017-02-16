@@ -1,4 +1,4 @@
-package com.zml.web.user.controller;
+package com.zml.web.controller.user;
 
 import java.util.List;
 
