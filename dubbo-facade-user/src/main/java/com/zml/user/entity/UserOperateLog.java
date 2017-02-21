@@ -23,6 +23,8 @@ public class UserOperateLog extends BaseEntity {
 	
 	private Integer operateStatus;	// 操作状态(100:成功,101:失败)
 	
+	private int errorCode;			// 错误码
+	
 	private String ip;				// ip地址
 	
 	private String content;			// 操作内容
@@ -83,6 +85,14 @@ public class UserOperateLog extends BaseEntity {
 
 	public void setOperType(String operType) {
 		this.operType = operType;
+	}
+
+	public int getErrorCode() {
+		return errorCode;
+	}
+
+	public void setErrorCode(int errorCode) {
+		this.errorCode = errorCode;
 	}
 
 }

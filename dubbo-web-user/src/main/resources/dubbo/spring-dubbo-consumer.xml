@@ -27,4 +27,6 @@
 	
 	<dubbo:reference retries="0" interface="com.zml.user.service.IRoleAndResourceService" id="rarService" check="false"/>
 	
+	<dubbo:reference retries="0" interface="com.zml.user.service.IUserOperateLogService" id="userOperateLogService" check="false"/>
+	
 </beans>  

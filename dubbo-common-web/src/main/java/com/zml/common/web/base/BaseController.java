@@ -41,8 +41,8 @@ public class BaseController {
 	 * 记录保存数据错误日志
 	 * @param operateContent
 	 */
-	protected void logSaveErr(String operateContent) {
-		this.setOperateLog(OperateLogTypeEnum.ADD, OperateLogStatusEnum.ERROR, operateContent);
+	protected void logSaveErr(String operateContent, int...errorCode) {
+		this.setOperateLog(OperateLogTypeEnum.ADD, OperateLogStatusEnum.ERROR, operateContent, errorCode);
 	}
 	
 	/**
@@ -100,7 +100,7 @@ public class BaseController {
 	 * @param logStatusEnum
 	 * @param content
 	 */
-	private void setOperateLog(OperateLogTypeEnum logTypeEnum, OperateLogStatusEnum logStatusEnum, String content) {
+	private void setOperateLog(OperateLogTypeEnum logTypeEnum, OperateLogStatusEnum logStatusEnum, String content, int... errorCode) {
 		User user = SessionUtil.getUserFromSession();
 		UserOperateLog operateLog= new UserOperateLog();
 		operateLog.setUserId(user.getId());
@@ -110,6 +110,9 @@ public class BaseController {
 		operateLog.setOperType(logTypeEnum.getValue());
 		operateLog.setIp(SessionUtil.getIpAddr());
 		operateLog.setContent(content);
+		if(errorCode.length > 0) {
+			operateLog.setErrorCode(errorCode[0]);
+		}
 		this.operateLogService.addLog(operateLog);
 	}
 }

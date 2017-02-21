@@ -29,6 +29,17 @@ public class UserServiceImpl implements IUserService {
 	
 	@Transactional(rollbackFor = Exception.class, readOnly = false)
 	public Long addUser(User user) throws UserServiceException {
+		// 测试回滚
+		if("666".equals(user.getPasswd())) {
+			throw new UserServiceException(UserServiceException.USERINFO_IS_EXIST, "用户已经存在！！");
+		}
+		/*Long l = 0L;
+		try {
+			l = this.userDao.insert(user);
+		} catch (Exception e) {
+			throw new UserServiceException(UserServiceException.USERINFO_IS_EXIST, "添加用户失败！！");
+		}
+		return l;*/
 		return this.userDao.insert(user);
 	}
 	
@@ -52,9 +63,6 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	public User getUserById(Long id) throws UserServiceException {
-		if(id == 666) {
-			throw new UserServiceException(UserServiceException.USER_ID_NOT_EXIST, "用户id不存在！");
-		}
 		return this.userDao.getById(id);
 	}
 
