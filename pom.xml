@@ -42,7 +42,8 @@
 	<!-- <servlet.version>3.1.0</servlet.version> -->
 	<servlet.version>6.0.45</servlet.version>
 	<fastjson.version>1.2.7</fastjson.version>
-	<jackson.version>2.5.3</jackson.version>  
+	<jackson.version>2.5.3</jackson.version>
+	<fastdfs.version>1.25</fastdfs.version>
   </properties>
 
   <!-- 可被继承的依赖 -->
@@ -280,6 +281,12 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>${fastjson.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.csource</groupId>
+			<artifactId>fastdfs-client-java</artifactId>
+			<version>${fastdfs.version}</version>
 		</dependency>
 		
 		<!-- http://stackoverflow.com/questions/26825276/spring-4-restcontroller-json-characteristics-not-acceptable-according-to-the-re -->
