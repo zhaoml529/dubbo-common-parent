@@ -22,7 +22,7 @@
 	<dubbo-service-user.version>1.0-SNAPSHOT</dubbo-service-user.version>
 	
 	<!-- web projects -->
-	<dubbo-web-user.version>1.0-SNAPSHOT</dubbo-web-user.version>
+	<dubbo-web-base.version>1.0-SNAPSHOT</dubbo-web-base.version>
 	
 	<!-- system version -->
 	<zkclient.version>0.1</zkclient.version>
@@ -362,6 +362,6 @@
   	<module>dubbo-common-web</module>
   	<module>dubbo-facade-user</module>
   	<module>dubbo-service-user</module>
-  	<module>dubbo-web-user</module>
+  	<module>dubbo-web-base</module>
   </modules>
 </project>
