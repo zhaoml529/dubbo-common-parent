@@ -9,10 +9,10 @@
     <relativePath>../../dubbo-common-parent</relativePath>
   </parent>
   
-  <artifactId>dubbo-web-user</artifactId>
-  <version>${dubbo-web-user.version}</version>
+  <artifactId>dubbo-web-base</artifactId>
+  <version>${dubbo-web-base.version}</version>
   <packaging>war</packaging>
-  <name>dubbo-web-user</name>
+  <name>dubbo-web-base</name>
   <url>http://maven.apache.org</url>
   
   <dependencies>
@@ -83,7 +83,7 @@
   </dependencies>
   
   <build>
-    <finalName>dubbo-web-user</finalName>
+    <finalName>dubbo-web-base</finalName>
     <resources>
 		<resource>
 			<targetPath>${project.build.directory}/classes</targetPath>
