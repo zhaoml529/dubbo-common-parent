@@ -10,6 +10,10 @@
 
     <!-- 缓存管理器 -->
     <bean id="cacheManager" class="com.zml.common.web.shiro.cache.RedisCacheManage"></bean>
+    
+    <bean id="loginController" class="com.zml.web.controller.user.LoginController">
+    	<property name="cacheManager" ref="cacheManager"/>
+    </bean>
 
     <!-- 凭证匹配器 -->
     <bean id="credentialsMatcher" class="com.zml.common.web.shiro.credentials.RetryLimitHashedCredentialsMatcher">
@@ -94,7 +98,7 @@
 
     <!-- 基于Form表单的身份验证过滤器 -->
     <bean id="formAuthenticationFilter" class="com.zml.common.web.shiro.filter.CustomFormAuthenticationFilter">
-        <property name="usernameParam" value="staffid"/>   	<!-- 指定登录表单提交的用户名参数名 -->
+        <property name="usernameParam" value="userName"/>   	<!-- 指定登录表单提交的用户名参数名 -->
         <property name="passwordParam" value="passwd"/>   	<!-- 指定登录表单提交的密码参数名 -->
         <property name="rememberMeParam" value="rememberMe"/>
        	<property name="successUrl" value="/index"/> 	<!--指定登录成功后重定向的默认地址（默认是“/”）（如果有上一个地址会自动重定向到该地址）-->
@@ -104,8 +108,8 @@
     
 	<!-- 验证码 -->
     <bean id="jCaptchaValidateFilter" class="com.zml.common.web.shiro.jcaptcha.JCaptchaValidateFilter">
-    	<!-- <property name="cacheManager" ref="cacheManager"/> -->		<!-- 用于保存用户—会话之间的关系的 -->
-        <property name="jcaptchaEnabled" value="true"/>			<!-- 开启验证码支持 -->
+    	<property name="cacheManager" ref="cacheManager"/>		<!-- 用于保存用户—会话之间的关系的 -->
+        <!-- <property name="jcaptchaEnabled" value="true"/> -->			<!-- 开启验证码支持 -->
         <property name="jcaptchaParam" value="jcaptchaCode"/>	<!-- 前台提交的验证码参数名 -->
         <property name="failureKeyAttribute" value="shiroLoginFailure"/>	<!-- 验证码验证失败后存储到的属性名 -->
     </bean>
@@ -124,6 +128,7 @@
     <!-- Shiro的Web过滤器 -->
     <!-- 
    	   <value>
+   	   	   /signin = authc
            /login = authc			authc拦截器表示需要通过身份验证才能登录,anon为不需要登录即可访问
            /logout = logout			指定退出地址是/logout，其会自动委托给 SecurityManager.logout方法退出
            /authenticated = authc   访问authenticated这个url时要先通过身份验证
@@ -151,8 +156,9 @@
                 /images/**=anon 
              	/js/**=anon
             	/css/**=anon
-                /extend/**=anon 
-                /file-store/**=anon 
+            	/dist/**=anon
+                /fonts/**=anon 
+                /tpls/**=anon 
                 /** = user,forceLogout,kickout
             </value>
         </property>
