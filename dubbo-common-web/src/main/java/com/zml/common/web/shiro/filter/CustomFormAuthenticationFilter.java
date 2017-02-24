@@ -40,7 +40,7 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
             return true;
         }
         
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request; 
+        /*HttpServletRequest httpServletRequest = (HttpServletRequest) request; 
         //HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         if (isLoginRequest(request, response)) {
             if (isLoginSubmission(request, response)) {
@@ -62,9 +62,9 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
         		return true;
         	}
             return false;
-        }
+        }*/
         
-        //return super.onAccessDenied(request, response, mappedValue);
+        return super.onAccessDenied(request, response, mappedValue);
     }
     
     //可以根据不同角色设置跳转不同页面
