@@ -49,8 +49,6 @@
     	</mvc:message-converters>  
 	</mvc:annotation-driven>
 	
-	<mvc:view-controller path="/" view-name="redirect:/login"/>
-	
 	<!--静态资源默认servlet配置
     	1、加入对静态资源的处理:js,css,gif,png
     	2、允许使用"/"做整体映射

@@ -21,7 +21,7 @@
 	</context-param>
 	<context-param>
 		<param-name>webAppRootKey</param-name>
-		<param-value>dubbo-web-user.root</param-value>
+		<param-value>dubbo-web-base.root</param-value>
 	</context-param>
 
 	<listener>

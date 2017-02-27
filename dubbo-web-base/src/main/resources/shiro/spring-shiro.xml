@@ -11,10 +11,6 @@
     <!-- 缓存管理器 -->
     <bean id="cacheManager" class="com.zml.common.web.shiro.cache.RedisCacheManage"></bean>
     
-    <bean id="loginController" class="com.zml.web.controller.user.LoginController">
-    	<property name="cacheManager" ref="cacheManager"/>
-    </bean>
-
     <!-- 凭证匹配器 -->
     <bean id="credentialsMatcher" class="com.zml.common.web.shiro.credentials.RetryLimitHashedCredentialsMatcher">
         <constructor-arg ref="cacheManager"/>
@@ -150,7 +146,7 @@
         </property>
         <property name="filterChainDefinitions">
             <value>
-                /login = jCaptchaValidate,authc
+                /login = authc
                 /logout = logout
                 /jcaptcha* = anon
                 /images/**=anon 
