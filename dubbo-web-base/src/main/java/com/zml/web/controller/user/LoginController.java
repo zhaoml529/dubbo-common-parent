@@ -17,7 +17,6 @@ import org.apache.shiro.cache.CacheManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.zml.common.constant.CacheConstant;
 import com.zml.common.utils.SpringContextUtil;
@@ -29,11 +28,6 @@ public class LoginController {
 	
 	private CacheManager cacheManager;
 	
-	public void setCacheManager(CacheManager cacheManager) {
-		this.cacheManager = cacheManager;
-        this.jcaptchaCache = this.cacheManager.getCache("jcaptchaCache");
-    }
-
 	@RequestMapping("/login")
     public String showLoginForm(HttpServletRequest request, Model model) throws ServletException, IOException {
         String exceptionClassName = (String) request.getAttribute("shiroLoginFailure");
@@ -55,13 +49,15 @@ public class LoginController {
         	model.addAttribute("msg", error);
         }
         
-        this.cacheManager = SpringContextUtil.getBean("cacheManager");
-        this.jcaptchaCache = this.cacheManager.getCache("jcaptchaCache");
         String userName = request.getParameter("userName");
-        //前台是否显示验证码
-        AtomicBoolean enabled = this.jcaptchaCache.get(CacheConstant.JCAPTCHA_ENABLED + userName);
-        if(enabled != null){
-        	request.setAttribute("jcaptcha", enabled.get());
+        if(StringUtils.isNotBlank(userName)) {
+        	this.cacheManager = SpringContextUtil.getBean("cacheManager");
+        	this.jcaptchaCache = this.cacheManager.getCache("jcaptchaCache");
+        	//前台是否显示验证码
+        	AtomicBoolean enabled = this.jcaptchaCache.get(CacheConstant.JCAPTCHA_ENABLED + userName);
+        	if(enabled != null){
+        		request.setAttribute("jcaptcha", enabled.get());
+        	}
         }
         
         if(request.getParameter("kickout") != null){
@@ -84,8 +80,4 @@ public class LoginController {
         }
     }
 	
-	@RequestMapping(value ="/index", method =RequestMethod.GET)
-	public String index() {
-		return "index";
-	}
 }
