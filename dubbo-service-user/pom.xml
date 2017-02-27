@@ -77,6 +77,10 @@
 		<artifactId>zkclient</artifactId>
 	</dependency>
 	<!-- dubbo required jars end -->
+	<dependency>
+	    <groupId>org.apache.shiro</groupId>
+	    <artifactId>shiro-all</artifactId>
+	</dependency>
 	
   </dependencies>
   
