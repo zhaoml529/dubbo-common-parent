@@ -102,17 +102,19 @@ public class BaseController {
 	 */
 	private void setOperateLog(OperateLogTypeEnum logTypeEnum, OperateLogStatusEnum logStatusEnum, String content, int... errorCode) {
 		User user = SessionUtil.getUserFromSession();
-		UserOperateLog operateLog= new UserOperateLog();
-		operateLog.setUserId(user.getId());
-		operateLog.setUserName(user.getUserName());
-		operateLog.setStaffNum(user.getStaffNum());
-		operateLog.setOperateStatus(logStatusEnum.getValue());
-		operateLog.setOperType(logTypeEnum.getValue());
-		operateLog.setIp(SessionUtil.getIpAddr());
-		operateLog.setContent(content);
-		if(errorCode.length > 0) {
-			operateLog.setErrorCode(errorCode[0]);
+		if(user != null) {
+			UserOperateLog operateLog= new UserOperateLog();
+			operateLog.setUserId(user.getId());
+			operateLog.setUserName(user.getUserName());
+			operateLog.setStaffNum(user.getStaffNum());
+			operateLog.setOperateStatus(logStatusEnum.getValue());
+			operateLog.setOperType(logTypeEnum.getValue());
+			operateLog.setIp(SessionUtil.getIpAddr());
+			operateLog.setContent(content);
+			if(errorCode.length > 0) {
+				operateLog.setErrorCode(errorCode[0]);
+			}
+			this.operateLogService.addLog(operateLog);
 		}
-		this.operateLogService.addLog(operateLog);
 	}
 }

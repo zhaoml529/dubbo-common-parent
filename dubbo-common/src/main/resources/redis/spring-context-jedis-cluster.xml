@@ -64,8 +64,14 @@
         <property name="keySerializer">  
 	        <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>  
 	    </property>  
+	    <property name="valueSerializer">
+	    	<bean class="org.springframework.data.redis.serializer.JacksonJsonRedisSerializer" />
+	    </property>
 	    <property name="hashKeySerializer">  
 	        <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>  
+	    </property>
+	    <property name="hashValueSerializer">
+	    	<bean class="org.springframework.data.redis.serializer.JacksonJsonRedisSerializer" />
 	    </property>
    </bean>
    

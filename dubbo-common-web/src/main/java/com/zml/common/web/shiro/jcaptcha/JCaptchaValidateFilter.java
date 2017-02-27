@@ -52,7 +52,7 @@ public class JCaptchaValidateFilter extends AccessControlFilter {
 
         HttpServletRequest httpServletRequest = WebUtils.toHttp(request);
         //2、判断验证码是否禁用 或不是表单提交（允许访问）
-        if (enabled.get() == false || !"post".equalsIgnoreCase(httpServletRequest.getMethod())) {
+        if (!"post".equalsIgnoreCase(httpServletRequest.getMethod()) || enabled.get() == false) {
             return true;
         } 
         //3、此时是表单提交，验证验证码是否正确

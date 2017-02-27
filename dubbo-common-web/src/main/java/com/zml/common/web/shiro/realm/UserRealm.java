@@ -15,9 +15,9 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.zml.common.web.utils.MySimpleByteSource;
 import com.zml.user.entity.Resource;
 import com.zml.user.entity.Role;
 import com.zml.user.entity.User;
@@ -105,7 +105,7 @@ public class UserRealm extends AuthorizingRealm{
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 user.getUserName(), //用户名
                 user.getPasswd(), 	//密码
-                ByteSource.Util.bytes(user.getSalt()),	//原来使用(salt+name) 修改用户名时salt就不对了，所以只用salt了。
+                new MySimpleByteSource(user.getSalt()), //原来使用(salt+name) 修改用户名时salt就不对了，所以只用salt了。
                 getName()  			//realm name
         );
         /*Session currentSession = SecurityUtils.getSubject().getSession();

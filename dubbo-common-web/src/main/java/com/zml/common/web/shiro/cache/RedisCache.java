@@ -31,8 +31,13 @@ public class RedisCache<K,V> implements Cache<K,V> {
 	}
 
 	public V put(K key, V value) throws CacheException {
-		logger.debug("根据key存储value,key=" + key + " RedisCacheKey: " + this.getRedisCacheKey(key) + "value: " + value);  
-		this.redisUtil.setCacheObject(this.getRedisCacheKey(key), value);
+		logger.info("根据key存储value,key=" + key + " RedisCacheKey: " + this.getRedisCacheKey(key) + "value: " + value);  
+		try {
+			this.redisUtil.setCacheObject(this.getRedisCacheKey(key), value);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		return value;
 	}
 

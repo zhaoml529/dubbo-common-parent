@@ -7,7 +7,7 @@ import org.springframework.data.redis.serializer.SerializationException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
-* 不使用sdr自带的json序列化工具，一切操作基于string
+* 不使用spring-data-redis自带的json序列化工具，一切操作基于string
 **/
 public class SerializeUtils{
 	public static final String EMPTY_JSON = "{}";
@@ -50,5 +50,5 @@ public class SerializeUtils{
 			throw new SerializationException("Could not write JSON: " + ex.getMessage(), ex);
 		}
 	}
-
+	
 }
