@@ -27,6 +27,9 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	private RedisUtil<User> redisUtil;
 	
+    @Autowired
+    protected PasswordHelper passwordHelper;
+	
 	@Transactional(rollbackFor = Exception.class, readOnly = false)
 	public Long addUser(User user) throws UserServiceException {
 		// 测试回滚
@@ -40,6 +43,9 @@ public class UserServiceImpl implements IUserService {
 			throw new UserServiceException(UserServiceException.USERINFO_IS_EXIST, "添加用户失败！！");
 		}
 		return l;*/
+		
+		//加密密码
+        this.passwordHelper.encryptPassword(user);
 		return this.userDao.insert(user);
 	}
 	
