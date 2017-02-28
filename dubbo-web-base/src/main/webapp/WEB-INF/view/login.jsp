@@ -22,7 +22,7 @@
                 <div class="panel-body">
                     <h3 style="text-align: center">登陆</h3>
                     <hr>
-                    <form class="form-horizontal" action="#" method="post">
+                    <form class="form-horizontal" method="post">
                         <div class="form-group">
                             <label for="name" class="col-md-2 col-sm-2 control-label">账号</label>
                             <div class="col-md-10 col-sm-10">
@@ -30,7 +30,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="password" class="col-md-2 col-sm-2 control-label">密码</label>
+                            <label for="password" class="col-md-2 col-sm-2 control-label">密码 - ${jcaptcha}</label>
                             <div class="col-md-10 col-sm-10">
                                 <input type="password" class="form-control" name="passwd" placeholder="密码" required>
                             </div>
@@ -47,7 +47,7 @@
                             <div class="col-md-10 col-sm-10">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" id="remember"> 记住我
+                                        <input type="checkbox" name="rememberMe"> 记住我
                                     </label>
                                 </div>
                             </div>

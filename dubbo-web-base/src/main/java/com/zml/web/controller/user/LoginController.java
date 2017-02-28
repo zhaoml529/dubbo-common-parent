@@ -80,4 +80,9 @@ public class LoginController {
         }
     }
 	
+	@RequestMapping("index")
+	public String index() {
+		return "index";
+	}
+	
 }

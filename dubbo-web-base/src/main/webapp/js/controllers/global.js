@@ -2,6 +2,7 @@
  * Created by fangf on 2016/5/19.
  */
 app.controller('GlobalCtrl',function($scope,$state){
+	alert('GlobalCtrl');
     $scope.reload = function () {
         $state.reload();
     };

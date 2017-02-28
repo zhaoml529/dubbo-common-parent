@@ -7,10 +7,12 @@ app.controller("AppCtrl",function ($scope, $state) {
     };
     $scope.$on('$stateChangeStart',
         function(event, toState, toParams, fromState, fromParams){
-            if (toState.name!=='signin' && !sessionStorage.getItem('token')) {
+            /*if (toState.name!=='signin' && !sessionStorage.getItem('token')) {
                 event.preventDefault();
                 $state.go('signin');
-            }
-    		console.log('AppCtrl', toState);
+            }*/
+    		alert('go - app.admin');
+    		$state.go('app.admin');
+    		console.log('AppCtrl-', toState);
         })
 });
