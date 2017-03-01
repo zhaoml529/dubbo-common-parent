@@ -361,7 +361,7 @@
 	  </dependencies>
   </dependencyManagement>
   <modules>
-  	<module>dubbo-commo-config</module>
+  	<module>dubbo-common-config</module>
   	<module>dubbo-common</module>
   	<module>dubbo-common-core</module>
   	<module>dubbo-common-web</module>
