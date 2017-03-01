@@ -18,9 +18,11 @@
   <script type="text/javascript" src="${ctx}/js/common.js"></script>
   <script type="text/javascript" src="${ctx}/js/controllers/signin.js"></script>
   <script type="text/javascript" src="${ctx}/js/controllers/app.js"></script>
+  <script type="text/javascript" src="${ctx}/js/controllers/global.js"></script>
   <!-- <script src="js/bundle.min.js"></script> -->
 </head>
 <body data-ng-controller="AppCtrl">
-  <div ui-view></div>
+	<!-- <div ng-include="'navbar'"></div> -->
+  	<div data-ui-view></div>
 </body>
 </html>

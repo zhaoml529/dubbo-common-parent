@@ -16,5 +16,5 @@ app.controller('GlobalCtrl',function($scope,$state){
         sessionStorage.removeItem("token");
         sessionStorage.removeItem("userID");
         sessionStorage.removeItem("role");
-    }
+    };
 });

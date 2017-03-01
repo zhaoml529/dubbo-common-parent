@@ -17,6 +17,7 @@ import org.apache.shiro.cache.CacheManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.zml.common.constant.CacheConstant;
 import com.zml.common.utils.SpringContextUtil;
@@ -28,7 +29,12 @@ public class LoginController {
 	
 	private CacheManager cacheManager;
 	
-	@RequestMapping("/login")
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String toLogin() {
+		return "login";
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
     public String showLoginForm(HttpServletRequest request, Model model) throws ServletException, IOException {
         String exceptionClassName = (String) request.getAttribute("shiroLoginFailure");
         String error = null;
@@ -74,7 +80,7 @@ public class LoginController {
         }
         
         if(SecurityUtils.getSubject().isAuthenticated()) {
-        	return "index";
+        	return "newIndex";
         } else {
         	return "login";
         }

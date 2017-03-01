@@ -23,7 +23,7 @@
     <bean id="userRealm" class="com.zml.common.web.shiro.realm.UserRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
         <property name="cachingEnabled" value="true"/>				<!-- 启用缓存 -->
-		<property name="authenticationCachingEnabled" value="false"/><!-- 启用身份验证缓存，即缓存AuthenticationInfo信息，默认false -->
+		<property name="authenticationCachingEnabled" value="true"/><!-- 启用身份验证缓存，即缓存AuthenticationInfo信息，默认false -->
 		<property name="authenticationCacheName" value="authenticationCache"/><!-- 缓存AuthenticationInfo信息的缓存名称 -->
 		<property name="authorizationCachingEnabled" value="true"/><!-- 启用授权缓存，即缓存AuthorizationInfo信息，默认false -->
 		<property name="authorizationCacheName" value="authorizationCache"/><!-- 缓存AuthorizationInfo信息的缓存名称 -->
@@ -99,7 +99,7 @@
         <property name="rememberMeParam" value="rememberMe"/>
        	<property name="successUrl" value="/index"/> 	<!--指定登录成功后重定向的默认地址（默认是“/”）（如果有上一个地址会自动重定向到该地址）-->
         <!-- <property name="failureKeyAttribute" value="shiroLoginFailure" />  failureKeyAttribute指定登录失败时的 request属性 key（默认 shiroLoginFailure） -->
-        <!-- <property name="loginUrl" value="/login"/> -->	<!-- 指定身份验证的登录表单 -->
+        <property name="loginUrl" value="/login"/>	<!-- 指定身份验证的登录表单 -->
     </bean>
     
 	<!-- 验证码 -->
@@ -155,7 +155,7 @@
             	/dist/**=anon
                 /fonts/**=anon 
                 /tpls/**=anon 
-                /** = user,forceLogout,kickout
+                /** = user
             </value>
         </property>
     </bean>

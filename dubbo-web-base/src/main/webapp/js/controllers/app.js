@@ -11,8 +11,10 @@ app.controller("AppCtrl",function ($scope, $state) {
                 event.preventDefault();
                 $state.go('signin');
             }*/
-    		alert('go - app.admin');
-    		$state.go('app.admin');
+    		alert('$stateChangeStart');
     		console.log('AppCtrl-', toState);
-        })
+    	});
+    $scope.welcomePage = function () {
+    	SweetAlert.swal('提示','Welcome!','success');
+    }
 });

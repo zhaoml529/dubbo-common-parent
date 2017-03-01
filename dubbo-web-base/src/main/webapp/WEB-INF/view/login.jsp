@@ -72,5 +72,16 @@
         </div>
     </div>
 </div>
+<script>
+	$(function() {
+	    $("#captcha_img").click(function() {
+	        $("#captcha_img").attr("src", '${ctx}/jcaptcha.jpg?'+new Date().getTime());
+	    });
+	    var msg = '${msg}';
+	  	if(msg != ''){
+	  		$("#msg").removeClass("sr-only");
+	  	}
+	});
+</script>
 </body>
 </html>

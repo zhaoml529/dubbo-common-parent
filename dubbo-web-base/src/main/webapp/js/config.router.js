@@ -16,7 +16,7 @@ angular.module('app')
         [          '$stateProvider', '$urlRouterProvider',
             function ($stateProvider,   $urlRouterProvider) {
 
-                $urlRouterProvider.otherwise('/app');
+                $urlRouterProvider.otherwise('/index');
                 
                 $stateProvider
                     .state('signin', {
@@ -29,6 +29,23 @@ angular.module('app')
 		                    }]
                         }
                     })
+                    .state("index",{
+			            url: "/index",
+			            views : {
+			                '' : {
+			                    templateUrl: "tpls/layout/app.html"
+			                },
+			                'header@index' :{
+			                    templateUrl: "tpls/layout/header.html"
+			                },
+			                'main@index' :{
+			                    templateUrl: "tpls/appNone.html"
+			                },
+			                'footer@index' :{
+			                    templateUrl: "tpls/layout/footer.html"
+			                }
+			            }
+			        })
                     .state('app', {
                         controller: 'GlobalCtrl',
                         url: '/app',
