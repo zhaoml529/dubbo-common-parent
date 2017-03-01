@@ -105,13 +105,11 @@ public class UserRealm extends AuthorizingRealm{
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 user.getUserName(), //用户名
                 user.getPasswd(), 	//密码
-                new MySimpleByteSource(user.getSalt()), //原来使用(salt+name) 修改用户名时salt就不对了，所以只用salt了。
+                new MySimpleByteSource(user.getSalt().getBytes()), //原来使用(salt+name) 修改用户名时salt就不对了，所以只用salt了。
                 getName()  			//realm name
         );
-        /*Session currentSession = SecurityUtils.getSubject().getSession();
-        UserUtil.saveUserToSession(currentSession, user);*/
+        
         return authenticationInfo;
-    	
     }
 
     //系统登出后 会自动调用以下方法清理授权和认证缓存

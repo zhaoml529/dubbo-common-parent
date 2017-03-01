@@ -5,7 +5,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
@@ -46,7 +45,7 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
 
     @Override
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
-    	String ipAdd = SecurityUtils.getSubject().getSession().getHost();
+    	
         String userName = (String)token.getPrincipal();
         // retry count + 1
         AtomicInteger retryCount = passwordRetryCache.get(this.getPwdRetryKey(userName));

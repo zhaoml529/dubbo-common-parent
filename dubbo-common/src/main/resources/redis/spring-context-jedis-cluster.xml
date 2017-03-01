@@ -6,9 +6,7 @@
 		http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
 	<description>Jedis Cluster Configuration</description>
-	<!-- <context:component-scan base-package="net.lbtech.redis" /> -->
 	<!-- 加载配置属性文件 -->
-	<!-- <context:property-placeholder ignore-unresolvable="true" location="classpath:redis.properties" /> -->
 	<bean id="redisClusterConfiguration" class="org.springframework.data.redis.connection.RedisClusterConfiguration">
 		<property name="maxRedirects" value="${redis.maxRedirects}"></property>
 		<property name="clusterNodes">
@@ -40,7 +38,7 @@
 			</set>
 		</property>
 	</bean>
-	<bean id="jedisPoolConfig"   class="redis.clients.jedis.JedisPoolConfig">
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
         <property name="maxTotal" value="100" />			<!-- 最大连接数, 默认8个 -->
 		<property name="maxIdle" value="20" />				<!-- 最大空闲连接数, 默认8个 -->
 		<property name="minIdle" value="10" />				<!-- 最小空闲连接数, 默认0 -->
@@ -64,14 +62,8 @@
         <property name="keySerializer">  
 	        <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>  
 	    </property>  
-	    <property name="valueSerializer">
-	    	<bean class="org.springframework.data.redis.serializer.JacksonJsonRedisSerializer" />
-	    </property>
 	    <property name="hashKeySerializer">  
 	        <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>  
-	    </property>
-	    <property name="hashValueSerializer">
-	    	<bean class="org.springframework.data.redis.serializer.JacksonJsonRedisSerializer" />
 	    </property>
    </bean>
    

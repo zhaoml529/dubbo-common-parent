@@ -23,10 +23,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RedisUtil<T> {
+	
+	private static final long DEFAULT_CACHE_SECONDS = 3600 * 2;	// 单位秒，默认2小时
 
     @Autowired 
     @Qualifier("redisTemplate")
-    public RedisTemplate<String, T> redisTemplate;
+    private RedisTemplate<String, T> redisTemplate;
     
     @Autowired
     @Qualifier("redisTemplate")
@@ -39,8 +41,20 @@ public class RedisUtil<T> {
      * @return        缓存的对象
      */
     public void setCacheObject(String key, T value) {
-        redisTemplate.opsForValue().set(key,value);
+        this.setCacheObject(key, value, DEFAULT_CACHE_SECONDS);
     }
+    
+    /**
+     * 
+     * @param key
+     * @param value
+     * @param seconds	缓存时间，单位秒
+     */
+    public void setCacheObject(String key, T value, long seconds) {
+        redisTemplate.opsForValue().set(key,value);
+        this.expire(key, seconds, TimeUnit.SECONDS);
+    }
+    
     
     /**
      * 获得缓存的基本对象。
@@ -48,7 +62,7 @@ public class RedisUtil<T> {
      * @param operation
      * @return            缓存键值对应的数据
      */
-    public T getCacheObject(String key/*,ValueOperations<String,T> operation*/) {
+    public T getCacheObject(String key) {
         return redisTemplate.opsForValue().get(key); 
     }
     
@@ -59,16 +73,28 @@ public class RedisUtil<T> {
      * @return            缓存的对象
      */
     public ListOperations<String, T>  setCacheList(String key, List<T> dataList) {
-        ListOperations<String, T> listOperation = redisTemplate.opsForList();
-        if(null != dataList)
-        {
-            int size = dataList.size();
-            for(int i = 0; i < size ; i ++)
-            {
-                listOperation.rightPush(key,dataList.get(i));
-            }
-        }
-        return listOperation;
+        return this.setCacheList(key, dataList, DEFAULT_CACHE_SECONDS);
+    }
+    
+    /**
+     * 缓存List数据, 自定义时间
+     * @param key
+     * @param dataList
+     * @param seconds
+     * @return
+     */
+    public ListOperations<String, T>  setCacheList(String key, List<T> dataList, long seconds) {
+    	ListOperations<String, T> listOperation = redisTemplate.opsForList();
+    	if(null != dataList)
+    	{
+    		int size = dataList.size();
+    		for(int i = 0; i < size ; i ++)
+    		{
+    			listOperation.rightPush(key,dataList.get(i));
+    		}
+    	}
+    	this.expire(key, seconds, TimeUnit.SECONDS);
+    	return listOperation;
     }
     
     /**
@@ -182,19 +208,28 @@ public class RedisUtil<T> {
      * @param dataSet    缓存的数据
      * @return            缓存数据的对象
      */
-    @SuppressWarnings("unchecked")
 	public BoundSetOperations<String, T> setCacheSet(String key, Set<T> dataSet) {
-        BoundSetOperations<String, T> setOperation = redisTemplate.boundSetOps(key);    
-        /*T[] t = (T[]) dataSet.toArray();
-             setOperation.add(t);*/
-        
-        Iterator<T> it = dataSet.iterator();
-        while(it.hasNext())
-        {
-            setOperation.add(it.next());
-        }
-        return setOperation;
+        return this.setCacheSet(key, dataSet, DEFAULT_CACHE_SECONDS);
     }
+	
+	/**
+	 * 缓存Set，设置过期时间
+	 * @param key
+	 * @param dataSet
+	 * @param seconds
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public BoundSetOperations<String, T> setCacheSet(String key, Set<T> dataSet, long seconds) {
+		BoundSetOperations<String, T> setOperation = redisTemplate.boundSetOps(key);    
+		Iterator<T> it = dataSet.iterator();
+		while(it.hasNext())
+		{
+			setOperation.add(it.next());
+		}
+		this.expire(key, seconds, TimeUnit.SECONDS);
+		return setOperation;
+	}
     
     /**
      * 获得缓存的set
@@ -202,7 +237,7 @@ public class RedisUtil<T> {
      * @param operation
      * @return
      */
-    public Set<T> getCacheSet(String key/*,BoundSetOperations<String,T> operation*/) {
+    public Set<T> getCacheSet(String key) {
         Set<T> dataSet = new HashSet<T>();
         BoundSetOperations<String,T> operation = redisTemplate.boundSetOps(key);    
         
@@ -221,21 +256,26 @@ public class RedisUtil<T> {
      * @return
      */
     public int setCacheMap(String key,Map<String, Object> dataMap) {
-        if(null != dataMap)
-        {
-            HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
-            for (Map.Entry<String, Object> entry : dataMap.entrySet()) {  
-                /*System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());  */
-                if(hashOperations != null){
-                    hashOperations.put(key,entry.getKey(),entry.getValue());
-                } else{
-                    return 0;
-                }
-            } 
-        } else{
-            return 0;
-        }
-        return dataMap.size();
+        return this.setCacheMap(key, dataMap, DEFAULT_CACHE_SECONDS);
+    }
+    
+    public int setCacheMap(String key,Map<String, Object> dataMap, long seconds) {
+    	if(null != dataMap) {
+    		HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
+    		for (Map.Entry<String, Object> entry : dataMap.entrySet()) {  
+    			if(hashOperations != null) {
+    				hashOperations.put(key,entry.getKey(),entry.getValue());
+    			} else {
+    				return 0;
+    			}
+    		} 
+    		if(hashOperations.size(key) > 0) {
+    			this.expire(key, seconds, TimeUnit.SECONDS);
+    		}
+    	} else {
+    		return 0;
+    	}
+    	return dataMap.size();
     }
     
     /**
@@ -244,9 +284,8 @@ public class RedisUtil<T> {
      * @param hashOperation
      * @return
      */
-    public Map<Object, Object> getCacheMap(String key/*,HashOperations<String,String,T> hashOperation*/) {
+    public Map<Object, Object> getCacheMap(String key) {
         Map<Object, Object> map = redisTemplate.opsForHash().entries(key);
-        /*Map<String, T> map = hashOperation.entries(key);*/
         return map;
     }
     
@@ -261,7 +300,6 @@ public class RedisUtil<T> {
         if(null != dataMap)
         {
             for (Map.Entry<Integer, Object> entry : dataMap.entrySet()) {  
-                /*System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());  */
                 hashOperations.put(key,entry.getKey(),entry.getValue());
             } 
             
@@ -274,9 +312,8 @@ public class RedisUtil<T> {
      * @param hashOperation
      * @return
      */
-    public Map<Object, Object> getCacheIntegerMap(String key/*,HashOperations<String,String,T> hashOperation*/) {
+    public Map<Object, Object> getCacheIntegerMap(String key) {
         Map<Object, Object> map = redisTemplate.opsForHash().entries(key);
-        /*Map<String, T> map = hashOperation.entries(key);*/
         return map;
     }
     
@@ -347,7 +384,7 @@ public class RedisUtil<T> {
     }
     
     /**
-     * 根据key获取过期时间
+     * 根据key获取过期时间 (TTL key)
      * @param key
      * @param timeUnit
      * @return

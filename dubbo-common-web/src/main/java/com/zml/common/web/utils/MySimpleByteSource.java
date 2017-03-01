@@ -22,7 +22,7 @@ public class MySimpleByteSource extends SimpleByteSource implements Serializable
 	 */
 	private static final long serialVersionUID = 8451585740425761925L;
 	
-	public MySimpleByteSource(ByteSource source) {
+/*	public MySimpleByteSource(ByteSource source) {
 		super(source);
 	}
 
@@ -36,14 +36,14 @@ public class MySimpleByteSource extends SimpleByteSource implements Serializable
 	
 	public MySimpleByteSource(String string) {
 		super(string);
-	}
+	}*/
 	
 	public MySimpleByteSource(byte[] bytes) {
 		super(bytes);
 	}
 	
-	public MySimpleByteSource(char[] chars) {
+/*	public MySimpleByteSource(char[] chars) {
 		super(chars);
-	}
+	}*/
 
 }
