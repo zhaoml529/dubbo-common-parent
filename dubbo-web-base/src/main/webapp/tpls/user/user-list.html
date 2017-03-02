@@ -7,6 +7,7 @@
 	          <th>用户名</th>
 	          <th>编制号</th>
 	          <th>注册日期</th>
+	          <th>操作</th>
 	        </tr>
 	      </thead>
 	      <tbody>
@@ -15,6 +16,10 @@
 	          <td>{{item.userName}}</td>
 	          <td>{{item.staffNum}}</td>
 	          <td>{{item.registerDate}}</td>
+	          <td>
+	          	<button type="button" data-ng-click="edit($index)" class="btn btn-success btn-sm">编辑</button>
+	          	<button type="button" data-ng-click="del()" class="btn btn-danger btn-sm">删除</button>
+	          </td>
 	        </tr>
 	      </tbody>
 	    </table>

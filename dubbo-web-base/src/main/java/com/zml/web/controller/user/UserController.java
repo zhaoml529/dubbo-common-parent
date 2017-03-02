@@ -97,7 +97,7 @@ public class UserController extends BaseController {
         } else {
         	//currentUser.setUserName(user.getUserName());
         	currentUser.setStaffNum(user.getStaffNum());
-        	currentUser.setPasswd(user.getPasswd());
+        	//currentUser.setPasswd(user.getPasswd());
         	
         	this.userService.updateUser(currentUser);
         	message.setSuc();
