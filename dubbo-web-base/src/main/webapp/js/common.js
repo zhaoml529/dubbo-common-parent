@@ -1,5 +1,5 @@
 /**
- * Created by fangxw on 2016/4/27.
+ * Created by zml on 2016/2/20.
  */
 /**
  * 当ng-repeat渲染完成页面后的广播事件

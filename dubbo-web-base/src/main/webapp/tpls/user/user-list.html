@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <div class="row">
+	    <table class="table table-striped table-hover table-bordered">
+	      <thead>
+	        <tr>
+	          <th>#</th>
+	          <th>用户名</th>
+	          <th>编制号</th>
+	          <th>注册日期</th>
+	        </tr>
+	      </thead>
+	      <tbody>
+	        <tr data-ng-repeat="item in userList"  data-on-repeat-finish="renderTable()">
+	          <th scope="row">{{$index+1}}</th>
+	          <td>{{item.userName}}</td>
+	          <td>{{item.staffNum}}</td>
+	          <td>{{item.registerDate}}</td>
+	        </tr>
+	      </tbody>
+	    </table>
+    </div>
+</div>

@@ -19,6 +19,7 @@
   <script type="text/javascript" src="${ctx}/js/controllers/signin.js"></script>
   <script type="text/javascript" src="${ctx}/js/controllers/app.js"></script>
   <script type="text/javascript" src="${ctx}/js/controllers/global.js"></script>
+  <%-- <script type="text/javascript" src="${ctx}/js/controllers/user.js"></script> --%>
   <!-- <script src="js/bundle.min.js"></script> -->
 </head>
 <body data-ng-controller="AppCtrl">

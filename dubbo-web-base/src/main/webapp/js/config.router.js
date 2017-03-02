@@ -38,14 +38,31 @@ angular.module('app')
 			                'header@index' :{
 			                    templateUrl: "tpls/layout/header.html"
 			                },
+			                'menu@index' :{
+			                    templateUrl: "tpls/layout/menu.html"
+			                },
 			                'main@index' :{
-			                    templateUrl: "tpls/appNone.html"
+			                	templateUrl: "tpls/layout/main.html"
 			                },
 			                'footer@index' :{
 			                    templateUrl: "tpls/layout/footer.html"
 			                }
 			            }
 			        })
+			        .state('index.userList', {
+                        url: '/user',
+                        views : {
+                        	'main' :{
+                        		controller: 'userCtrl',
+			                    templateUrl: "tpls/user/user-list.html"
+			                }
+                        },
+                        resolve: {
+		                    users:["$ocLazyLoad",function($ocLazyLoad){
+		                        return $ocLazyLoad.load("js/controllers/user.js");
+		                    }]
+                        }
+                    })
                     .state('app', {
                         controller: 'GlobalCtrl',
                         url: '/app',

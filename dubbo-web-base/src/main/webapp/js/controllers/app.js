@@ -3,7 +3,7 @@
  */
 app.controller("AppCtrl",function ($scope, $state) {
     $scope.app = {
-        name:" ZHKU选课管理系统 "
+        name:"后台管理系统"
     };
     $scope.$on('$stateChangeStart',
         function(event, toState, toParams, fromState, fromParams){

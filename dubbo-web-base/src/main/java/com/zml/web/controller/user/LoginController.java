@@ -80,7 +80,7 @@ public class LoginController {
         }
         
         if(SecurityUtils.getSubject().isAuthenticated()) {
-        	return "newIndex";
+        	return "index";
         } else {
         	return "login";
         }
