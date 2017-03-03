@@ -98,4 +98,10 @@ public class UserServiceImpl implements IUserService {
 		}
 	}
 
+	@Override
+	public void updateUserStatus(Long id, Integer status)
+			throws UserServiceException {
+		this.userDao.updateUserStatus(id, status);
+	}
+
 }

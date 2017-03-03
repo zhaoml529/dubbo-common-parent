@@ -33,5 +33,7 @@ public interface IUserService {
 	public void updateUser(User user) throws UserServiceException;
 	
 	public void deleteUser(Long id) throws UserServiceException;
+	
+	public void updateUserStatus(Long id, Integer status) throws UserServiceException;
 
 }

@@ -81,4 +81,8 @@
 		select * from TB_USER where staffNum = #{staffNum} limit 1
 	</select>
 	
+	<update id="updateUserStatus">
+		update TB_USER set isLock = #{status} where id = #{id}
+	</update>
+	
 </mapper>
