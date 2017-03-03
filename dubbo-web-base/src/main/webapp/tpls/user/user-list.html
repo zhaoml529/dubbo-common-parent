@@ -1,5 +1,6 @@
 <div class="container-fluid">
     <div class="row">
+	    <button type="button" data-ng-click="add()" class="btn btn-primary btn-sm">添加</button>
 	    <table class="table table-striped table-hover table-bordered">
 	      <thead>
 	        <tr>
@@ -18,10 +19,13 @@
 	          <td>{{item.registerDate}}</td>
 	          <td>
 	          	<button type="button" data-ng-click="edit($index)" class="btn btn-success btn-sm">编辑</button>
-	          	<button type="button" data-ng-click="del()" class="btn btn-danger btn-sm">删除</button>
+	          	<button type="button" data-ng-click="del(item.id)" class="btn btn-danger btn-sm">删除</button>
+	          	<button type="button" data-ng-click="lock(item.id, item.isLock)" class="btn {{item.isLock==100?'btn-warning':'btn-info'}} btn-sm">{{item.isLock==100?'锁定':'启用'}}</button>
 	          </td>
 	        </tr>
 	      </tbody>
 	    </table>
+	    <!-- <pager page-count="pageCount" current-page="currentPage" on-page-change="onPageChange()" show-goto="true"></pager> -->
+	    <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" first-text="第一页" previous-text="上一页" next-text="下一页" last-text="最后页" boundary-links="true" boundary-link-numbers="true" ng-change="pageChanged()"></pagination>
     </div>
 </div>

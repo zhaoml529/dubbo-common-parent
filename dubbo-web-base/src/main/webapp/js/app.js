@@ -10,5 +10,6 @@ angular.module('app', [
     'ui.router',
     'ui.bootstrap',
     'oc.lazyLoad',
-    'oitozero.ngSweetAlert'
+    'oitozero.ngSweetAlert',
+    'ng-pagination'
 ]);

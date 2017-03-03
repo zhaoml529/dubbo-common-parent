@@ -5,7 +5,7 @@
  */
 angular.module('app')
     .run(
-        [          '$rootScope', '$state', '$stateParams',
+        [  '$rootScope', '$state', '$stateParams',
             function ($rootScope,   $state,   $stateParams) {
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
@@ -13,7 +13,7 @@ angular.module('app')
         ]
     )
     .config(
-        [          '$stateProvider', '$urlRouterProvider',
+        [   '$stateProvider', '$urlRouterProvider',
             function ($stateProvider,   $urlRouterProvider) {
 
                 $urlRouterProvider.otherwise('/index');
@@ -22,12 +22,12 @@ angular.module('app')
                     .state('signin', {
                         controller: 'SigninCtrl',
                         url: '/signin',
-                        templateUrl: 'tpls/signin.html',
-                        resolve: {
+                        templateUrl: 'tpls/signin.html'
+                        /*resolve: {
 		                    deps:["$ocLazyLoad",function($ocLazyLoad){
 		                        return $ocLazyLoad.load("js/controllers/signin.js");
 		                    }]
-                        }
+                        }*/
                     })
                     .state("index",{
 			            url: "/index",

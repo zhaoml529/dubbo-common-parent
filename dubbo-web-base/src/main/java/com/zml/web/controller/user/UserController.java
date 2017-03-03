@@ -21,6 +21,9 @@ import com.zml.user.service.IUserService;
 @RestController
 public class UserController extends BaseController {
 	
+	private static final Integer LOCK = 101;
+	private static final Integer ACTIVE = 100;
+	
 	@Autowired
 	private IUserService userService;
 	
@@ -126,5 +129,34 @@ public class UserController extends BaseController {
         }
         return message;
     }
+	
+	/**
+	 * 激活、锁定用户
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	@RequestMapping(value = "/user/{id}/lock/{status}", method = RequestMethod.GET)
+	public Message lock(@PathVariable("id") Long id, @PathVariable("status") Integer status) {
+		Message message = new Message();
+		if(id == null && status == null) {
+			message.setMessage("未找到相应用户信息！");
+        	message.setStatusCode(HttpStatus.NO_CONTENT);
+		} else {
+			User user = this.userService.getUserById(id);
+			if (user == null) {
+	        	message.setMessage("未找到相应用户信息！");
+	        	message.setStatusCode(HttpStatus.NO_CONTENT);
+	        } else {
+	        	if(status == 100) { // 锁定
+	        		this.userService.updateUserStatus(id, LOCK);
+	        	} else {			// 激活
+	        		this.userService.updateUserStatus(id, ACTIVE);
+	        	}
+	        	message.setSuc();
+	        }
+		}
+		return message;
+	}
 	
 }

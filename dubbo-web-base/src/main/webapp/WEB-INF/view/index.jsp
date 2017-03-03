@@ -11,16 +11,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <link rel="stylesheet" href="${ctx}/dist/css/vendor.css" type="text/css" />
   <link rel="stylesheet" href="${ctx}/dist/css/bundle.css" type="text/css" />
+  <link rel="stylesheet" href="${ctx}/css/vendor/ng-pagination.css" type="text/css" />
   <script type="text/javascript" src="${ctx}/dist/js/vendor.min.js"></script>
   <script type="text/javascript" src="${ctx}/js/app.js"></script>
   <script type="text/javascript" src="${ctx}/js/config.js"></script>
   <script type="text/javascript" src="${ctx}/js/config.router.js"></script>
   <script type="text/javascript" src="${ctx}/js/common.js"></script>
+  <script type="text/javascript" src="${ctx}/js/vendor/angular/ng-pagination.js"></script>
   <script type="text/javascript" src="${ctx}/js/controllers/signin.js"></script>
   <script type="text/javascript" src="${ctx}/js/controllers/app.js"></script>
   <script type="text/javascript" src="${ctx}/js/controllers/global.js"></script>
-  <%-- <script type="text/javascript" src="${ctx}/js/controllers/user.js"></script> --%>
-  <!-- <script src="js/bundle.min.js"></script> -->
 </head>
 <body data-ng-controller="AppCtrl">
 	<!-- <div ng-include="'navbar'"></div> -->

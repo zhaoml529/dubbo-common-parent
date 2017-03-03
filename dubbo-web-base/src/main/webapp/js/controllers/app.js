@@ -1,7 +1,7 @@
 /**
  * Created by fangf on 2016/5/22.
  */
-app.controller("AppCtrl",function ($scope, $state) {
+app.controller("AppCtrl",function ($scope, $state, SweetAlert) {
     $scope.app = {
         name:"后台管理系统"
     };
@@ -11,10 +11,13 @@ app.controller("AppCtrl",function ($scope, $state) {
                 event.preventDefault();
                 $state.go('signin');
             }*/
-    		alert('$stateChangeStart');
-    		console.log('AppCtrl-', toState);
+    	console.log('AppCtrl-', toState);
+    	if(toState.name.toLowerCase().indexOf('list') || toState.name.toLowerCase().indexOf('page'))
+    		// 分页参数初始化
+    		$scope.maxSize = 5;			// 页面上可选页数范围
+    	    $scope.currentPage = 1;		// 当前页
     	});
     $scope.welcomePage = function () {
-    	SweetAlert.swal('提示','Welcome!','success');
+    	SweetAlert.swal("提示", "Welcome!", "success");
     }
 });

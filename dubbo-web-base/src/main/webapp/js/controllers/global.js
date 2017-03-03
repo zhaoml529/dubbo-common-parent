@@ -2,7 +2,6 @@
  * Created by zml on 2017/2/20.
  */
 app.controller('GlobalCtrl',function($scope,$state){
-	alert('GlobalCtrl');
     $scope.reload = function () {
         $state.reload();
     };

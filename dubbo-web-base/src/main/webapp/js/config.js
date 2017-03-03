@@ -45,8 +45,8 @@ app.config(
         app.service    = $provide.service;
         app.constant   = $provide.constant;
         app.value      = $provide.value;
-        $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
-        $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+        $httpProvider.defaults.headers.put['Content-Type'] = 'application/json;charset=UTF-8';
+        $httpProvider.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 
         $httpProvider.defaults.transformRequest = function (data) {
             return angular.isObject(data) && String(data) !== '[object File]' ? $.param(data) : data;
