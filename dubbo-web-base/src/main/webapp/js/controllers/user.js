@@ -30,7 +30,7 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert) 
     //$scope.currentPage = 4;		// 当前页
     $scope.pageChanged = function() {
         console.dir('Page changed to: ' + $scope.currentPage);
-        console.dir('$scope: ' + $scope.pages);
+        console.dir('$scope: ' + $scope.itemsPerPage);
     };
     
     // 添加
