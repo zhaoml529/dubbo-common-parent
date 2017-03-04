@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zml.common.constant.CacheConstant;
+import com.zml.common.page.Datagrid;
+import com.zml.common.page.Parameter;
 import com.zml.common.utils.cache.redis.RedisUtil;
 import com.zml.user.dao.IUserDao;
 import com.zml.user.entity.User;
@@ -102,6 +104,13 @@ public class UserServiceImpl implements IUserService {
 	public void updateUserStatus(Long id, Integer status)
 			throws UserServiceException {
 		this.userDao.updateUserStatus(id, status);
+	}
+
+	@Override
+	public Datagrid getUserPage(Parameter<User> param) throws UserServiceException {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		Datagrid datagrid = this.userDao.listPage(param.getPage(), paramMap);
+		return datagrid;
 	}
 
 }

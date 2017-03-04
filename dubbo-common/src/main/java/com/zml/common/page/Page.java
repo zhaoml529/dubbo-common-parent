@@ -1,5 +1,7 @@
 package com.zml.common.page;
 
+import java.io.Serializable;
+
 /**
  * easyui 分页
  * page   当前第几页
@@ -8,7 +10,12 @@ package com.zml.common.page;
  *
  * @param <T>
  */
-public class Page<T> {
+public class Page<T> implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -920616597516144699L;
+	
 	private Integer page;
 	private Integer rows;
 	
