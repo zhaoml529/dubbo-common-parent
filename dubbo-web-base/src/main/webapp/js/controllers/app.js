@@ -16,6 +16,7 @@ app.controller("AppCtrl",function ($scope, $state, SweetAlert) {
     		// 分页参数初始化
     		$scope.maxSize = 5;			// 页面上可选页数范围
     	    $scope.currentPage = 1;		// 当前页
+    	    $scope.itemsPerPage = 2;	// 每页显示多少条数据
     	});
     $scope.welcomePage = function () {
     	SweetAlert.swal("提示", "Welcome!", "success");

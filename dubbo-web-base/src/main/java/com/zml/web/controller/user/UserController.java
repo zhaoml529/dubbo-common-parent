@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.zml.common.page.Datagrid;
+import com.zml.common.page.Parameter;
 import com.zml.common.web.base.BaseController;
 import com.zml.common.web.entity.Message;
 import com.zml.user.entity.User;
@@ -43,7 +45,7 @@ public class UserController extends BaseController {
 	}
 	
 	/**
-	 * 获取所有用户信息
+	 * 获取所有用户列表
 	 * @return
 	 */
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
@@ -57,6 +59,22 @@ public class UserController extends BaseController {
         message.setData(users);
         return message;
     }
+	
+	/**
+	 * 分页获取用户列表
+	 * @param param
+	 * @return
+	 */
+	@RequestMapping(value = "/listUser", method = RequestMethod.POST)
+	public Message listUserPage(@RequestBody Parameter<User> param) {
+		Message message = new Message();
+		Datagrid datagrid = this.userService.getUserPage(param);
+		datagrid.getTotal();
+		datagrid.getRows();
+		message.setMessage("获取列表成功！");
+        message.setData(datagrid);
+        return message;
+	}
 	
 	/**
 	 * 添加用户

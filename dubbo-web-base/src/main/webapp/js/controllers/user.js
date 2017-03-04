@@ -31,6 +31,35 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert) 
     $scope.pageChanged = function() {
         console.dir('Page changed to: ' + $scope.currentPage);
         console.dir('$scope: ' + $scope.itemsPerPage);
+        /*var param;
+        param.currPage = $scope.currentPage;
+        param.rows = $scope.itemsPerPage;*/ 
+        
+        /*$http.post(host+'/userList',angular.toJson(param)).success(function (d) {
+        	if (d.statusCode=='OK') {
+        		$scope.totalItems = d.data.total;
+            	$scope.userList = d.data.rows;
+            } 
+            if (d.data.length==0) {
+            	$('.table').dataTable();
+            }
+        });*/
+        
+        var param = {"currPage" : $scope.currentPage, "rows" : $scope.itemsPerPage};
+        $http({
+            method: "post",
+            data: angular.toJson(param),//JsonData = {"id":1,"value":"hello"}
+            url: host+"/listUser"
+        }).success(function (d) { 
+        	if (d.statusCode=='OK') {
+        		$scope.totalItems = d.data.total;
+            	$scope.userList = d.data.rows;
+            } else {
+            	$('.table').dataTable();
+            }
+        }).error(function(error){
+        	console.log(error);
+        });
     };
     
     // 添加
