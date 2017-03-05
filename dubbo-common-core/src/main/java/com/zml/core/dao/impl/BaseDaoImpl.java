@@ -34,6 +34,7 @@ public class BaseDaoImpl<T extends BaseEntity> extends SqlSessionDaoSupport impl
 	public static final String SQL_GET_BY_ID = "getById";
 	public static final String SQL_DELETE_BY_ID = "deleteById";
 	public static final String SQL_LIST_PAGE = "listPage";
+	public static final String SQL_LIST_COUNT = "listCount";
 	public static final String SQL_GET_LIST = "getList";
 	
 	@Autowired
@@ -140,11 +141,14 @@ public class BaseDaoImpl<T extends BaseEntity> extends SqlSessionDaoSupport impl
 		
 		int[] pageParams = pageParam.getPageParams();
 		// 获取分页数据集 , 注切勿换成 sessionTemplate 对象
-		List<Object> list = this.sessionTemplate.selectList(getStatement(SQL_LIST_PAGE), paramMap, new RowBounds(pageParams[0], pageParams[1]));
+		// List<Object> list = this.sessionTemplate.selectList(getStatement(SQL_LIST_PAGE), paramMap, new RowBounds(pageParams[0], pageParams[1]));
+		List<Object> list = getSqlSession().selectList(getStatement(SQL_LIST_PAGE), paramMap, new RowBounds(pageParams[0], pageParams[1]));
+		System.out.println("################################################: "+pageParams[0]+" -- " + pageParams[1]);
 		// 统计总记录数
-		Object countObject = this.sessionTemplate.selectOne(getStatement(SQL_LIST_PAGE), paramMap);
+		// Object countObject = this.sessionTemplate.selectOne(getStatement(SQL_LIST_PAGE), paramMap);
+		Object countObject = (Object) getSqlSession().selectOne(getStatement(SQL_LIST_COUNT), paramMap);
 		Long count = Long.valueOf(countObject.toString());
-		
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!: " + count);
 		return new Datagrid(count, list);
 	}
 

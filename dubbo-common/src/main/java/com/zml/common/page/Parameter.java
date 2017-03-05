@@ -25,12 +25,16 @@ public class Parameter<T> implements Serializable {
 	private Page<T> page;
 	
 	public Parameter() {
+
+	}
+
+	public void initPage() {
 		Page<T> page = new Page<T>();
 		page.setPage(this.currPage);
 		page.setRows(this.rows);
 		this.page = page;
 	}
-
+	
 	public String getSearchName() {
 		return searchName;
 	}
