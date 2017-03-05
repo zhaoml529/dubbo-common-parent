@@ -52,12 +52,14 @@
 	<select id="listPage" parameterType="java.util.Map" resultType="User">
 		select * from
 		<include refid="table" />
-		<where>
-			<include refid="condition_sql" />
-		</where>
 		<![CDATA[ order by id desc]]>
 	</select>
-
+	
+	<select id="listCount" parameterType="java.util.Map" resultType="int">
+		select count(1) from
+		<include refid="table"></include>
+	</select>
+	
 	<select id="getList" parameterType="java.util.Map" resultType="User">
 		select * from
 		<include refid="table" />
