@@ -45,6 +45,15 @@ public class BaseDaoImpl<T extends BaseEntity> extends SqlSessionDaoSupport impl
 	
 	@Autowired
 	private DruidDataSource druidDataSource;
+	
+	/**
+	 * mybatis-spring-1.2.x以后源码取消了自动注入SqlSessionFactory 和 SqlSessionTemplate，此处手动注入一下
+	 * 否则会报 Property 'sqlSessionFactory' or 'sqlSessionTemplate' are required 异常
+	 */
+	@Autowired
+    public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
+        super.setSqlSessionTemplate(sqlSessionTemplate);
+    }
 
 	public SqlSessionTemplate getSessionTemplate() {
 		return sessionTemplate;
@@ -143,12 +152,10 @@ public class BaseDaoImpl<T extends BaseEntity> extends SqlSessionDaoSupport impl
 		// 获取分页数据集 , 注切勿换成 sessionTemplate 对象
 		// List<Object> list = this.sessionTemplate.selectList(getStatement(SQL_LIST_PAGE), paramMap, new RowBounds(pageParams[0], pageParams[1]));
 		List<Object> list = getSqlSession().selectList(getStatement(SQL_LIST_PAGE), paramMap, new RowBounds(pageParams[0], pageParams[1]));
-		System.out.println("################################################: "+pageParams[0]+" -- " + pageParams[1]);
 		// 统计总记录数
 		// Object countObject = this.sessionTemplate.selectOne(getStatement(SQL_LIST_PAGE), paramMap);
 		Object countObject = (Object) getSqlSession().selectOne(getStatement(SQL_LIST_COUNT), paramMap);
 		Long count = Long.valueOf(countObject.toString());
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!: " + count);
 		return new Datagrid(count, list);
 	}
 

@@ -108,9 +108,8 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public Datagrid getUserPage(Parameter<User> param) throws UserServiceException {
-		Map<String, Object> paramMap = new HashMap<String, Object>();
 		param.initPage();
-		Datagrid datagrid = this.userDao.listPage(param.getPage(), paramMap);
+		Datagrid datagrid = this.userDao.listPage(param.getPage(), param.getParamMap());
 		return datagrid;
 	}
 

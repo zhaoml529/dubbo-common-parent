@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zml.user.dao.IUserDao">
+<mapper namespace="com.zml.user.dao.impl.UserDaoImpl">
 
 	<sql id="table">TB_USER</sql>
 
@@ -51,13 +51,19 @@
 	<!-- 根据多参数进行查询数据 -->
 	<select id="listPage" parameterType="java.util.Map" resultType="User">
 		select * from
-		<include refid="table" />
+		<include refid="table"/>
+		<where>
+			<include refid="condition_sql" />
+		</where>
 		<![CDATA[ order by id desc]]>
 	</select>
 	
 	<select id="listCount" parameterType="java.util.Map" resultType="int">
 		select count(1) from
-		<include refid="table"></include>
+		<include refid="table"/>
+		<where>
+			<include refid="condition_sql" />
+		</where>
 	</select>
 	
 	<select id="getList" parameterType="java.util.Map" resultType="User">
@@ -83,7 +89,7 @@
 		select * from TB_USER where staffNum = #{staffNum} limit 1
 	</select>
 	
-	<update id="updateUserStatus">
+	<update id="updateUserStatus" parameterType="map">
 		update TB_USER set isLock = #{status} where id = #{id}
 	</update>
 	

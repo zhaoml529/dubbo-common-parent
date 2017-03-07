@@ -82,15 +82,19 @@
 	</bean>
 	
 	<!--配置扫描Dao接口包,动态实现DAO接口,注入到spring容器-->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <!--注入SqlSessionFactory-->
-        <!-- <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/> -->
-        <!-- 给出需要扫描的Dao接口-->
-        <property name="basePackage" value="com.zml.user.dao"/>
-    </bean>
+<!--     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        注入SqlSessionFactory
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        给出需要扫描的Dao接口
+        <property name="basePackage" value="com.zml.user.dao,com.zml.core.dao"/>
+    </bean> -->
+    
+    <bean id="mybatisMapperScannerConfigure" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.zml.user.dao" />
+    </bean>  
 	
 	<!-- SqlSession模板类实例 -->
-	<bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
+	<bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
 	
@@ -102,8 +106,9 @@
 	</bean>
 	
     <!-- <aop:config proxy-target-class="true"></aop:config> -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
 	<!-- 注解事务 -->
-	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 	<!--======= 事务配置 End =================== -->
 		
 	<!-- <import resource="classpath:spring/spring-activemq.xml" /> -->

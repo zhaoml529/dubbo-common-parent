@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.zml.core.dao.impl.BaseDaoImpl;
 import com.zml.user.dao.ICompanyDao;
 import com.zml.user.entity.Company;
 import com.zml.user.exceptions.CompanyServiceException;
