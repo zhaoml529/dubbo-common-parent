@@ -16,6 +16,8 @@ import com.zml.common.constant.CacheConstant;
 import com.zml.common.utils.cache.redis.RedisUtil;
 import com.zml.common.utils.cache.redis.SerializeUtils;
 
+
+
 public class RedisCache<K,V> implements Cache<K,V> {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());  
 	private RedisUtil<V> redisUtil;

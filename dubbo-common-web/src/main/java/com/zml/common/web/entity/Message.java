@@ -1,5 +1,8 @@
 package com.zml.common.web.entity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 
 public class Message {
@@ -8,6 +11,17 @@ public class Message {
 	private HttpStatus statusCode = HttpStatus.OK;
 	private Object data = "";	//需要传递的数据
 	
+	private Map<String, Object> paramMap = new HashMap<String, Object>();
+	
+	
+	public Map<String, Object> getParamMap() {
+		return paramMap;
+	}
+
+	public void setParamMap(Map<String, Object> paramMap) {
+		this.paramMap = paramMap;
+	}
+
 	public void setSuc() {
 		this.message = "请求成功！";
 	}

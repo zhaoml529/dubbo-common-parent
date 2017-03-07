@@ -1,6 +1,8 @@
 package com.zml.web.controller.user;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +75,10 @@ public class UserController extends BaseController {
 		datagrid.getRows();
 		message.setMessage("获取列表成功！");
         message.setData(datagrid);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userName", "admin");
+        map.put("staffNum", "100001");
+        message.setParamMap(map);
         return message;
 	}
 	

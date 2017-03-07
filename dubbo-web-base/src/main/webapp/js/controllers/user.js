@@ -15,7 +15,6 @@
  * $http.patch
  */
 app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert) {
-	alert($state.current.name);
 	// 获取列表
     $http.get(host+'/user').success(function (d) {
         if (d.statusCode=='OK') {
@@ -25,32 +24,24 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert) 
         	$('.table').dataTable();
         }
     });
-    //$scope.maxSize = 3;			// 页面上可选页数范围
-    $scope.totalItems = 100;	// 总共有多少数据
-    //$scope.currentPage = 4;		// 当前页
+    
+    /**
+     * $scope.maxSize		页面上可选页数范围
+     * $scope.totalItems	总共有多少数据
+     * $scope.currentPage	当前页
+     */
     $scope.pageChanged = function() {
         console.dir('Page changed to: ' + $scope.currentPage);
         console.dir('$scope: ' + $scope.itemsPerPage);
-        /*var param;
-        param.currPage = $scope.currentPage;
-        param.rows = $scope.itemsPerPage;*/ 
         
-        /*$http.post(host+'/userList',angular.toJson(param)).success(function (d) {
-        	if (d.statusCode=='OK') {
-        		$scope.totalItems = d.data.total;
-            	$scope.userList = d.data.rows;
-            } 
-            if (d.data.length==0) {
-            	$('.table').dataTable();
-            }
-        });*/
-        
-        var param = {"currPage" : $scope.currentPage, "rows" : $scope.itemsPerPage};
+        var param = {"currPage" : $scope.currentPage, "rows" : $scope.itemsPerPage, "paramMap" : {"userName" : "admin", "staffNum" : "10001"}};
         $http({
             method: "post",
             data: angular.toJson(param),//JsonData = {"id":1,"value":"hello"}
             url: host+"/listUser"
         }).success(function (d) { 
+        	console.dir(d);
+        	console.dir(angular.toJson(d));
         	if (d.statusCode=='OK') {
         		$scope.totalItems = d.data.total;
             	$scope.userList = d.data.rows;
