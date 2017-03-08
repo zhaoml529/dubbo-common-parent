@@ -48,6 +48,11 @@ public class UserServiceException extends ServiceException {
 	 */
 	public static final int USER_ID_NOT_EXIST = 10010008;
 	
+	/**
+	 * 更新用户失败
+	 */
+	public static final int UPDATE_USER_FAIL = 10010009;
+	
 	public UserServiceException() {
 		
 	}
@@ -58,5 +63,9 @@ public class UserServiceException extends ServiceException {
 	
 	public UserServiceException(int code, String msg) {
 		super(code, msg);
+	}
+	
+	public static UserServiceException create(String msg, int code) {
+		return new UserServiceException(code, msg);
 	}
 }

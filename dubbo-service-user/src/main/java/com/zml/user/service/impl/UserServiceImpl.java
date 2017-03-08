@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zml.common.constant.CacheConstant;
-import com.zml.common.page.Datagrid;
+import com.zml.common.page.Page;
 import com.zml.common.page.Parameter;
 import com.zml.common.utils.cache.redis.RedisUtil;
 import com.zml.user.dao.IUserDao;
@@ -107,10 +107,10 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public Datagrid getUserPage(Parameter<User> param) throws UserServiceException {
+	public Page getUserPage(Parameter<User> param) throws UserServiceException {
 		param.initPage();
-		Datagrid datagrid = this.userDao.listPage(param.getPage(), param.getParamMap());
-		return datagrid;
+		Page page = this.userDao.listPage(param.getPageParam(), param.getParamMap());
+		return page;
 	}
 
 }

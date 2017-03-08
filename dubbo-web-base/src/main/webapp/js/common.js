@@ -30,6 +30,10 @@ app.directive('onRepeatFinish', function($timeout) {
 		}
 	}
 });
+
+/**
+ * 异常处理
+ */
 app.config(function($provide) {
 
 	// Fix sourcemaps
@@ -44,6 +48,7 @@ app.config(function($provide) {
 	});
 
 });
+
 function getSelectedList() {
 	var ids = [];
 	$("input[name=list]:checked").each(function () {

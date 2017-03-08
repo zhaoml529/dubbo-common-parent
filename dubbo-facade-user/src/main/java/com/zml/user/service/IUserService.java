@@ -2,7 +2,7 @@ package com.zml.user.service;
 
 import java.util.List;
 
-import com.zml.common.page.Datagrid;
+import com.zml.common.page.Page;
 import com.zml.common.page.Parameter;
 import com.zml.user.entity.User;
 import com.zml.user.exceptions.UserServiceException;
@@ -18,7 +18,7 @@ public interface IUserService {
 	
 	public List<User> getAllUser() throws UserServiceException;
 	
-	public Datagrid getUserPage(Parameter<User> param) throws UserServiceException;
+	public Page getUserPage(Parameter<User> param) throws UserServiceException;
 	
 	public User getUserByName(String userName) throws UserServiceException;
 	

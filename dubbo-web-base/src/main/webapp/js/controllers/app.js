@@ -13,7 +13,7 @@ app.controller("AppCtrl",function ($scope, $state, SweetAlert) {
             }*/
     	console.log('AppCtrl-', toState);
     	if(toState.name.toLowerCase().indexOf('list') || toState.name.toLowerCase().indexOf('page'))
-    		// 分页参数初始化
+    		// datatable分页参数初始化
     		$scope.maxSize = 5;			// 页面上可选页数范围
     	    $scope.currentPage = 1;		// 当前页
     	    $scope.itemsPerPage = 2;	// 每页显示多少条数据

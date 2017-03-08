@@ -1,8 +1,6 @@
 package com.zml.web.controller.user;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.zml.common.page.Datagrid;
+import com.zml.common.page.Page;
 import com.zml.common.page.Parameter;
 import com.zml.common.web.base.BaseController;
 import com.zml.common.web.entity.Message;
@@ -41,7 +39,11 @@ public class UserController extends BaseController {
 	public Message getDetail(@PathVariable("id") long id) {
 		Message message = new Message();
 		User user = this.userService.getUserById(id);
-		message.setData(user);
+		if(user == null) {
+			throw UserServiceException.create("未找到相应用户信息！", UserServiceException.USERINFO_NOT_EXIST);
+		} else {
+			message.setData(user);
+		}
 		return message;
 		
 	}
@@ -55,7 +57,7 @@ public class UserController extends BaseController {
 		Message message = new Message();
         List<User> users = userService.getAllUser();
         if(users.isEmpty()){
-        	message.setStatusCode(HttpStatus.NO_CONTENT);
+        	message.setStatusCode(HttpStatus.NO_CONTENT.value());
         }
         message.setMessage("获取列表成功！");
         message.setData(users);
@@ -70,15 +72,10 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/listUser", method = RequestMethod.POST)
 	public Message listUserPage(@RequestBody Parameter<User> param) {
 		Message message = new Message();
-		Datagrid datagrid = this.userService.getUserPage(param);
-		datagrid.getTotal();
-		datagrid.getRows();
+		Page page = this.userService.getUserPage(param);
 		message.setMessage("获取列表成功！");
-        message.setData(datagrid);
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("userName", "admin");
-        map.put("staffNum", "100001");
-        message.setParamMap(map);
+        message.setData(page.getRecordList());
+        message.setTotalCount(page.getTotalCount());
         return message;
 	}
 	
@@ -91,18 +88,15 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	public Message createUser(@RequestBody User user) {
 		Message message = new Message();
-		try {
-			if(this.userService.isUserExist(user)) {
-				message.setMessage("此用户已经存在！");
-				message.setStatusCode(HttpStatus.CONFLICT);
-			} else {
-				this.userService.addUser(user);
-				this.logSave("添加用户成功！");
-				message.setMessage("添加用户成功！");
-			}
-		} catch (UserServiceException e) {
-			this.logSaveErr("添加用户失败："+e.getErrMsg(), e.getCode());
-			message.setMessage("添加用户失败!");
+		if(this.userService.isUserExist(user)) {
+			/*message.setMessage("此用户已经存在！");
+			message.setStatusCode(HttpStatus.CONFLICT.value());*/
+			this.logSaveErr("用户已经存在！", UserServiceException.USERINFO_IS_EXIST);
+			throw UserServiceException.create("用户已经存在！", UserServiceException.USERINFO_IS_EXIST);
+		} else {
+			this.userService.addUser(user);
+			this.logSave("添加用户成功！");
+			message.setMessage("添加用户成功！");
 		}
 		return message;
 	}
@@ -119,8 +113,9 @@ public class UserController extends BaseController {
         User currentUser = this.userService.getUserById(id);
          
         if (currentUser == null) {
-        	message.setMessage("更新用户失败！");
-        	message.setStatusCode(HttpStatus.NO_CONTENT);
+        	/*message.setMessage("更新用户失败！");
+        	message.setStatusCode(HttpStatus.NO_CONTENT.value());*/
+        	throw UserServiceException.create("更新用户失败！", UserServiceException.UPDATE_USER_FAIL);
         } else {
         	//currentUser.setUserName(user.getUserName());
         	currentUser.setStaffNum(user.getStaffNum());
@@ -145,8 +140,9 @@ public class UserController extends BaseController {
         System.out.println("Fetching & Deleting User with id " + id);
         User user = this.userService.getUserById(id);
         if (user == null) {
-        	message.setMessage("未找到相应用户信息！");
-        	message.setStatusCode(HttpStatus.NO_CONTENT);
+        	/*message.setMessage("未找到相应用户信息！");
+        	message.setStatusCode(HttpStatus.NO_CONTENT.value());*/
+        	throw UserServiceException.create("未找到相应用户信息！", UserServiceException.USERINFO_NOT_EXIST);
         } else {
         	this.userService.deleteUser(id);
         	message.setSuc();
@@ -163,14 +159,16 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/user/{id}/lock/{status}", method = RequestMethod.GET)
 	public Message lock(@PathVariable("id") Long id, @PathVariable("status") Integer status) {
 		Message message = new Message();
-		if(id == null && status == null) {
-			message.setMessage("未找到相应用户信息！");
-        	message.setStatusCode(HttpStatus.NO_CONTENT);
+		if(id == null || status == null) {
+			/*message.setMessage("未找到相应用户信息！");
+        	message.setStatusCode(HttpStatus.NO_CONTENT.value());*/
+			throw UserServiceException.create("未找到相应用户信息！", UserServiceException.USERINFO_NOT_EXIST);
 		} else {
 			User user = this.userService.getUserById(id);
 			if (user == null) {
-	        	message.setMessage("未找到相应用户信息！");
-	        	message.setStatusCode(HttpStatus.NO_CONTENT);
+	        	/*message.setMessage("未找到相应用户信息！");
+	        	message.setStatusCode(HttpStatus.NO_CONTENT.value());*/
+				throw UserServiceException.create("未找到相应用户信息！", UserServiceException.USERINFO_NOT_EXIST);
 	        } else {
 	        	if(status == 100) { // 锁定
 	        		this.userService.updateUserStatus(id, LOCK);

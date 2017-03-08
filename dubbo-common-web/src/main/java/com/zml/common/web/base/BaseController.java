@@ -1,6 +1,7 @@
 package com.zml.common.web.base;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.zml.common.web.enums.OperateLogStatusEnum;
 import com.zml.common.web.enums.OperateLogTypeEnum;
@@ -9,6 +10,7 @@ import com.zml.user.entity.User;
 import com.zml.user.entity.UserOperateLog;
 import com.zml.user.service.IUserOperateLogService;
 
+@Transactional
 public class BaseController {
 
 	@Autowired
@@ -25,7 +27,7 @@ public class BaseController {
 	 * 记录登陆错误日志
 	 * @param operateContent
 	 */
-	protected void logLoginErr(String operateContent) {
+	protected void logLoginErr(String operateContent, int...errorCode) {
 		this.setOperateLog(OperateLogTypeEnum.LOGOUT, OperateLogStatusEnum.ERROR, operateContent);
 	}
 	
@@ -57,7 +59,7 @@ public class BaseController {
 	 * 记录更新数据错误日志
 	 * @param operateContent
 	 */
-	protected void logUpdateErr(String operateContent) {
+	protected void logUpdateErr(String operateContent, int...errorCode) {
 		this.setOperateLog(OperateLogTypeEnum.UPDATE, OperateLogStatusEnum.ERROR, operateContent);
 	}
 	
@@ -73,7 +75,7 @@ public class BaseController {
 	 * 记录删除数据错误日志
 	 * @param operateContent
 	 */
-	protected void logDeleteErr(String operateContent) {
+	protected void logDeleteErr(String operateContent, int...errorCode) {
 		this.setOperateLog(OperateLogTypeEnum.DELETE, OperateLogStatusEnum.ERROR, operateContent);
 	}
 	
@@ -89,7 +91,7 @@ public class BaseController {
 	 * 记录查询数据错误日志
 	 * @param operateContent
 	 */
-	protected void logQueryErr(String operateContent) {
+	protected void logQueryErr(String operateContent, int...errorCode) {
 		this.setOperateLog(OperateLogTypeEnum.QUERYA, OperateLogStatusEnum.ERROR, operateContent);
 	}
 	
