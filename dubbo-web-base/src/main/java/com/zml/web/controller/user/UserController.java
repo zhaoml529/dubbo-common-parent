@@ -89,8 +89,6 @@ public class UserController extends BaseController {
 	public Message createUser(@RequestBody User user) {
 		Message message = new Message();
 		if(this.userService.isUserExist(user)) {
-			/*message.setMessage("此用户已经存在！");
-			message.setStatusCode(HttpStatus.CONFLICT.value());*/
 			this.logSaveErr("用户已经存在！", UserServiceException.USERINFO_IS_EXIST);
 			throw UserServiceException.create("用户已经存在！", UserServiceException.USERINFO_IS_EXIST);
 		} else {
@@ -113,8 +111,6 @@ public class UserController extends BaseController {
         User currentUser = this.userService.getUserById(id);
          
         if (currentUser == null) {
-        	/*message.setMessage("更新用户失败！");
-        	message.setStatusCode(HttpStatus.NO_CONTENT.value());*/
         	throw UserServiceException.create("更新用户失败！", UserServiceException.UPDATE_USER_FAIL);
         } else {
         	//currentUser.setUserName(user.getUserName());
@@ -140,8 +136,6 @@ public class UserController extends BaseController {
         System.out.println("Fetching & Deleting User with id " + id);
         User user = this.userService.getUserById(id);
         if (user == null) {
-        	/*message.setMessage("未找到相应用户信息！");
-        	message.setStatusCode(HttpStatus.NO_CONTENT.value());*/
         	throw UserServiceException.create("未找到相应用户信息！", UserServiceException.USERINFO_NOT_EXIST);
         } else {
         	this.userService.deleteUser(id);
@@ -160,14 +154,10 @@ public class UserController extends BaseController {
 	public Message lock(@PathVariable("id") Long id, @PathVariable("status") Integer status) {
 		Message message = new Message();
 		if(id == null || status == null) {
-			/*message.setMessage("未找到相应用户信息！");
-        	message.setStatusCode(HttpStatus.NO_CONTENT.value());*/
 			throw UserServiceException.create("未找到相应用户信息！", UserServiceException.USERINFO_NOT_EXIST);
 		} else {
 			User user = this.userService.getUserById(id);
 			if (user == null) {
-	        	/*message.setMessage("未找到相应用户信息！");
-	        	message.setStatusCode(HttpStatus.NO_CONTENT.value());*/
 				throw UserServiceException.create("未找到相应用户信息！", UserServiceException.USERINFO_NOT_EXIST);
 	        } else {
 	        	if(status == 100) { // 锁定
