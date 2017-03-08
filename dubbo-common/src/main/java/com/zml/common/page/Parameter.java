@@ -15,29 +15,28 @@ public class Parameter<T> implements Serializable {
 	 */
 	private static final long serialVersionUID = 7193164122478117559L;
 	
-	//模糊查询
-	private String searchName;
-	private String searchValue;
-	//分页
+	// 分页
 	private Integer currPage;	// 当前第几页
-	private Integer rows;		// 每页多少条数据
+	private Integer numPage;	// 每页多少条数据
 	
 	private String sort; 
 	private String order;
 	
+	// 查询条件
 	private Map<String, Object> paramMap = new HashMap<String, Object>();
 	
-	private Page<T> page;
+	// 分页参数
+	private PageParam pageParam;
 	
 	public Parameter() {
 
 	}
 
 	public void initPage() {
-		Page<T> page = new Page<T>();
-		page.setPage(this.currPage);
-		page.setRows(this.rows);
-		this.page = page;
+		PageParam page = new PageParam();
+		page.setCurrPage(this.currPage);
+		page.setNumPage(this.numPage);
+		this.pageParam = page;
 	}
 	
 	public Map<String, Object> getParamMap() {
@@ -48,22 +47,6 @@ public class Parameter<T> implements Serializable {
 		this.paramMap = paramMap;
 	}
 
-	public String getSearchName() {
-		return searchName;
-	}
-
-	public void setSearchName(String searchName) {
-		this.searchName = searchName;
-	}
-
-	public String getSearchValue() {
-		return searchValue;
-	}
-
-	public void setSearchValue(String searchValue) {
-		this.searchValue = searchValue;
-	}
-
 	public Integer getCurrPage() {
 		return currPage;
 	}
@@ -72,12 +55,12 @@ public class Parameter<T> implements Serializable {
 		this.currPage = currPage;
 	}
 
-	public Integer getRows() {
-		return rows;
+	public Integer getNumPage() {
+		return numPage;
 	}
 
-	public void setRows(Integer rows) {
-		this.rows = rows;
+	public void setNumPage(Integer numPage) {
+		this.numPage = numPage;
 	}
 
 	public String getSort() {
@@ -96,12 +79,12 @@ public class Parameter<T> implements Serializable {
 		this.order = order;
 	}
 
-	public Page<T> getPage() {
-		return page;
+	public PageParam getPageParam() {
+		return pageParam;
 	}
 
-	public void setPage(Page<T> page) {
-		this.page = page;
+	public void setPageParam(PageParam pageParam) {
+		this.pageParam = pageParam;
 	}
-	
+
 }

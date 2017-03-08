@@ -15,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.zml.common.entity.BaseEntity;
 import com.zml.common.exceptions.ServiceException;
-import com.zml.common.page.Datagrid;
 import com.zml.common.page.Page;
+import com.zml.common.page.PageParam;
 import com.zml.core.dao.BaseDao;
 
 /**
@@ -143,36 +143,36 @@ public class BaseDaoImpl<T extends BaseEntity> extends SqlSessionDaoSupport impl
 	}
 
 	@Override
-	public Datagrid listPage(Page<T> pageParam, Map<String, Object> paramMap) {
+	public Page listPage(PageParam pageParam, Map<String, Object> paramMap) {
 		if (paramMap == null) {
 			paramMap = new HashMap<String, Object>();
 		}
 		
 		int[] pageParams = pageParam.getPageParams();
-		// 获取分页数据集 , 注切勿换成 sessionTemplate 对象
-		// List<Object> list = this.sessionTemplate.selectList(getStatement(SQL_LIST_PAGE), paramMap, new RowBounds(pageParams[0], pageParams[1]));
-		List<Object> list = getSqlSession().selectList(getStatement(SQL_LIST_PAGE), paramMap, new RowBounds(pageParams[0], pageParams[1]));
+		// 获取分页数据集 
+		List<Object> list = this.sessionTemplate.selectList(getStatement(SQL_LIST_PAGE), paramMap, new RowBounds(pageParams[0], pageParams[1]));
+		//List<Object> list = getSqlSession().selectList(getStatement(SQL_LIST_PAGE), paramMap, new RowBounds(pageParams[0], pageParams[1]));
 		// 统计总记录数
-		// Object countObject = this.sessionTemplate.selectOne(getStatement(SQL_LIST_PAGE), paramMap);
-		Object countObject = (Object) getSqlSession().selectOne(getStatement(SQL_LIST_COUNT), paramMap);
+		Object countObject = this.sessionTemplate.selectOne(getStatement(SQL_LIST_COUNT), paramMap);
+		//Object countObject = (Object) getSqlSession().selectOne(getStatement(SQL_LIST_PAGE), paramMap);
 		Long count = Long.valueOf(countObject.toString());
-		return new Datagrid(count, list);
+		return new Page(pageParam.getCurrPage(), pageParam.getNumPage(), count.intValue(), list);
 	}
 
 	@Override
-	public Datagrid listPage(Page<T> pageParam, Map<String, Object> paramMap, String sqlId) {
+	public Page listPage(PageParam pageParam, Map<String, Object> paramMap, String sqlId) {
 		if (paramMap == null) {
 			paramMap = new HashMap<String, Object>();
 		}
 		
 		int[] pageParams = pageParam.getPageParams();
-		// 获取分页数据集 , 注切勿换成 sessionTemplate 对象
+		// 获取分页数据集 
 		List<Object> list = this.sessionTemplate.selectList(getStatement(sqlId), paramMap, new RowBounds(pageParams[0], pageParams[1]));
 		// 统计总记录数
 		Object countObject = this.sessionTemplate.selectOne(getStatement(sqlId), paramMap);
 		Long count = Long.valueOf(countObject.toString());
 		
-		return new Datagrid(count, list);
+		return new Page(pageParam.getCurrPage(), pageParam.getNumPage(), count.intValue(), list);
 	}
 
 	public String getStatement(String sqlId) {

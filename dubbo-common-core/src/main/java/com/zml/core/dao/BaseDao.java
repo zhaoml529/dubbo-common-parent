@@ -3,8 +3,8 @@ package com.zml.core.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.zml.common.page.Datagrid;
 import com.zml.common.page.Page;
+import com.zml.common.page.PageParam;
 
 /**
  * 数据访问层统一接口
@@ -28,9 +28,9 @@ public interface BaseDao<T> {
 	
 	public List<T> getList(Map<String, Object> paramMap, String sqlId);
 
-	public Datagrid listPage(Page<T> pageParam, Map<String, Object> paramMap);
+	public Page listPage(PageParam pageParam, Map<String, Object> paramMap);
 
-	public Datagrid listPage(Page<T> pageParam, Map<String, Object> paramMap, String sqlId);
+	public Page listPage(PageParam pageParam, Map<String, Object> paramMap, String sqlId);
 	
 	public String getSeqNextValue(String seqName);
 
