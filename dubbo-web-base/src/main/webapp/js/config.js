@@ -1,6 +1,9 @@
 // config
 
 var app = angular.module('app');
+/**
+ * http响应拦截器
+ */
 app.factory('httpInterceptor', [ '$q', '$injector',function($q, $injector) {
     return {
         'responseError': function (response) {
@@ -14,6 +17,19 @@ app.factory('httpInterceptor', [ '$q', '$injector',function($q, $injector) {
                     type:"danger",
                     placement:{
                         align:"center"
+                    }
+                });
+            } else {
+            	// response.status == 400、405、415、500
+            	console.log("httpInterceptor: "+response);
+            	var result = response.data;
+            	$.notify({
+                    message: "<div style='text-align: center'><i class='fa fa-warning'></i>"+result.message+"</div>"
+                },{
+                    type:"danger",
+                    placement:{
+                    	from:"bottom",
+                        align:"right"
                     }
                 });
             }
@@ -47,12 +63,13 @@ app.config(
         app.value      = $provide.value;
         $httpProvider.defaults.headers.put['Content-Type'] = 'application/json;charset=UTF-8';
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
+        //$httpProvider.defaults.headers.post['X-Requested-With'] = 'XMLHttpRequest';  
 
         $httpProvider.defaults.transformRequest = function (data) {
             return angular.isObject(data) && String(data) !== '[object File]' ? $.param(data) : data;
         };
         // $locationProvider.html5Mode(true);
-        $httpProvider.interceptors.push('httpInterceptor');
+        $httpProvider.interceptors.push('httpInterceptor');	// 注册拦截器服务
     }
   ]);
 

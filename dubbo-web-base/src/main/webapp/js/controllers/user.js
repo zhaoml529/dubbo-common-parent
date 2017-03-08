@@ -53,9 +53,10 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert) 
             } else {
             	$('.table').dataTable();
             }
-        }).error(function(error){
-        	console.log(error);
         });
+        /*.error(function(error){
+        	console.log(error);
+        });*/
     };
     
     // 添加
@@ -82,8 +83,6 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert) 
                         }
                         $modalInstance.close();
                         $state.reload();
-                    }).error(function(error){
-                    	console.log(error);
                     });
                 };
                 $scope.cancel = function(){
@@ -123,8 +122,6 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert) 
                         }
                         $modalInstance.close();
                         $state.reload();
-                    }).error(function(error){
-                    	console.log(error);
                     });
                 };
                 $scope.cancel = function(){
@@ -161,8 +158,6 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert) 
                         } else {
                         	SweetAlert.swal("删除失败", d.message, "error");
                         }
-                    }).error(function(error){
-                    	console.log(error);
                     });
                 }
             });
@@ -199,9 +194,6 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert) 
                         } else {
                         	SweetAlert.swal("操作失败", d.message, "error");
                         }
-                    }).error(function(error){
-                    	console.log(error);
-                    	SweetAlert.swal("操作失败", error.message, "error");
                     });
                 }
             });

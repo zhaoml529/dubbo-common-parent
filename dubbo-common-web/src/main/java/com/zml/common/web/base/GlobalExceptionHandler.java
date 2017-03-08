@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
 	@ResponseBody
 	public Message handleHttpMessageNotReadableException (HttpMessageNotReadableException e) {
 		logger.error("参数解析失败 - could_not_read_json", e);  
-		return Message.create(HttpStatus.BAD_REQUEST.value(), "系统异常，请联系管理员！");
+		return Message.create(HttpStatus.BAD_REQUEST.value(), "服务异常，请联系管理员！");
 	}
 	
 	/** 
@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public Message handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {  
         logger.error("不支持当前请求方法 - request_method_not_supported", e);  
-        return Message.create(HttpStatus.METHOD_NOT_ALLOWED.value(), "系统异常，请联系管理员！");
+        return Message.create(HttpStatus.METHOD_NOT_ALLOWED.value(), "服务异常，请联系管理员！");
     }  
     
     /** 
@@ -57,7 +57,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public Message handleHttpMediaTypeNotSupportedException(Exception e) {  
         logger.error("不支持当前媒体类型 - content_type_not_supported", e);  
-        return Message.create(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value(), "系统异常，请联系管理员！");
+        return Message.create(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value(), "服务异常，请联系管理员！");
     }  
   
     /** 
@@ -79,6 +79,6 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public Message handleException(Exception e) {  
     	logger.error("服务运行异常", e);  
-    	return Message.create(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+    	return Message.create(HttpStatus.INTERNAL_SERVER_ERROR.value(), "服务异常，请联系管理员！");
     }  
 }
