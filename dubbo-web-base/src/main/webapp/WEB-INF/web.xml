@@ -27,6 +27,8 @@
 	<listener>
 		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
 	</listener>
+	
+	<!-- 字符编码过滤器 -->
 	<filter>
         <filter-name>CharacterEncodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -43,7 +45,7 @@
         <filter-name>CharacterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
+    
 	<!--DispatcherServlet -->
 	<servlet>
 		<servlet-name>spring-mvc</servlet-name>
@@ -75,6 +77,32 @@
 		<filter-name>shiroFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+	
+	<!-- 跨域请求过滤器 -->
+    <filter>
+	    <filter-name>corsFilter</filter-name>
+	    <filter-class>com.zml.common.web.filter.CorsFilter</filter-class>
+	    <init-param>
+	        <param-name>allowOrigin</param-name>
+	        <param-value>http://web.xxx.com</param-value>
+	    </init-param>
+	    <init-param>
+	        <param-name>allowMethods</param-name>
+	        <param-value>GET,POST,PUT,DELETE,OPTIONS</param-value>
+	    </init-param>
+	    <init-param>
+	        <param-name>allowCredentials</param-name>
+	        <param-value>true</param-value>
+	    </init-param>
+	    <init-param>
+	        <param-name>allowHeaders</param-name>
+	        <param-value>Content-Type</param-value>
+	    </init-param>
+	</filter>
+	<filter-mapping>
+	    <filter-name>corsFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
 	<!-- 验证码过滤器需要放到Shiro之后 因为Shiro将包装HttpSession 如果不，可能造成两次的sesison id 不一样 -->
