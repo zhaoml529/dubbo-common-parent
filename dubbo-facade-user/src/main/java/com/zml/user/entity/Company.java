@@ -1,5 +1,7 @@
 package com.zml.user.entity;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.zml.common.entity.BaseEntity;
 
 /**
@@ -14,6 +16,7 @@ public class Company extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 8542729736868134131L;
 
+	@NotBlank(message = "{company.name.not.blank}")
 	private String name;		// 公司名称
 	
 	private String address;		// 公司地址
