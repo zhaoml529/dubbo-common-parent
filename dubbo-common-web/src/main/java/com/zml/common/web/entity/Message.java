@@ -1,5 +1,8 @@
 package com.zml.common.web.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 
 public class Message {
@@ -8,6 +11,7 @@ public class Message {
 	private Integer statusCode = HttpStatus.OK.value(); // HttpStatus.OK.value()
 	private Object data = "";		// 需要传递的数据
 	private Integer totalCount = 0;	// 分页总记录数
+	private List<FieldErrorMessage> fieldErrors = new ArrayList<FieldErrorMessage>();
 
 	public Message() {
 		
@@ -24,6 +28,12 @@ public class Message {
 		this.message = message;
 	}
 	
+	public Message(Integer code, String message, List<FieldErrorMessage> fieldErrors) {
+		this.statusCode = code;
+		this.message = message;
+		this.fieldErrors = fieldErrors;
+	}
+	
 	public void setSuc() {
 		this.message = "请求成功！";
 	}
@@ -32,8 +42,12 @@ public class Message {
         return new Message(code, message);  
     } 
     
+    public static Message create(Integer code, String message, List<FieldErrorMessage> fieldErrors){  
+    	return new Message(code, message, fieldErrors);  
+    } 
+    
     public static Message create(String title, Integer code, String message){  
-    	return new Message(code, message);  
+    	return new Message(title, code, message);  
     } 
 	
 	public String getTitle() {
@@ -71,6 +85,14 @@ public class Message {
 
 	public void setTotalCount(Integer totalCount) {
 		this.totalCount = totalCount;
+	}
+
+	public List<FieldErrorMessage> getFieldErrors() {
+		return fieldErrors;
+	}
+
+	public void setFieldErrors(List<FieldErrorMessage> fieldErrors) {
+		this.fieldErrors = fieldErrors;
 	}
 	
 }

@@ -1,17 +1,24 @@
-package com.zml.common.web.base;
+package com.zml.common.web.exceptions;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.zml.common.exceptions.ServiceException;
+import com.zml.common.web.entity.FieldErrorMessage;
 import com.zml.common.web.entity.Message;
 
 /**
@@ -28,7 +35,7 @@ public class GlobalExceptionHandler {
 	private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 	
 	/** 
-     * 400 - Bad Request 
+     * 400 - Bad Request - JSON convert exception
      */  
 	@ResponseStatus(HttpStatus.BAD_REQUEST)  
     @ExceptionHandler(HttpMessageNotReadableException.class)  
@@ -37,6 +44,27 @@ public class GlobalExceptionHandler {
 		logger.error("参数解析失败 - could_not_read_json", e);  
 		return Message.create(HttpStatus.BAD_REQUEST.value(), "服务异常，请联系管理员！");
 	}
+	
+    /** 
+     * 400 - Bad Request - validation exception
+     */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)  
+    @ExceptionHandler(MethodArgumentNotValidException .class)  
+    @ResponseBody
+    public Message handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {  
+    	logger.error("参数验证失败 - validation_exception", e);  
+    	
+    	List<FieldErrorMessage> list = new ArrayList<FieldErrorMessage>();
+        BindingResult bindingResult = e.getBindingResult();  
+        for (FieldError fieldError : bindingResult.getFieldErrors()) {  
+        	FieldErrorMessage fieldErrorMessage = new FieldErrorMessage(); 
+			fieldErrorMessage.setEntryName(fieldError.getObjectName());
+			fieldErrorMessage.setFieldName(fieldError.getField());
+			fieldErrorMessage.setErrorMessage(fieldError.getDefaultMessage());
+			list.add(fieldErrorMessage);
+        }  
+    	return Message.create(HttpStatus.BAD_REQUEST.value(), "参数验证失败！", list);
+    }  
 	
 	/** 
      * 405 - Method Not Allowed 
@@ -81,4 +109,5 @@ public class GlobalExceptionHandler {
     	logger.error("服务运行异常", e);  
     	return Message.create(HttpStatus.INTERNAL_SERVER_ERROR.value(), "服务异常，请联系管理员！");
     }  
+    
 }

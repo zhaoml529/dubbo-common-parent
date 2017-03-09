@@ -21,7 +21,7 @@ import org.apache.commons.lang3.StringUtils;
  * CorsFilter将从web.xml中读取相关Filter初始化参数，并将在处理HTTP请求时将这些参数写入对应的CORS响应头中，下面大致描述一下这些CORS响应头的意义：
  * 1.Access-Control-Allow-Origin：允许访问的客户端域名，例如：http://web.xxx.com，若为*，则表示从任意域都能访问，即不做任何限制。
  * 2.Access-Control-Allow-Methods：允许访问的方法名，多个方法名用逗号分割，例如：GET,POST,PUT,DELETE,OPTIONS。
- * 3.Access-Control-Allow-Credentials：是否允许请求带有验证信息，若要获取客户端域下的cookie时，需要将其设置为true。
+ * 3.Access-Control-Allow-Credentials：是否允许请求带有验证信息，若要获取客户端域下的cookie时，需要将其设置为true。给一个带有withCredentials的请求发送响应的时候,服务器端必须指定允许请求的域名,不能使用'*'.
  * 4.Access-Control-Allow-Headers：允许服务端访问的客户端请求头，多个请求头用逗号分割，例如：Content-Type。
  * 5.Access-Control-Expose-Headers：允许客户端访问的服务端响应头，多个响应头用逗号分割。
  * 
