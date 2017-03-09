@@ -26,7 +26,7 @@
 	</context:component-scan>
 	
 	<!-- 开启注解支持，默认向工厂中注册了几个Bean(@Controller @RequestMapping)，此处为context:component-scan做准备 -->
-	<mvc:annotation-driven>
+	<mvc:annotation-driven validator="validator">
 		<!-- 处理@responseBody里面日期类型 -->  
 		<mvc:message-converters>  
 	        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
@@ -48,6 +48,40 @@
 	        </bean>  
     	</mvc:message-converters>  
 	</mvc:annotation-driven>
+	
+	<!-- 以下 validator  ConversionService 在使用 mvc:annotation-driven 会 自动注册-->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+        <!-- 如果不加此属性则默认到使用classpath下的 ValidationMessages.properties -->
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+
+    <!-- 国际化的消息资源文件（本系统中主要用于显示/错误消息定制） -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <!-- 在web环境中一定要定位到classpath 否则默认到当前web应用下找  -->
+                <value>classpath:message/messages</value>
+                <value>classpath:message/ValidationMessages</value><!-- 默认的错误消息文件 -->
+            </list>
+        </property>
+        <property name="useCodeAsDefaultMessage" value="false"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="cacheSeconds" value="60"/>
+    </bean>
+    
+    <!-- 使用cookie存储国际化信息 -->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="cookieName" value="language"/>
+        <property name="cookieMaxAge" value="3600"/>
+        <property name="defaultLocale" value="zh_CN"/>
+    </bean>
+	
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="language"/>
+        </bean>
+    </mvc:interceptors>
 	
 	<!--静态资源默认servlet配置
     	1、加入对静态资源的处理:js,css,gif,png

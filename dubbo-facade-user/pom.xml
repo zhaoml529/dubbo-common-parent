@@ -21,5 +21,9 @@
 		<artifactId>dubbo-common</artifactId>
 		<version>${dubbo-common.version}</version>
 	</dependency>
+	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-validator</artifactId>
+	</dependency>
   </dependencies>
 </project>

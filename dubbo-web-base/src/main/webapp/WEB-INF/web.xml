@@ -89,7 +89,7 @@
 	    </init-param>
 	    <init-param>
 	        <param-name>allowMethods</param-name>
-	        <param-value>GET,POST,PUT,DELETE,OPTIONS</param-value>
+	        <param-value>GET,POST,PUT,DELETE</param-value>
 	    </init-param>
 	    <init-param>
 	        <param-name>allowCredentials</param-name>

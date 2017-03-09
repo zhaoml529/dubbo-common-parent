@@ -2,10 +2,14 @@ package com.zml.web.controller.user;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -86,16 +90,24 @@ public class UserController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
-	public Message createUser(@RequestBody User user) {
+	public Message createUser(@Valid @RequestBody User user/*, BindingResult result*/) {
+		/*List<FieldError> errors = result.getFieldErrors();
+		for(FieldError fe : errors) {
+			System.out.println("1111: "+fe.getCode());
+			System.out.println("2222: "+fe.getDefaultMessage());
+			System.out.println("3333: "+fe.getObjectName());
+			System.out.println("4444: "+fe.getField());
+			System.out.println();
+		}*/
 		Message message = new Message();
-		if(this.userService.isUserExist(user)) {
+		/*if(this.userService.isUserExist(user)) {
 			this.logSaveErr("用户已经存在！", UserServiceException.USERINFO_IS_EXIST);
 			throw UserServiceException.create("用户已经存在！", UserServiceException.USERINFO_IS_EXIST);
 		} else {
 			this.userService.addUser(user);
 			this.logSave("添加用户成功！");
 			message.setMessage("添加用户成功！");
-		}
+		}*/
 		return message;
 	}
 	

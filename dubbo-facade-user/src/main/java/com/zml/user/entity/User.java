@@ -2,6 +2,12 @@ package com.zml.user.entity;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.zml.common.entity.BaseEntity;
 
 public class User extends BaseEntity {
@@ -11,10 +17,15 @@ public class User extends BaseEntity {
 	 */
 	private static final long serialVersionUID = -2643312501176930880L;
 
+	@NotBlank(message = "{user.name.not.blank}")
 	private String userName;
 	
+	@NotNull(message = "{user.staffNum.not.null}")
 	private Long staffNum;		// 编制号
 	
+	@NotBlank(message = "{user.passwd.not.blank}")
+	@Length(min = 8, max = 15, message = "{user.passwd.length.illegal}")
+	@Pattern(regexp = "^[a-zA-Z0-9]+$", message="{user.passwd.illegal}")
 	private String passwd;
 	
 	private String salt;
