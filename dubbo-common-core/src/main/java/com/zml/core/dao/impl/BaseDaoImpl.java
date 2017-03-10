@@ -1,6 +1,7 @@
 package com.zml.core.dao.impl;
 
 import java.sql.Connection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -111,7 +112,7 @@ public class BaseDaoImpl<T extends BaseEntity> extends SqlSessionDaoSupport impl
 
 	@Override
 	public long deleteById(long id) {
-		return (long) this.sessionTemplate.delete(getStatement(SQL_GET_BY_ID), id);
+		return (long) this.sessionTemplate.delete(getStatement(SQL_DELETE_BY_ID), id);
 	}
 
 	@Override
@@ -152,6 +153,9 @@ public class BaseDaoImpl<T extends BaseEntity> extends SqlSessionDaoSupport impl
 		// 获取分页数据集 
 		List<Object> list = this.sessionTemplate.selectList(getStatement(SQL_LIST_PAGE), paramMap, new RowBounds(pageParams[0], pageParams[1]));
 		//List<Object> list = getSqlSession().selectList(getStatement(SQL_LIST_PAGE), paramMap, new RowBounds(pageParams[0], pageParams[1]));
+		if(list == null) {
+			list = Collections.emptyList();
+		}
 		// 统计总记录数
 		Object countObject = this.sessionTemplate.selectOne(getStatement(SQL_LIST_COUNT), paramMap);
 		//Object countObject = (Object) getSqlSession().selectOne(getStatement(SQL_LIST_PAGE), paramMap);
