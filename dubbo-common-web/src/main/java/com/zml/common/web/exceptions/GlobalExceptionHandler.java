@@ -106,7 +106,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)  
     @ResponseBody
     public Message handleException(Exception e) {  
-    	logger.error("服务运行异常", e);  
+    	logger.error("服务运行异常", e);
     	return Message.create(HttpStatus.INTERNAL_SERVER_ERROR.value(), "服务异常，请联系管理员！");
     }  
     

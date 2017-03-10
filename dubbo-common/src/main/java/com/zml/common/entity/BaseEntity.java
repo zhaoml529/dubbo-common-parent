@@ -18,7 +18,7 @@ public class BaseEntity implements Serializable {
 	
 	private Long id;						// 主键id
 	
-	private Long version = 0L;			// 数据版本号-乐观锁
+	private Long version = 0L;				// 数据版本号-乐观锁
 	
 	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	//@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")  
