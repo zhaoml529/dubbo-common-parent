@@ -22,6 +22,7 @@ import com.zml.user.service.IUserService;
 
 
 /**
+ * HashedCredentialsMatcher负责密码验证
  * 输错5次密码锁定2分钟
  * @author ZML
  *
@@ -72,7 +73,7 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
 
         String uName = (String)token.getPrincipal();
         User user = this.userService.getUserByName(uName);
-        
+
         //匹配用户输入的token的凭证（未加密）与系统提供的凭证（已加密）  
         boolean matches = super.doCredentialsMatch(token, info);
         if(matches) {

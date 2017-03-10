@@ -75,12 +75,8 @@ public class UserRealm extends AuthorizingRealm{
 
     /**
      * 认证
-     * 该方法主要执行以下操作:
-     * 1、检查提交的进行认证的令牌信息(token)
-     * 2、根据令牌信息从数据源(通常为数据库)中获取用户信息
-     * 3、对用户信息进行匹配验证。
-     * 4、验证通过将返回一个封装了用户信息的 AuthenticationInfo 实例。
-     * 5、验证失败则抛出 AuthenticationException 异常信息。
+     * 收集用户提供的身份标识(Principals)和凭据(Credentials)
+     * 最后交给HashedCredentialsMatcher进行密码验证
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
