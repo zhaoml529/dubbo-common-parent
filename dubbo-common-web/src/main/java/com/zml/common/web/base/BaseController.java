@@ -1,8 +1,13 @@
 package com.zml.common.web.base;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.FieldError;
 
+import com.zml.common.web.entity.FieldErrorMessage;
 import com.zml.common.web.enums.OperateLogStatusEnum;
 import com.zml.common.web.enums.OperateLogTypeEnum;
 import com.zml.common.web.utils.SessionUtil;
@@ -118,5 +123,22 @@ public class BaseController {
 			}
 			this.operateLogService.addLog(operateLog);
 		}
+	}
+	
+	/**
+	 * 装载字段验证错误信息
+	 * @param list
+	 * @return
+	 */
+	protected List<FieldErrorMessage> loadFieldError(List<FieldError> list) {
+		List<FieldErrorMessage> errorList = new ArrayList<FieldErrorMessage>();
+		for(FieldError fieldError : list) {
+			FieldErrorMessage fieldErrorMessage = new FieldErrorMessage(); 
+			fieldErrorMessage.setEntryName(fieldError.getObjectName());
+			fieldErrorMessage.setFieldName(fieldError.getField());
+			fieldErrorMessage.setErrorMessage(fieldError.getDefaultMessage());
+			errorList.add(fieldErrorMessage);
+		}
+		return errorList;
 	}
 }

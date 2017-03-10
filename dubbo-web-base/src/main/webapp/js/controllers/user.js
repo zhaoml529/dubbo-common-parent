@@ -15,30 +15,32 @@
  * $http.patch
  */
 app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert) {
-	// 获取列表
-    $http.get(host+'/user').success(function (d) {
-        if (d.statusCode==200) {
-        	$scope.userList = d.data;
-        } 
-        if (d.data.length==0) {
-        	$('.table').dataTable();
-        }
-    });
     
     /**
-     * app.js
+     * app.js 初始化
      * $scope.maxSize		页面上可选页数范围
      * $scope.totalItems	总共有多少数据
      * $scope.itemsPerPage	每页多少条数据
      * $scope.currentPage	当前页
      * -------------------------------------
-     * 传参
+     * 请求传参
      * currPage				当前页
      * numPage				每页多少条数据
      * paramMap				封装的查询条件
+     * -------------------------------------
+     * 请求响应数据 d
+     * title				提示标题
+     * message				提示信息
+     * statusCode			http状态码 200-OK 请求成功
+     * 								 400-Bad Request
+     * 								 405-Method Not Allowed
+     * 								 415-Unsupported Media Type
+     * 								 500-Internal Server Error 服务器错误
+     * data					请求成功时，需要传递的数据。
+     * totalCount			分页总记录数
+     * fieldErrors			字段验证错误列表 entryName:验证的实体名称、fieldName:验证的字段名称、errorMessage:验证的错误信息
      * 
      */
-    $scope.totalItems = 3;
     $scope.pageChanged = function() {
         // var param = {"currPage" : $scope.currentPage, "numPage" : $scope.itemsPerPage, "paramMap" : {"userName" : "admin", "staffNum" : "10001"}};
         var param = {"currPage" : $scope.currentPage, "numPage" : $scope.itemsPerPage};
@@ -102,9 +104,9 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert) 
                 $scope.user = user;
                 $scope.ok = function(){
                     $scope.check = true;
-                    if (!$scope.user.userName) {
+                    /*if (!$scope.user.userName) {
                     	return;
-                    }
+                    }*/
                     if (!$scope.user.staffNum) {
                     	return;
                     }
@@ -118,6 +120,7 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert) 
                             SweetAlert.swal("编辑成功", "", "success");
                             $state.reload()
                         } else {
+                        	console.log(d.fieldErrors);
                         	SweetAlert.swal("编辑失败", d.msg, "error");
                         }
                         $modalInstance.close();

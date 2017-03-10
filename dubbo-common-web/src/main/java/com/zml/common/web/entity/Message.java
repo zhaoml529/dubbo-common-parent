@@ -34,10 +34,6 @@ public class Message {
 		this.fieldErrors = fieldErrors;
 	}
 	
-	public void setSuc() {
-		this.message = "请求成功！";
-	}
-	
     public static Message create(Integer code, String message){  
         return new Message(code, message);  
     } 
@@ -55,6 +51,16 @@ public class Message {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public void setSuc() {
+		this.message = "请求成功！";
+	}
+	
+	public void setValidFail(List<FieldErrorMessage> fieldErrors) {
+		this.fieldErrors = fieldErrors;
+		this.message = "参数验证失败！";
+		this.statusCode = HttpStatus.BAD_REQUEST.value();	// 400 - Bad Request
 	}
 	
 	public String getMessage() {

@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.zml.common.page.Page;
 import com.zml.common.page.Parameter;
 import com.zml.common.web.base.BaseController;
+import com.zml.common.web.entity.FieldErrorMessage;
 import com.zml.common.web.entity.Message;
 import com.zml.user.entity.User;
 import com.zml.user.exceptions.UserServiceException;
@@ -118,21 +118,24 @@ public class UserController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
-    public Message updateUser(@PathVariable("id") long id, @RequestBody User user) {
+    public Message updateUser(@PathVariable("id") long id, @Valid @RequestBody User user, BindingResult result) {
 		Message message = new Message();
-        User currentUser = this.userService.getUserById(id);
-         
-        if (currentUser == null) {
-        	throw UserServiceException.create("更新用户失败！", UserServiceException.UPDATE_USER_FAIL);
-        } else {
-        	//currentUser.setUserName(user.getUserName());
-        	currentUser.setStaffNum(user.getStaffNum());
-        	//currentUser.setPasswd(user.getPasswd());
-        	
-        	this.userService.updateUser(currentUser);
-        	message.setSuc();
-        }
- 
+		// 相关字段是否验证失败
+		if(result.hasErrors()) {
+			List<FieldErrorMessage> list = super.loadFieldError(result.getFieldErrors());
+			message.setValidFail(list);
+		} else {
+			User currentUser = this.userService.getUserById(id);
+			if (currentUser == null) {
+				throw UserServiceException.create("更新用户失败！", UserServiceException.UPDATE_USER_FAIL);
+			} else {
+				//currentUser.setUserName(user.getUserName());
+				currentUser.setStaffNum(user.getStaffNum());
+				//currentUser.setPasswd(user.getPasswd());
+				this.userService.updateUser(currentUser);
+				message.setSuc();
+			}
+		}
         return message;
     }
 	
