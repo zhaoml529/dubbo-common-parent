@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.zml.common.page.Page;
 import com.zml.common.page.Parameter;
 import com.zml.common.web.base.BaseController;
-import com.zml.common.web.entity.FieldErrorMessage;
 import com.zml.common.web.entity.Message;
 import com.zml.user.entity.User;
 import com.zml.user.exceptions.UserServiceException;
@@ -91,23 +90,15 @@ public class UserController extends BaseController {
 	 */
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	public Message createUser(@Valid @RequestBody User user/*, BindingResult result*/) {
-		/*List<FieldError> errors = result.getFieldErrors();
-		for(FieldError fe : errors) {
-			System.out.println("1111: "+fe.getCode());
-			System.out.println("2222: "+fe.getDefaultMessage());
-			System.out.println("3333: "+fe.getObjectName());
-			System.out.println("4444: "+fe.getField());
-			System.out.println();
-		}*/
 		Message message = new Message();
-		/*if(this.userService.isUserExist(user)) {
+		if(this.userService.isUserExist(user)) {
 			this.logSaveErr("用户已经存在！", UserServiceException.USERINFO_IS_EXIST);
 			throw UserServiceException.create("用户已经存在！", UserServiceException.USERINFO_IS_EXIST);
 		} else {
 			this.userService.addUser(user);
 			this.logSave("添加用户成功！");
 			message.setMessage("添加用户成功！");
-		}*/
+		}
 		return message;
 	}
 	
@@ -122,8 +113,7 @@ public class UserController extends BaseController {
 		Message message = new Message();
 		// 相关字段是否验证失败
 		if(result.hasErrors()) {
-			List<FieldErrorMessage> list = super.loadFieldError(result.getFieldErrors());
-			message.setValidFail(list);
+			message.setValidFail(super.loadFieldError(result.getFieldErrors()));
 		} else {
 			User currentUser = this.userService.getUserById(id);
 			if (currentUser == null) {

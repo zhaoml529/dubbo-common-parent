@@ -25,6 +25,12 @@ public class CompanyServiceException extends ServiceException {
 	 */
 	public static final CompanyServiceException UPDATE_COMPANY_FAIL = new CompanyServiceException(10020002, "更新公司信息失败！");
 	
+	public static final CompanyServiceException COMPANY_IS_EXIST = new CompanyServiceException(10020003, "未找到相应的公司信息！");
+	
+	public static final CompanyServiceException COMPANY_NOT_EXIST = new CompanyServiceException(10020004, "未找到相应的公司信息！");
+	
+	public static final CompanyServiceException DELETE_COMPANY_FAIL = new CompanyServiceException(10020005, "删除公司信息失败！");
+	
 	public CompanyServiceException() {
 		
 	}
@@ -35,6 +41,10 @@ public class CompanyServiceException extends ServiceException {
 	
 	public CompanyServiceException(int code, String msg) {
 		super(code, msg);
+	}
+	
+	public static CompanyServiceException create(int code, String msg) {
+		return new CompanyServiceException(code, msg);
 	}
 	
 /*	public CompanyServiceException print() {

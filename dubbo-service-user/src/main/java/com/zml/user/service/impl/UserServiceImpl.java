@@ -108,7 +108,7 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public Page getUserPage(Parameter<User> param) throws UserServiceException {
-		param.initPage();
+		param.initPage();	// 初始化分页参数
 		Page page = this.userDao.listPage(param.getPageParam(), param.getParamMap());
 		return page;
 	}
