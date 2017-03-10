@@ -65,7 +65,7 @@ public class CompanyController extends BaseController {
 			message.setSuc();
 			super.logSave("添加公司信息成功！");
 		} catch (CompanyServiceException e) {
-			super.logSaveErr("添加公司信息失败！", e.getCode());
+			super.logSaveErr(e.getErrMsg(), e.getCode());
 			throw e;
 		}
 		return message;

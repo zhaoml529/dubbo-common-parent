@@ -28,7 +28,7 @@ public class CompanyServiceImpl implements ICompanyService {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("name", company.getName());
 		Company c = this.companyDao.getBy(paramMap);
-		if(c == null) {
+		if(c != null) {
 			throw CompanyServiceException.COMPANY_IS_EXIST;
 		}
 		return this.companyDao.insert(company);
