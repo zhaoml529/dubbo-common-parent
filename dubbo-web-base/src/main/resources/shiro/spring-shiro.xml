@@ -70,6 +70,7 @@
     <bean id="sessionDAO" class="com.zml.common.web.shiro.session.ReidsSessionDao">
     	<!-- 默认值会话过期时间1小时 -->
         <property name="expire" value="3600000"/>
+        <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
     </bean>
 
     <!-- 会话验证调度器 -->
