@@ -22,36 +22,41 @@ public class UserServiceException extends ServiceException {
 	 * 登录：密码错误次数超限
 	 */
 	public static final int LOGIN_PWDERRORTIMES_OVERRUN = 10010003;
+	
+	/**
+	 * 登陆：身份验证失败
+	 */
+	public static final int LOGIN_AUTHENTICATION_FAIL = 10010004;
 
 	/**
 	 * 登录：操作员状态为冻结
 	 */
-	public static final int LOGIN_OPERATORSTATUS_INACTIVE = 10010004;
+	public static final int LOGIN_OPERATORSTATUS_INACTIVE = 10010005;
 
 	/**
 	 * 登录：操作员被销户
 	 */
-	public static final int LOGIN_OPERATORSTATUS_CANCELLATION = 10010005;
+	public static final int LOGIN_OPERATORSTATUS_CANCELLATION = 10010006;
 
 	/**
 	 * 用户已存在
 	 */
-	public static final int USERINFO_IS_EXIST = 10010006;
+	public static final int USERINFO_IS_EXIST = 10010007;
 
 	/**
 	 * 用户不存在
 	 */
-	public static final int USERINFO_NOT_EXIST = 10010007;
+	public static final int USERINFO_NOT_EXIST = 10010008;
 	
 	/**
 	 * 用户id不存在
 	 */
-	public static final int USER_ID_NOT_EXIST = 10010008;
+	public static final int USER_ID_NOT_EXIST = 10010009;
 	
 	/**
 	 * 更新用户失败
 	 */
-	public static final int UPDATE_USER_FAIL = 10010009;
+	public static final int UPDATE_USER_FAIL = 10010010;
 	
 	public UserServiceException() {
 		
