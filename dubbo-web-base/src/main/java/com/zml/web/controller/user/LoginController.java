@@ -31,6 +31,7 @@ public class LoginController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String toLogin() {
+		System.out.println("跳转到登陆页面！！！！！");
 		return "login";
 	}
 	
