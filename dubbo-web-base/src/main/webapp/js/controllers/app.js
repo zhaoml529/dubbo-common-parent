@@ -12,7 +12,7 @@ app.controller("AppCtrl",function ($scope, $state, SweetAlert) {
                 $state.go('signin');
             }*/
     	console.log('AppCtrl-', toState);
-    	if(toState.name.toLowerCase().indexOf('list') || toState.name.toLowerCase().indexOf('page'))
+    	if(toState.name.toLowerCase().indexOf('list') > 0 || toState.name.toLowerCase().indexOf('page') > 0)
     		// datatable分页参数初始化
     		$scope.maxSize = 5;			// 页面上可选页数范围
     	    $scope.currentPage = 1;		// 当前页
