@@ -26,8 +26,8 @@ import com.zml.user.service.IUserService;
 @RestController
 public class UserController extends BaseController {
 	
-	private static final Integer LOCK = 101;
-	private static final Integer ACTIVE = 100;
+	private static final Integer LOCK = 101;	// 锁定
+	private static final Integer ACTIVE = 100;	// 激活
 	
 	@Autowired
 	private IUserService userService;
