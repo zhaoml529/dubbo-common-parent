@@ -10,5 +10,5 @@ import com.zml.user.entity.UserOperateLog;
 public class UserOperateLogDaoImpl extends BaseDaoImpl<UserOperateLog>
 		implements IUserOperateLogDao {
 
-
+	
 }

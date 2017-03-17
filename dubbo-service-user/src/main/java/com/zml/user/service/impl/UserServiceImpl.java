@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,9 +30,6 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	private RedisUtil<User> redisUtil;
 	
-    @Autowired
-    protected PasswordHelper passwordHelper;
-	
 	@Transactional(rollbackFor = Exception.class, readOnly = false)
 	public Long addUser(User user) throws UserServiceException {
 		// 测试回滚
@@ -47,7 +45,9 @@ public class UserServiceImpl implements IUserService {
 		return l;*/
 		
 		//加密密码
-        this.passwordHelper.encryptPassword(user);
+        //this.passwordHelper.encryptPassword(user);
+		String hexPassword = DigestUtils.sha512Hex(user.getPasswd());
+		user.setPasswd(hexPassword);
 		return this.userDao.insert(user);
 	}
 	

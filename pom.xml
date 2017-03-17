@@ -46,6 +46,19 @@
 	<jackson.version>2.5.3</jackson.version>
 	<fastdfs.version>1.25</fastdfs.version>
   </properties>
+  
+  <distributionManagement>
+	<repository>
+		<id>releases</id>
+		<name>Nexus Release Repository</name>
+		<url>http://192.168.101.2:80812/nexus/content/repositories/releases/</url>
+	</repository>
+	<snapshotRepository>
+		<id>snapshots</id>
+		<name>Nexus Snapshot Repository</name>
+		<url>http://192.168.101.2:8082/nexus/content/repositories/snapshots/</url>
+	</snapshotRepository>
+ </distributionManagement>
 
   <!-- 可被继承的依赖 -->
   <dependencyManagement>
@@ -242,11 +255,28 @@
 		<!-- Zookeeper 用于分布式服务管理 end -->
 		
 		<!-- shiro 权限管理 -->
-		<dependency>
+		<!-- <dependency>
 		    <groupId>org.apache.shiro</groupId>
 		    <artifactId>shiro-all</artifactId>
 		    <version>${shiro.version}</version>
+		</dependency> -->
+		
+		<!-- https://mvnrepository.com/artifact/com.github.panchitoboy/shiro-jwt -->
+		<!-- <dependency>
+		    <groupId>com.github.panchitoboy</groupId>
+		    <artifactId>shiro-jwt</artifactId>
+		    <version>1.3.0</version>
+		</dependency> -->
+		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+		<dependency>
+		    <groupId>io.jsonwebtoken</groupId>
+		    <artifactId>jjwt</artifactId>
+		    <version>0.7.0</version>
 		</dependency>
+
+				
+		
+		
 		<!-- shiro 权限管理  end-->
 	
 		<!--begin web -->
@@ -401,5 +431,6 @@
   	<module>dubbo-facade-user</module>
   	<module>dubbo-service-user</module>
   	<module>dubbo-web-base</module>
+  	<module>dubbo-web-html</module>
   </modules>
 </project>

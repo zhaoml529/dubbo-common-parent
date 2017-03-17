@@ -29,9 +29,9 @@ public class UserServiceException extends ServiceException {
 	public static final int LOGIN_AUTHENTICATION_FAIL = 10010004;
 
 	/**
-	 * 登录：操作员状态为冻结
+	 * 登录：账号被锁定
 	 */
-	public static final int LOGIN_OPERATORSTATUS_INACTIVE = 10010005;
+	public static final int LOGIN_USER_INACTIVE = 10010005;
 
 	/**
 	 * 登录：操作员被销户

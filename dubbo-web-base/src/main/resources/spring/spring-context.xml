@@ -27,12 +27,12 @@
 	<!-- <import resource="classpath:spring/spring-activemq.xml" /> -->
 	<import resource="classpath:dubbo/spring-dubbo-consumer.xml" />
 	<import resource="classpath:redis/spring-context-jedis-cluster.xml"/>
-    <import resource="classpath:shiro/spring-shiro.xml" />
+    <!-- <import resource="classpath:shiro/spring-shiro.xml" /> -->
     
     <!-- 添加 Shiro Spring AOP 权限注解的支持，走CGLIB类代理。 -->
     <aop:config proxy-target-class="true"></aop:config>
-    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+    <!-- <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
-    </bean>
+    </bean> -->
     
 </beans>
