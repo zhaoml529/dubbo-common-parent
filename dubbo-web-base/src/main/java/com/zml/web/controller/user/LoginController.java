@@ -1,89 +1,61 @@
 package com.zml.web.controller.user;
 
-import java.io.IOException;
-import java.util.concurrent.atomic.AtomicBoolean;
+import io.jsonwebtoken.impl.crypto.MacProvider;
 
-import javax.naming.AuthenticationException;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
+import java.security.Key;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.ExcessiveAttemptsException;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.cache.Cache;
-import org.apache.shiro.cache.CacheManager;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zml.common.constant.CacheConstant;
-import com.zml.common.utils.SpringContextUtil;
+import com.zml.common.web.entity.Message;
+import com.zml.common.web.utils.TokenUtil;
+import com.zml.user.entity.User;
+import com.zml.user.exceptions.UserServiceException;
+import com.zml.user.service.IUserService;
 
 @Controller
 public class LoginController {
 	
-	private Cache<String, AtomicBoolean> jcaptchaCache;
+	public static final Key key =MacProvider.generateKey();
 	
-	private CacheManager cacheManager;
-	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String toLogin() {
-		return "login";
-	}
+	@Autowired
+	private IUserService userService;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String showLoginForm(HttpServletRequest request, Model model) throws ServletException, IOException {
-        String exceptionClassName = (String) request.getAttribute("shiroLoginFailure");
-        String error = null;
-        if(UnknownAccountException.class.getName().equals(exceptionClassName)) {
-            error = "用户名不存在！";
-        } else if(IncorrectCredentialsException.class.getName().equals(exceptionClassName)) {
-            error = "密码错误！";
-        } else if(ExcessiveAttemptsException.class.getName().equals(exceptionClassName)) {
-        	error = "登录失败次数过多，请稍后再试！";
-        } else if(AuthenticationException.class.getName().equals(exceptionClassName)) {
-        	error = "身份验证失败！";
-        } else if("jCaptcha.error".equals(exceptionClassName)) {
-        	error = "验证码错误！";
-        } else if(exceptionClassName != null) {
-            error = "其他错误：" + exceptionClassName;
-        }
-        if(StringUtils.isNotBlank(error)) {
-        	model.addAttribute("msg", error);
-        }
-        
-        String userName = request.getParameter("userName");
-        if(StringUtils.isNotBlank(userName)) {
-        	this.cacheManager = SpringContextUtil.getBean("cacheManager");
-        	this.jcaptchaCache = this.cacheManager.getCache("jcaptchaCache");
-        	//前台是否显示验证码
-        	AtomicBoolean enabled = this.jcaptchaCache.get(CacheConstant.JCAPTCHA_ENABLED + userName);
-        	if(enabled != null){
-        		request.setAttribute("jcaptcha", enabled.get());
-        	}
-        }
-        
-        if(request.getParameter("kickout") != null){
-        	return "error/kickout";
-        }
-        if(request.getParameter("kickoutMsg") != null){
-        	model.addAttribute("msg", "您的帐号在另一个地点登录，您已被踢出！");
-        }
-        if(request.getParameter("forceLogout") != null) {
-        	return "error/forceLogout";
-        }
-        if(request.getParameter("forceLogoutMsg") != null) {
-        	model.addAttribute("msg", "您已经被管理员强制退出，请重新登录！");
-        }
-        
-        if(SecurityUtils.getSubject().isAuthenticated()) {
-        	return "index";
-        } else {
-        	return "login";
-        }
+	@ResponseBody
+    public Message showLoginForm(@RequestParam("username") String userName, @RequestParam("password") String password) throws Exception {
+		Message message = new Message();
+		User user = this.userService.getUserByName(userName);
+		if(user == null) {
+			throw new UserServiceException(UserServiceException.LOGIN_LOGNAME_NOT_EXIST, "用户名或密码错误！");
+		}
+		if(user.getStatus() == 101) {
+			throw new UserServiceException(UserServiceException.LOGIN_USER_INACTIVE, "账号已被锁定！");
+		}
+		// 加密明文密码，验证密码
+		if(user.getPasswd().equals(DigestUtils.sha256Hex(password))) {
+			Map<String, Object> claims = new HashMap<String, Object>();
+			claims.put("userName", user.getUserName());
+			claims.put("userId", user.getId());
+			
+			Date expires = getExpiryDate(30 * 24 * 60);// 30天的有效日期
+			String token = TokenUtil.getTokenString(user, expires, key, claims);
+			System.out.println("token:" + token);
+			message.setSuc();
+			message.setData(token);
+		} else {
+			throw new UserServiceException(UserServiceException.LOGIN_PWD_ERROR, "用户名或密码错误！");
+		}
+		return message;
     }
 	
 	@RequestMapping("index")
@@ -91,4 +63,15 @@ public class LoginController {
 		return "index";
 	}
 	
+    private Date getExpiryDate(int minutes) {
+
+    	// 根据当前日期，来得到到期日期
+    	Calendar calendar = Calendar.getInstance();
+
+    	calendar.setTime(new Date());
+    	calendar.add(Calendar.MINUTE, minutes);
+
+    	return calendar.getTime();
+	}
+    
 }
