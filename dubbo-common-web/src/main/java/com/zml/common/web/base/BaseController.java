@@ -10,9 +10,6 @@ import org.springframework.validation.FieldError;
 import com.zml.common.web.entity.FieldErrorMessage;
 import com.zml.common.web.enums.OperateLogStatusEnum;
 import com.zml.common.web.enums.OperateLogTypeEnum;
-import com.zml.common.web.utils.SessionUtil;
-import com.zml.user.entity.User;
-import com.zml.user.entity.UserOperateLog;
 import com.zml.user.service.IUserOperateLogService;
 
 @Transactional
@@ -108,7 +105,7 @@ public class BaseController {
 	 * @param content
 	 */
 	private void setOperateLog(OperateLogTypeEnum logTypeEnum, OperateLogStatusEnum logStatusEnum, String content, int... errorCode) {
-		User user = SessionUtil.getUserFromSession();
+		/*User user = SessionUtil.getUserFromSession();
 		if(user != null) {
 			UserOperateLog operateLog= new UserOperateLog();
 			operateLog.setUserId(user.getId());
@@ -122,7 +119,7 @@ public class BaseController {
 				operateLog.setErrorCode(errorCode[0]);
 			}
 			this.operateLogService.addLog(operateLog);
-		}
+		}*/
 	}
 	
 	/**

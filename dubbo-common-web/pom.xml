@@ -40,9 +40,19 @@
 	<!-- Spring Dependency End -->
 	
 	<!-- Others Begin -->
-	<dependency>
+	<!-- <dependency>
 	    <groupId>org.apache.shiro</groupId>
 	    <artifactId>shiro-all</artifactId>
+	</dependency>
+	
+	<dependency>
+	    <groupId>com.github.panchitoboy</groupId>
+	    <artifactId>shiro-jwt</artifactId>
+	</dependency> -->
+	
+	<dependency>
+	    <groupId>io.jsonwebtoken</groupId>
+	    <artifactId>jjwt</artifactId>
 	</dependency>
 	
 	<dependency>
