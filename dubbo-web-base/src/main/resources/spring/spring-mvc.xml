@@ -43,6 +43,9 @@
 	            </property>    
 	        </bean>  
     	</mvc:message-converters>  
+    	<mvc:argument-resolvers>
+    		<bean class="com.zml.common.web.bind.method.CurrentUserMethodArgumentResolver"></bean>
+    	</mvc:argument-resolvers>
 	</mvc:annotation-driven>
 	
 	<!-- 以下 validator  ConversionService 在使用 mvc:annotation-driven 会 自动注册-->
