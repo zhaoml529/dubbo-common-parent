@@ -1,7 +1,5 @@
 package com.zml.web.controller.user;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,7 +46,7 @@ public class LoginController {
 			throw new UserServiceException(UserServiceException.LOGIN_USER_INACTIVE, "账号已被锁定！");
 		}
 		// 加密明文密码，验证密码
-		if(user.getPasswd().equals(DigestUtils.sha256Hex(password))) {
+		if(user.getPasswd().equals(DigestUtils.sha256Hex(password + user.getSalt()))) {
 			Map<String, Object> claims = new HashMap<String, Object>();
 			claims.put(SystemConstant.CURRENT_USER_ID, user.getId());
 			claims.put(SystemConstant.CURRENT_USER_NAME, user.getUserName());

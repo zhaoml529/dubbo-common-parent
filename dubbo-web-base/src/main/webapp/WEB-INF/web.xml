@@ -97,7 +97,7 @@
 	    </init-param>
 	    <init-param>
 	        <param-name>allowHeaders</param-name>
-	        <param-value>Content-Type</param-value>
+	        <param-value>Content-Type,Authorization</param-value>
 	    </init-param>
 	</filter>
 	<filter-mapping>

@@ -4,10 +4,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,9 +48,28 @@ public class UserServiceImpl implements IUserService {
 		
 		//加密密码
         //this.passwordHelper.encryptPassword(user);
-		String hexPassword = DigestUtils.sha512Hex(user.getPasswd());
+		String salt = user.getSalt();
+        if(StringUtils.isBlank(salt)) {
+        	salt = getSalt(16);
+        	user.setSalt(salt);
+        }
+		String hexPassword = DigestUtils.sha256Hex(user.getPasswd() + salt);
 		user.setPasswd(hexPassword);
 		return this.userDao.insert(user);
+	}
+	
+	private String getSalt(int len){
+		Random r = new Random();  
+        StringBuilder sb = new StringBuilder(len);  
+        sb.append(r.nextInt(99999999)).append(r.nextInt(99999999));  
+        int length = sb.length();  
+        if (length < len) {  
+            for (int i = 0; i < len - length; i++) {  
+                sb.append("0");  
+            }  
+        }  
+        String salt = sb.toString(); 
+        return salt;
 	}
 	
 	@Transactional(rollbackFor = Exception.class, readOnly = false)
@@ -113,4 +134,20 @@ public class UserServiceImpl implements IUserService {
 		return page;
 	}
 
+	public static void main(String[] args) {
+		Random r = new Random();  
+        StringBuilder sb = new StringBuilder(16);  
+        sb.append(r.nextInt(99999999)).append(r.nextInt(99999999));  
+        int length = sb.length();  
+        if (length < 16) {  
+            for (int i = 0; i < 16 - length; i++) {  
+                sb.append("0");  
+            }  
+        }  
+        String salt = sb.toString(); 
+        System.out.println("salt: "+salt);
+        
+        String hexPassword = DigestUtils.sha256Hex("123" + salt);
+        System.out.println("passwd: "+hexPassword);
+	}
 }

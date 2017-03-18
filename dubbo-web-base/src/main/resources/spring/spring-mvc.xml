@@ -75,11 +75,18 @@
         <property name="defaultLocale" value="zh_CN"/>
     </bean>
 	
-	<!-- 设置本地化信息的拦截器 -->
+	<!-- 直接配置bean代表所有请求都拦截，mvc:interceptor代表有更细粒度的控制 -->
     <mvc:interceptors>
+    	<!-- 设置本地化信息的拦截器 -->
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
             <property name="paramName" value="language"/>
         </bean>
+        <!-- token验证拦截器 -->
+        <mvc:interceptor>
+        	<mvc:mapping path="/**"/>
+        	<mvc:exclude-mapping path="/login"/>
+        	<bean class="com.zml.common.web.interceptor.AuthorizationInterceptor"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 	
 	<!--静态资源默认servlet配置

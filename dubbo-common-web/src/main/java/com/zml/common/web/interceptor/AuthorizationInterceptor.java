@@ -34,6 +34,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 		String token = request.getHeader("Authorization");	// 获取header
 		if(StringUtils.isBlank(token)) {
 			response.sendError(HttpStatus.UNAUTHORIZED.value(), "认证失败!");
+			return false;
 		}
 		// Key key = WebConstant.KEY;
 		if(TokenUtil.isValid(token, base64Secret)) {
@@ -44,8 +45,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 			return true;
 		}  else {
 			response.sendError(HttpStatus.UNAUTHORIZED.value(), "认证失败!");
+			return false;
 		}
-		
-		return super.preHandle(request, response, handler);
 	}
 }
