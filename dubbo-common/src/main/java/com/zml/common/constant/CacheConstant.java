@@ -13,6 +13,11 @@ public class CacheConstant {
 	public static final String ALL_USER_LIST = "ALL_USER_LIST";
 	
 	/**
+	 * 当前用户(id为key)
+	 */
+	public static final String CURRENT_USER_ID = "CURRENT_USER_ID_";
+	
+	/**
 	 * The Redis key prefix for the sessions 
 	 */
 	public static final String SHIRO_REDIS_SESSION = "SHIRO_REDIS_SESSION_";

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.zml.common.page.Page;
 import com.zml.common.page.Parameter;
 import com.zml.common.web.base.BaseController;
+import com.zml.common.web.bind.annotation.CurrentUser;
 import com.zml.common.web.entity.Message;
 import com.zml.user.entity.User;
 import com.zml.user.exceptions.UserServiceException;
@@ -56,7 +57,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
     public Message listAllUsers() {
 		Message message = new Message();
-        List<User> users = userService.getAllUser();
+        List<User> users = this.userService.getAllUser();
         if(users.isEmpty()){
         	message.setStatusCode(HttpStatus.NO_CONTENT.value());
         }
@@ -171,6 +172,20 @@ public class UserController extends BaseController {
 	        	message.setSuc();
 	        }
 		}
+		return message;
+	}
+	
+	/**
+	 * 测试@CurrentUser注解
+	 * 从缓存中取出当前登陆用户的信息
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping(value = "/insertSomthing", method = RequestMethod.GET)
+	public Message insertSomthing(@CurrentUser User user) {
+		Message message = new Message();
+		message.setSuc();
+		message.setData(user);
 		return message;
 	}
 	

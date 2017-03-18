@@ -1,8 +1,5 @@
 package com.zml.web.controller.user;
 
-import io.jsonwebtoken.impl.crypto.MacProvider;
-
-import java.security.Key;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,12 +7,14 @@ import java.util.Map;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zml.common.constant.SystemConstant;
 import com.zml.common.web.entity.Message;
 import com.zml.common.web.utils.TokenUtil;
 import com.zml.user.entity.User;
@@ -25,10 +24,17 @@ import com.zml.user.service.IUserService;
 @Controller
 public class LoginController {
 	
-	public static final Key key =MacProvider.generateKey();
-	
 	@Autowired
 	private IUserService userService;
+	
+	@Value("${jwt.info.base64Secret}")
+    private String base64Secret;		// key
+	
+	@Value("${jwt.info.issuer}")
+	private String issuer;				// 发行者
+	
+	@Value("${jwt.info.expiresSecond}")
+	private long expiresSecond;			// 有效期
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
@@ -44,11 +50,11 @@ public class LoginController {
 		// 加密明文密码，验证密码
 		if(user.getPasswd().equals(DigestUtils.sha256Hex(password))) {
 			Map<String, Object> claims = new HashMap<String, Object>();
-			claims.put("userName", user.getUserName());
-			claims.put("userId", user.getId());
+			claims.put(SystemConstant.CURRENT_USER_ID, user.getId());
+			claims.put(SystemConstant.CURRENT_USER_NAME, user.getUserName());
 			
-			Date expires = getExpiryDate(30 * 24 * 60);// 30天的有效日期
-			String token = TokenUtil.getTokenString(user, expires, key, claims);
+			//Date expires = getExpiryDate(30 * 24 * 60);// 30天的有效日期
+			String token = TokenUtil.getTokenString(user, this.expiresSecond, this.issuer, this.base64Secret, claims);
 			System.out.println("token:" + token);
 			message.setSuc();
 			message.setData(token);
