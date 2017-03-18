@@ -11,7 +11,7 @@ import com.zml.common.web.entity.FieldErrorMessage;
 import com.zml.common.web.enums.OperateLogStatusEnum;
 import com.zml.common.web.enums.OperateLogTypeEnum;
 import com.zml.user.service.IUserOperateLogService;
-
+// 日志可以用AOP实现，有时间改掉。
 @Transactional
 public class BaseController {
 
