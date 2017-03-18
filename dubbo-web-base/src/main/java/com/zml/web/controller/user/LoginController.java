@@ -69,15 +69,4 @@ public class LoginController {
 		return "index";
 	}
 	
-    private Date getExpiryDate(int minutes) {
-
-    	// 根据当前日期，来得到到期日期
-    	Calendar calendar = Calendar.getInstance();
-
-    	calendar.setTime(new Date());
-    	calendar.add(Calendar.MINUTE, minutes);
-
-    	return calendar.getTime();
-	}
-    
 }
