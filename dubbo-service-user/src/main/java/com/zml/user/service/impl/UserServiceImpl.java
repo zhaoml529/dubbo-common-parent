@@ -25,6 +25,9 @@ import com.zml.user.service.IUserService;
 
 @Service("userService")
 public class UserServiceImpl implements IUserService {
+	
+	private static final Integer LOCK = 101;
+	private static final Integer ACTIVE = 100;
 
 	@Autowired
 	private IUserDao userDao;
@@ -35,9 +38,9 @@ public class UserServiceImpl implements IUserService {
 	@Transactional(rollbackFor = Exception.class, readOnly = false)
 	public Long addUser(User user) throws UserServiceException {
 		// 测试回滚
-		if("666".equals(user.getPasswd())) {
+		/*if("666".equals(user.getPasswd())) {
 			throw new UserServiceException(UserServiceException.USERINFO_IS_EXIST, "用户已经存在！！");
-		}
+		}*/
 		/*Long l = 0L;
 		try {
 			l = this.userDao.insert(user);
@@ -45,17 +48,19 @@ public class UserServiceImpl implements IUserService {
 			throw new UserServiceException(UserServiceException.USERINFO_IS_EXIST, "添加用户失败！！");
 		}
 		return l;*/
-		
-		//加密密码
-        //this.passwordHelper.encryptPassword(user);
-		String salt = user.getSalt();
-        if(StringUtils.isBlank(salt)) {
-        	salt = getSalt(16);
-        	user.setSalt(salt);
-        }
-		String hexPassword = DigestUtils.sha256Hex(user.getPasswd() + salt);
-		user.setPasswd(hexPassword);
-		return this.userDao.insert(user);
+		if(isUserExist(user)) {
+			throw UserServiceException.create("用户已经存在！", UserServiceException.USERINFO_IS_EXIST);
+		} else {
+			//加密密码
+			String salt = user.getSalt();
+			if(StringUtils.isBlank(salt)) {
+				salt = getSalt(16);
+				user.setSalt(salt);
+			}
+			String hexPassword = DigestUtils.sha256Hex(user.getPasswd() + salt);
+			user.setPasswd(hexPassword);
+			return this.userDao.insert(user);
+		}
 	}
 	
 	private String getSalt(int len){
@@ -74,13 +79,25 @@ public class UserServiceImpl implements IUserService {
 	
 	@Transactional(rollbackFor = Exception.class, readOnly = false)
 	public void updateUser(User user) throws UserServiceException {
-		this.userDao.update(user);
+		User u = this.getUserById(user.getId());
+		if(u == null) {
+			throw UserServiceException.create("所更新的用户不存在！", UserServiceException.USERINFO_NOT_EXIST);
+		} else {
+			//u.setUserName(user.getUserName());
+			u.setStaffNum(user.getStaffNum());
+			//u.setPasswd(user.getPasswd());
+			this.userDao.update(u);
+		}
 	}
 
 	@Transactional(rollbackFor = Exception.class, readOnly = false)
 	public void deleteUser(Long id) throws UserServiceException {
-		this.userDao.deleteById(id);
-		
+		User user = this.getUserById(id);
+		if(user == null) {
+			throw UserServiceException.create("所删除的用户不存在！", UserServiceException.USERINFO_NOT_EXIST);
+		} else {
+			this.userDao.deleteById(id);
+		}
 	}
 	
 	public User getUserByName(String userName) throws UserServiceException {
@@ -92,7 +109,12 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	public User getUserById(Long id) throws UserServiceException {
-		return this.userDao.getById(id);
+		User user = this.userDao.getById(id);
+		if(user == null) {
+			throw UserServiceException.create("未找到相应用户信息！", UserServiceException.USERINFO_NOT_EXIST);
+		} else {
+			return user;
+		}
 	}
 
 	public boolean isUserExist(User user) throws UserServiceException {
@@ -124,7 +146,20 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public void updateUserStatus(Long id, Integer status)
 			throws UserServiceException {
-		this.userDao.updateUserStatus(id, status);
+		if(id == null || status == null) {
+			throw UserServiceException.create("未找到相应用户信息！", UserServiceException.USERINFO_NOT_EXIST);
+		} else {
+			User user = this.getUserById(id);
+			if (user == null) {
+				throw UserServiceException.create("未找到相应用户信息！", UserServiceException.USERINFO_NOT_EXIST);
+	        } else {
+	        	if(status == 100) { // 锁定
+	        		this.userDao.updateUserStatus(id, LOCK);
+	        	} else {			// 激活
+	        		this.userDao.updateUserStatus(id, ACTIVE);
+	        	}
+	        }
+		}
 	}
 
 	@Override
