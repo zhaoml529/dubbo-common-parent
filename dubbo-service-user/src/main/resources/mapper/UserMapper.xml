@@ -99,7 +99,7 @@
 		left join TB_STAFF s ON s.staffNum = u.staffNum and s.status = 100
 		left join TB_POST p ON p.id = s.postId and p.status = 100
 		left join TB_ROLE_RESOURCE rr ON rr.roleId = p.roleId
-		left join TB_RESOURCE r ON r.id = rr.resourceId on r.status = 100
+		left join TB_RESOURCE r ON r.id = rr.resourceId and r.status = 100
 		<where>
 			<if test="userId != null and userId != ''"> and u.id = #{userId}</if>
 			<if test="staffNum != null and staffNum != ''"> and u.staffNum = #{staffNum}</if>

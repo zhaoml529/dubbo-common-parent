@@ -1,11 +1,9 @@
 package com.zml.user.dao.impl;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Repository;
 
 import com.zml.core.dao.impl.BaseDaoImpl;
@@ -39,12 +37,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements IUserDao {
 		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put("userId", userId);
 		parameter.put("status", 100);
-		List<String> permissionList = this.getSessionTemplate().selectList(this.getStatement("getPermissionList"), parameter);
-		if(CollectionUtils.isNotEmpty(permissionList)) {
-			return permissionList;
-		} else {
-			return Collections.emptyList();
-		}
+		return this.getSessionTemplate().selectList(this.getStatement("getPermissionList"), parameter);
 	}
 
 	@Override
@@ -52,12 +45,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements IUserDao {
 		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put("staffNum", staffNum);
 		parameter.put("status", 100);
-		List<String> permissionList = this.getSessionTemplate().selectList(this.getStatement("getPermissionList"), parameter);
-		if(CollectionUtils.isNotEmpty(permissionList)) {
-			return permissionList;
-		} else {
-			return Collections.emptyList();
-		}
+		return this.getSessionTemplate().selectList(this.getStatement("getPermissionList"), parameter);
 	}
 
 }

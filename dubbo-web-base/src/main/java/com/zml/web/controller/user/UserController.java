@@ -18,11 +18,20 @@ import com.zml.common.page.Page;
 import com.zml.common.page.Parameter;
 import com.zml.common.web.base.BaseController;
 import com.zml.common.web.bind.annotation.CurrentUser;
+import com.zml.common.web.bind.annotation.Permission;
 import com.zml.common.web.entity.Message;
 import com.zml.user.entity.User;
 import com.zml.user.exceptions.UserServiceException;
 import com.zml.user.service.IUserService;
 
+/**
+ * @Permission("user:view")	
+ * 规则："资源标识符:操作" - 不支持通配符
+ * 上面表示拥有user资源的view操作权限
+ * 
+ * @author zhaomingliang
+ * @date 2017年3月20日
+ */
 @RestController
 public class UserController extends BaseController {
 	
@@ -37,6 +46,7 @@ public class UserController extends BaseController {
 	 * @param id
 	 * @return
 	 */
+	@Permission("user:view")
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Message getDetail(@PathVariable("id") long id) {
 		Message message = new Message();
@@ -54,6 +64,7 @@ public class UserController extends BaseController {
 	 * 获取所有用户列表
 	 * @return
 	 */
+	@Permission("user:view")
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
     public Message listAllUsers() {
 		Message message = new Message();
@@ -71,6 +82,7 @@ public class UserController extends BaseController {
 	 * @param param
 	 * @return
 	 */
+	@Permission("user:view")
 	@RequestMapping(value = "/listUser", method = RequestMethod.POST)
 	public Message listUserPage(@RequestBody Parameter<User> param) {
 		Message message = new Message();
@@ -87,6 +99,7 @@ public class UserController extends BaseController {
 	 * @param ucBuilder
 	 * @return
 	 */
+	@Permission("user:create")
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	public Message createUser(@Valid @RequestBody User user/*, BindingResult result*/) {
 		Message message = new Message();
@@ -107,6 +120,7 @@ public class UserController extends BaseController {
 	 * @param user
 	 * @return
 	 */
+	@Permission("user:update")
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
     public Message updateUser(@PathVariable("id") long id, @Valid @RequestBody User user, BindingResult result) {
 		Message message = new Message();
@@ -133,6 +147,7 @@ public class UserController extends BaseController {
 	 * @param id
 	 * @return
 	 */
+	@Permission("user:delete")
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
     public Message deleteUser(@PathVariable("id") long id) {
 		Message message = new Message();
@@ -154,6 +169,7 @@ public class UserController extends BaseController {
 	 * @param status
 	 * @return
 	 */
+	@Permission("user:update")
 	@RequestMapping(value = "/user/{id}/lock/{status}", method = RequestMethod.GET)
 	public Message lock(@PathVariable("id") Long id, @PathVariable("status") Integer status) {
 		Message message = new Message();

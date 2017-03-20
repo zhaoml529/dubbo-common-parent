@@ -137,13 +137,23 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public List<String> getPermissionByUserId(String userId)
 			throws UserServiceException {
-		return this.userDao.getPermissionByUserId(userId);
+		List<String> permissionList = this.userDao.getPermissionByUserId(userId);
+		if(CollectionUtils.isNotEmpty(permissionList)) {
+			return permissionList;
+		} else {
+			return Collections.emptyList();
+		} 
 	}
 
 	@Override
 	public List<String> getPermissionByStaffNuym(String staffNum)
 			throws UserServiceException {
-		return this.userDao.getPermissionByStaffNuym(staffNum);
+		List<String> permissionList = this.userDao.getPermissionByStaffNuym(staffNum);
+		if(CollectionUtils.isNotEmpty(permissionList)) {
+			return permissionList;
+		} else {
+			return Collections.emptyList();
+		}
 	}
 	
 	public static void main(String[] args) {
