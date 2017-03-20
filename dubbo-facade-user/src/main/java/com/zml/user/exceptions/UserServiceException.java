@@ -37,26 +37,31 @@ public class UserServiceException extends ServiceException {
 	 * 登录：操作员被销户
 	 */
 	public static final int LOGIN_OPERATORSTATUS_CANCELLATION = 10010006;
+	
+	/**
+	 * 请先登录
+	 */
+	public static final int LOGIN_FIRST = 10010007;
 
 	/**
 	 * 用户已存在
 	 */
-	public static final int USERINFO_IS_EXIST = 10010007;
+	public static final int USERINFO_IS_EXIST = 10010008;
 
 	/**
 	 * 用户不存在
 	 */
-	public static final int USERINFO_NOT_EXIST = 10010008;
+	public static final int USERINFO_NOT_EXIST = 10010009;
 	
 	/**
 	 * 用户id不存在
 	 */
-	public static final int USER_ID_NOT_EXIST = 10010009;
+	public static final int USER_ID_NOT_EXIST = 100100010;
 	
 	/**
 	 * 更新用户失败
 	 */
-	public static final int UPDATE_USER_FAIL = 10010010;
+	public static final int UPDATE_USER_FAIL = 10010011;
 	
 	public UserServiceException() {
 		

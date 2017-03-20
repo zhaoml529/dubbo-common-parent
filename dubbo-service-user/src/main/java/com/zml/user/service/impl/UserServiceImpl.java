@@ -134,6 +134,18 @@ public class UserServiceImpl implements IUserService {
 		return page;
 	}
 
+	@Override
+	public List<String> getPermissionByUserId(String userId)
+			throws UserServiceException {
+		return this.userDao.getPermissionByUserId(userId);
+	}
+
+	@Override
+	public List<String> getPermissionByStaffNuym(String staffNum)
+			throws UserServiceException {
+		return this.userDao.getPermissionByStaffNuym(staffNum);
+	}
+	
 	public static void main(String[] args) {
 		Random r = new Random();  
         StringBuilder sb = new StringBuilder(16);  

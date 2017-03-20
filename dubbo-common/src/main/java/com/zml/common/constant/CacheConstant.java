@@ -18,6 +18,11 @@ public class CacheConstant {
 	public static final String CURRENT_USER_ID = "CURRENT_USER_ID_";
 	
 	/**
+	 * 用户权限字符串列表
+	 */
+	public static final String USER_PERMISSION_KEY = "USER_PERMISSION_KEY_";
+	
+	/**
 	 * The Redis key prefix for the sessions 
 	 */
 	public static final String SHIRO_REDIS_SESSION = "SHIRO_REDIS_SESSION_";

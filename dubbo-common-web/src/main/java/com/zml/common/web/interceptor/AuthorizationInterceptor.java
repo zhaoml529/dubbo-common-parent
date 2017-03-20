@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.zml.common.constant.SystemConstant;
 import com.zml.common.web.utils.TokenUtil;
 
 /**
@@ -41,7 +42,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 			String userId = TokenUtil.getUserId(token, base64Secret);	// 解析出userId
 			//String name = TokenUtil.getUserName(token,base64Secret);	// 解析出userName
 			//String role = TokenUtil.getRoles(token, base64Secret);	// 解析出role
-			request.setAttribute("userId", userId);			// 将token对应的userId存入request中，便于后续取出使用。
+			request.setAttribute(SystemConstant.CURRENT_USER_ID, userId);			// 将token对应的userId存入request中，便于后续取出使用。
 			return true;
 		}  else {
 			response.sendError(HttpStatus.UNAUTHORIZED.value(), "认证失败!");

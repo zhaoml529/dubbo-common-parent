@@ -39,5 +39,21 @@ public interface IUserService {
 	public void deleteUser(Long id) throws UserServiceException;
 	
 	public void updateUserStatus(Long id, Integer status) throws UserServiceException;
+	
+	/**
+	 * 通过用户id获取权限列表
+	 * @param userId
+	 * @return
+	 * @throws UserServiceException
+	 */
+	public List<String> getPermissionByUserId(String userId) throws UserServiceException;
+	
+	/**
+	 * 通过用户编制号获取权限列表
+	 * @param staffNum
+	 * @return
+	 * @throws UserServiceException
+	 */
+	public List<String> getPermissionByStaffNuym(String staffNum) throws UserServiceException;
 
 }

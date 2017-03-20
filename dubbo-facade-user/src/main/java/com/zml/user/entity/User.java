@@ -8,6 +8,7 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zml.common.entity.BaseEntity;
 
 public class User extends BaseEntity {
@@ -23,11 +24,13 @@ public class User extends BaseEntity {
 	@NotNull(message = "{user.staffNum.not.null}")
 	private Long staffNum;		// 编制号
 	
+	@JsonIgnore
 	@NotBlank(message = "{user.passwd.not.blank}")
 	@Length(min = 8, max = 15, message = "{user.passwd.length.illegal}")
 	@Pattern(regexp = "^[a-zA-Z0-9]+$", message="{user.passwd.illegal}")
 	private String passwd;
 	
+	@JsonIgnore
 	private String salt;
 	
 	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -42,7 +45,7 @@ public class User extends BaseEntity {
 	private Date pwdErrorLastTime;	// 最后一次登录密码错误时间
 	
 	private Date lastUpdatePwdTime;	// 最后一次修改密码时间 
-
+	
 	public String getUserName() {
 		return userName;
 	}
