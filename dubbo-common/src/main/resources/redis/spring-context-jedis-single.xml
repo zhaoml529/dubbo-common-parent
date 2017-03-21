@@ -14,8 +14,8 @@
 	<!-- Jedis ConnectionFactory 数据库连接配置 -->
 	<bean id="jedisConnectionFactory"
 		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
-		<property name="hostName" value="192.168.85.131" />
-		<property name="port" value="6379" />
+		<property name="hostName" value="${redis.host}" />
+		<property name="port" value="${redis.port}" />
 		<property name="poolConfig" ref="jedisPoolConfig" />
 	</bean>
 
