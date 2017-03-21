@@ -1,4 +1,4 @@
-package com.zml.common.web.bind.method;
+package com.zml.common.web.annotationMethod;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
@@ -11,7 +11,7 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
 
 import com.zml.common.constant.CacheConstant;
 import com.zml.common.utils.cache.redis.RedisUtil;
-import com.zml.common.web.bind.annotation.CurrentUser;
+import com.zml.common.web.annotation.CurrentUser;
 import com.zml.user.entity.User;
 import com.zml.user.service.IUserService;
 

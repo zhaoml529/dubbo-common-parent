@@ -21,9 +21,9 @@ public class UserOperateLog extends BaseEntity {
 	
 	private Long staffNum;			// 编制号
 	
-	private Integer operateStatus;	// 操作状态(100:成功,101:失败)
+	private Integer operateStatus;	// 操作状态(100:成功,101:失败) 没用
 	
-	private int errorCode;			// 错误码
+	private int errorCode;			// 错误码   没用
 	
 	private String ip;				// ip地址
 	

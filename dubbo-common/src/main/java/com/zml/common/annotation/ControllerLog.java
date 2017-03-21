@@ -1,4 +1,4 @@
-package com.zml.common.annotation.interfaces;
+package com.zml.common.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -9,7 +9,9 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface ServiceLog {
+public @interface ControllerLog {
+
+	String content() default "";		// 操作描述
 	
-	String value() default "";
+	String operationType() default "";	// 操作类型 OperateLogTypeEnum
 }

@@ -34,11 +34,11 @@
 		<version>${dubbo-common-config.version}</version>
 	</dependency>
 	
-	<dependency>
+<!-- 	<dependency>
 		<groupId>com.zml</groupId>
 		<artifactId>dubbo-common-core</artifactId>
 		<version>${dubbo-common-core.version}</version>
-	</dependency>
+	</dependency> -->
 	
 	<dependency>
 		<groupId>com.zml</groupId>

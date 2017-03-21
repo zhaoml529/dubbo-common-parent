@@ -1,4 +1,4 @@
-package com.zml.common.web.bind.annotation;
+package com.zml.common.web.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

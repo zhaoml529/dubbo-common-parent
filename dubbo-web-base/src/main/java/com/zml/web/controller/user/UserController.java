@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.zml.common.page.Page;
 import com.zml.common.page.Parameter;
+import com.zml.common.web.annotation.CurrentUser;
+import com.zml.common.web.annotation.Permission;
 import com.zml.common.web.base.BaseController;
-import com.zml.common.web.bind.annotation.CurrentUser;
-import com.zml.common.web.bind.annotation.Permission;
 import com.zml.common.web.entity.Message;
 import com.zml.user.entity.User;
 import com.zml.user.service.IUserService;

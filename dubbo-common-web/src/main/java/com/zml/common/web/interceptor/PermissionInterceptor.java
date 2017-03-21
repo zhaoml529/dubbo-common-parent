@@ -15,8 +15,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.zml.common.constant.CacheConstant;
 import com.zml.common.constant.SystemConstant;
 import com.zml.common.utils.cache.redis.RedisUtil;
-import com.zml.common.web.bind.annotation.Permission;
-import com.zml.user.entity.User;
+import com.zml.common.web.annotation.Permission;
 import com.zml.user.exceptions.UserServiceException;
 import com.zml.user.service.IUserService;
 
@@ -26,9 +25,6 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
 	
 	@Autowired
 	private IUserService userService;
-	
-	@Autowired
-	private RedisUtil<User> userRedis;
 	
 	@Autowired
 	private RedisUtil<String> stringRedis;
