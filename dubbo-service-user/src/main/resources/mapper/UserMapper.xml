@@ -94,7 +94,7 @@
 	</update>
 	
 	<select id="getPermissionList" parameterType="map" resultType="string">
-		select r.permission
+		select COALESCE(r.permission,'') as permission
 		from TB_USER u
 		left join TB_STAFF s ON s.staffNum = u.staffNum and s.status = 100
 		left join TB_POST p ON p.id = s.postId and p.status = 100
