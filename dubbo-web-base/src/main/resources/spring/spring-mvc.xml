@@ -87,6 +87,8 @@
         	<mvc:exclude-mapping path="/login"/>
         	<bean class="com.zml.common.web.interceptor.AuthorizationInterceptor"/>
         </mvc:interceptor>
+        <!-- 权限验证拦截器 -->
+        <bean class="com.zml.common.web.interceptor.PermissionInterceptor"></bean>
     </mvc:interceptors>
 	
 	<!--静态资源默认servlet配置
