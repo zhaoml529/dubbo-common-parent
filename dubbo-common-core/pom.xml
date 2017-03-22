@@ -8,7 +8,7 @@
   </parent>
   <artifactId>dubbo-common-core</artifactId>
   <version>${dubbo-common-core.version}</version>
-  <name>dubbo-commo-core</name>
+  <name>dubbo-common-core</name>
   
   <properties>
   	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
