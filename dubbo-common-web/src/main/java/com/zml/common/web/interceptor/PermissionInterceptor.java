@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -21,7 +23,7 @@ import com.zml.user.service.IUserService;
 
 @Component
 public class PermissionInterceptor extends HandlerInterceptorAdapter {
-
+	private  static final Logger logger = LoggerFactory.getLogger(PermissionInterceptor. class);
 	
 	@Autowired
 	private IUserService userService;
@@ -39,13 +41,14 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
 				final String userId = (String) request.getAttribute(SystemConstant.CURRENT_USER_ID);
 				if(StringUtils.isNotBlank(userId)) {
 					// 从缓存取出权限字符串
-					List<String> permissions = this.stringRedis.getCacheList(CacheConstant.USER_PERMISSION_KEY + userId);
+					List<String> permissions = this.stringRedis.lrange(CacheConstant.USER_PERMISSION_KEY + userId, 0, -1);
 					if(permissions.isEmpty()) {
 						// 根据用户编制号获取权限字符串列表
 						permissions = this.userService.getPermissionByUserId(userId);
 						// 将权限列表放入缓存
 						this.stringRedis.setCacheList(CacheConstant.USER_PERMISSION_KEY + userId, permissions);
 					}
+					logger.info("用户权限列表userId: "+userId+"permissions: "+permissions.toString());
 					// 检查权限
 					if(permissions.contains(permission.value())) {
 						return true;	// 拥有权限

@@ -34,6 +34,12 @@
 		<version>${dubbo-facade-user.version}</version>
 	</dependency>
 	
+	<!-- <dependency>
+		<groupId>com.zml</groupId>
+		<artifactId>dubbo-facade-log</artifactId>
+		<version>${dubbo-facade-log.version}</version>
+	</dependency> -->
+	
 	<!-- Spring Dependency Begin -->
 	<dependency>
 		<groupId>org.springframework</groupId>

@@ -28,7 +28,7 @@ public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentR
 	
 	@Autowired
 	private RedisUtil<User> redisUtil;
-
+	
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {
 		// 如果参数类型是User并且有CurrentUser注解则支持
