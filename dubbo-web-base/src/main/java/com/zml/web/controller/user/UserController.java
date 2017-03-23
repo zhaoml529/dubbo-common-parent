@@ -20,6 +20,8 @@ import com.zml.common.web.annotation.CurrentUser;
 import com.zml.common.web.annotation.Permission;
 import com.zml.common.web.base.BaseController;
 import com.zml.common.web.entity.Message;
+import com.zml.log.annotation.ControllerLog;
+import com.zml.log.enums.OperateLogTypeEnum;
 import com.zml.user.entity.User;
 import com.zml.user.service.IUserService;
 
@@ -42,7 +44,8 @@ public class UserController extends BaseController {
 	 * @param id
 	 * @return
 	 */
-	@Permission("user:view")
+	@ControllerLog(content = "查询用户详情", operationType = OperateLogTypeEnum.QUERYA)
+	@Permission("user:view:detail")
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Message getDetail(@PathVariable("id") long id) {
 		Message message = new Message();
@@ -56,7 +59,7 @@ public class UserController extends BaseController {
 	 * 获取所有用户列表
 	 * @return
 	 */
-	@Permission("user:view")
+	@Permission("user:view:list")
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
     public Message listAllUsers() {
 		Message message = new Message();
@@ -74,7 +77,7 @@ public class UserController extends BaseController {
 	 * @param param
 	 * @return
 	 */
-	@Permission("user:view")
+	@Permission("user:view:list")
 	@RequestMapping(value = "/listUser", method = RequestMethod.POST)
 	public Message listUserPage(@RequestBody Parameter<User> param) {
 		Message message = new Message();
@@ -91,12 +94,13 @@ public class UserController extends BaseController {
 	 * @param ucBuilder
 	 * @return
 	 */
+	//@ControllerLog(content = "添加用户", operationType = "ADD")
 	@Permission("user:create")
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	public Message createUser(@Valid @RequestBody User user/*, BindingResult result*/) {
 		Message message = new Message();
 		this.userService.addUser(user);
-		this.logSave("添加用户成功！");
+		//this.logSave("添加用户成功！");
 		message.setMessage("添加用户成功！");
 		return message;
 	}
@@ -107,6 +111,7 @@ public class UserController extends BaseController {
 	 * @param user
 	 * @return
 	 */
+	//@ControllerLog(content = "更新用户", operationType = "UPDATE")
 	@Permission("user:update")
 	@RequestMapping(value = "/user", method = RequestMethod.PUT)
     public Message updateUser(@Valid @RequestBody User user, BindingResult result) {
@@ -126,6 +131,7 @@ public class UserController extends BaseController {
 	 * @param id
 	 * @return
 	 */
+	//@ControllerLog(content = "删除用户", operationType = "DELETE")
 	@Permission("user:delete")
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
     public Message deleteUser(@PathVariable("id") long id) {

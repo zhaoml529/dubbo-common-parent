@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zml.common.constant.CacheConstant;
 import com.zml.common.constant.SystemConstant;
+import com.zml.common.utils.cache.redis.RedisUtil;
 import com.zml.common.web.entity.Message;
 import com.zml.common.web.utils.TokenUtil;
+import com.zml.log.annotation.ControllerLog;
+import com.zml.log.enums.OperateLogTypeEnum;
 import com.zml.user.entity.User;
 import com.zml.user.exceptions.UserServiceException;
 import com.zml.user.service.IUserService;
@@ -25,6 +29,9 @@ public class LoginController {
 	@Autowired
 	private IUserService userService;
 	
+	@Autowired
+	private RedisUtil<User> redisUtil;
+	
 	@Value("${jwt.info.base64Secret}")
     private String base64Secret;		// key
 	
@@ -34,6 +41,7 @@ public class LoginController {
 	@Value("${jwt.info.expiresSecond}")
 	private long expiresSecond;			// 有效期
 	
+	@ControllerLog(content = "登录系统", operationType = OperateLogTypeEnum.LOGIN)
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
     public Message showLoginForm(@RequestParam("username") String userName, @RequestParam("password") String password) throws Exception {
@@ -53,6 +61,7 @@ public class LoginController {
 			
 			//Date expires = getExpiryDate(30 * 24 * 60);// 30天的有效日期
 			String token = TokenUtil.getTokenString(user, this.expiresSecond, this.issuer, this.base64Secret, claims);
+			this.redisUtil.setCacheObject(CacheConstant.CURRENT_USER_ID + user.getId().toString(), user);	// 默认过期时间2小时,token过期考虑清除缓存
 			System.out.println("token:" + token);
 			message.setSuc();
 			message.setData(token);

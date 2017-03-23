@@ -21,6 +21,10 @@
 	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
+    <!-- 添加 Spring AOP 权限注解的支持，走CGLIB类代理。 -->
+    <!-- AOP拦截controller时此配置必须和controller在同一个context中, 否则会拦截不到 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+	
 	<!-- 开启注解支持，默认向工厂中注册了几个Bean(@Controller @RequestMapping)，此处为context:component-scan做准备 -->
 	<mvc:annotation-driven validator="validator">
 		<!-- 处理@responseBody里面日期类型 -->  
@@ -44,7 +48,7 @@
 	        </bean>  
     	</mvc:message-converters>  
     	<mvc:argument-resolvers>
-    		<bean class="com.zml.common.web.bind.method.CurrentUserMethodArgumentResolver"></bean>
+    		<bean class="com.zml.common.web.annotationMethod.CurrentUserMethodArgumentResolver"></bean>
     	</mvc:argument-resolvers>
 	</mvc:annotation-driven>
 	

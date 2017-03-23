@@ -60,14 +60,9 @@ public class CompanyController extends BaseController {
 	@RequestMapping(value = "/company", method = RequestMethod.POST)
 	public Message createCompany(@Valid @RequestBody Company company) {
 		Message message = new Message();
-		try {
-			this.companyService.addCompany(company);
-			message.setSuc();
-			super.logSave("添加公司信息成功！");
-		} catch (CompanyServiceException e) {
-			super.logSaveErr(e.getErrMsg(), e.getCode());
-			throw e;
-		}
+		this.companyService.addCompany(company);
+		message.setSuc();
+		//super.logSave("添加公司信息成功！");
 		return message;
 	}
 	
@@ -88,10 +83,10 @@ public class CompanyController extends BaseController {
 				company.setId(id);
 				this.companyService.updateCompany(company);
 				message.setSuc();
-				super.logUpdate("更新公司信息成功！");
+				//super.logUpdate("更新公司信息成功！");
 			}
 		} catch (CompanyServiceException e) {
-			super.logUpdateErr("更新公司信息失败！", e.getCode());
+			//super.logUpdateErr("更新公司信息失败！", e.getCode());
 			throw e;
 		}
 		return message;
@@ -108,9 +103,9 @@ public class CompanyController extends BaseController {
 		try {
 			this.companyService.getById(id);
 			message.setSuc();
-			super.logDelete("删除公司信息成功！");
+			//super.logDelete("删除公司信息成功！");
 		} catch (CompanyServiceException e) {
-			super.logDeleteErr("删除公司信息失败！", e.getCode());
+			//super.logDeleteErr("删除公司信息失败！", e.getCode());
 			throw e;
 		}
 		return message;

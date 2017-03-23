@@ -42,14 +42,20 @@
 	
 	<dependency>
 		<groupId>com.zml</groupId>
+		<artifactId>dubbo-common-web</artifactId>
+		<version>${dubbo-common-web.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.zml</groupId>
 		<artifactId>dubbo-facade-user</artifactId>
 		<version>${dubbo-facade-user.version}</version>
 	</dependency>
 	
 	<dependency>
 		<groupId>com.zml</groupId>
-		<artifactId>dubbo-common-web</artifactId>
-		<version>${dubbo-common-web.version}</version>
+		<artifactId>dubbo-facade-log</artifactId>
+		<version>${dubbo-facade-log.version}</version>
 	</dependency>
 	
 	<!-- dubbo required jars start -->
