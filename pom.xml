@@ -14,12 +14,15 @@
 	<dubbo-common-config.version>1.0-SNAPSHOT</dubbo-common-config.version>
 	<dubbo-common-core.version>1.0-SNAPSHOT</dubbo-common-core.version>
 	<dubbo-common-web.version>1.0-SNAPSHOT</dubbo-common-web.version>
+	<dubbo-common-html.version>1.0-SNAPSHOT</dubbo-common-html.version>
 	
 	<!-- facade projects -->
 	<dubbo-facade-user.version>1.0-SNAPSHOT</dubbo-facade-user.version>
+	<dubbo-facade-log.version>1.0-SNAPSHOT</dubbo-facade-log.version>
 	
 	<!-- service projects -->
 	<dubbo-service-user.version>1.0-SNAPSHOT</dubbo-service-user.version>
+	<dubbo-service-log.version>1.0-SNAPSHOT</dubbo-service-log.version>
 	
 	<!-- web projects -->
 	<dubbo-web-base.version>1.0-SNAPSHOT</dubbo-web-base.version>
@@ -432,5 +435,7 @@
   	<module>dubbo-service-user</module>
   	<module>dubbo-web-base</module>
   	<module>dubbo-web-html</module>
+  	<module>dubbo-facade-log</module>
+  	<module>dubbo-service-log</module>
   </modules>
 </project>

@@ -5,7 +5,6 @@
             http://code.alibabatech.com/schema/dubbo  
             http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-	<!-- 服务消费者引用服务配置 -->
-	<!-- check: 启动时检查提供者是否存在，true报错，false忽略 -->
-
+	<!-- 日志服务接口 -->
+	
 </beans>  

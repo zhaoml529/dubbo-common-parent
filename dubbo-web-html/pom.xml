@@ -4,8 +4,10 @@
     <groupId>com.zml</groupId>
     <artifactId>dubbo-common-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <relativePath>../../dubbo-common-parent</relativePath>
   </parent>
   <artifactId>dubbo-web-html</artifactId>
+  <version>${dubbo-common-html.version}</version>
   <packaging>war</packaging>
   <name>dubbo-web-html</name>
 </project>

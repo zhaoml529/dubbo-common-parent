@@ -75,7 +75,7 @@ app.config(
         // $locationProvider.html5Mode(true);
         $httpProvider.interceptors.push('httpInterceptor');	// 注册拦截器服务
         
-        shiroConfig.setAuthenticateUrl('http://localhost:8114/api/authenticate');
+        shiroConfig.setAuthenticateUrl('http://localhost:8112/login');
     }
   ]);
 
