@@ -1,4 +1,4 @@
-package com.zml.log.method;
+package com.zml.log.aop.controller;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -22,12 +22,12 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.zml.common.annotation.ControllerLog;
 import com.zml.common.constant.CacheConstant;
 import com.zml.common.constant.SystemConstant;
+import com.zml.common.enums.OperateLogTypeEnum;
 import com.zml.common.utils.cache.redis.RedisUtil;
-import com.zml.log.annotation.ControllerLog;
 import com.zml.log.entity.UserOperateLog;
-import com.zml.log.enums.OperateLogTypeEnum;
 import com.zml.log.service.IUserOperateLogService;
 import com.zml.user.service.IUserService;
 
@@ -53,8 +53,8 @@ public class ControllerLogAspect {
 	/**
 	 * 配置切入点,该方法无方法体,主要为方便同类中其他方法使用此处配置的切入点
 	 */
-	@Pointcut("@annotation(com.zml.log.annotation.ControllerLog)")
-	public void aspect() {
+	@Pointcut("@annotation(com.zml.common.annotation.ControllerLog)")
+	public void aspectController() {
 		
 	}
 
@@ -62,7 +62,7 @@ public class ControllerLogAspect {
 	 * 配置前置通知,使用在方法aspect()上注册的切入点
 	 * 同时接受JoinPoint切入点对象,可以没有该参数
 	 */
-	@Before("aspect()")
+	@Before("aspectController()")
 	public  void before(JoinPoint joinPoint) throws Exception {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();    
 		String userId = (String) request.getAttribute(SystemConstant.CURRENT_USER_ID);
@@ -106,7 +106,7 @@ public class ControllerLogAspect {
      * @throws Exception  
      */    
 	@SuppressWarnings("rawtypes")
-    public  static String[] getControllerMethodDescription(JoinPoint joinPoint)  throws Exception {    
+    private String[] getControllerMethodDescription(JoinPoint joinPoint)  throws Exception {    
         String targetName = joinPoint.getTarget().getClass().getName();    
         String methodName = joinPoint.getSignature().getName();    
         Object[] arguments = joinPoint.getArgs();    
