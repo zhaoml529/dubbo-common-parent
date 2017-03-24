@@ -112,9 +112,7 @@ public class UserServiceImpl implements IUserService {
 
 	@ServiceLog(content = "查询用户信息ById")
 	public User getUserById(Long id) throws UserServiceException {
-		//throw UserServiceException.create("未找到相应用户信息！", UserServiceException.USERINFO_NOT_EXIST);
 		User user = this.userDao.getById(id);
-		//System.out.println(0/1);
 		if(user == null) {
 			throw UserServiceException.create("未找到相应用户信息！", UserServiceException.USERINFO_NOT_EXIST);
 		} else {
@@ -134,8 +132,7 @@ public class UserServiceImpl implements IUserService {
 	@ServiceLog(content = "查询所有用户信息")
 	public List<User> getAllUser() throws UserServiceException {
 		System.out.println("*****************:"+RequestContextHolder.getRequestAttributes());
-		throw UserServiceException.create("未找到相应用户信息！", UserServiceException.USERINFO_NOT_EXIST);
-		/*System.out.println(1/0);
+		System.out.println(1/0);
 		List<User> userList = this.redisUtil.lrange(CacheConstant.ALL_USER_LIST, 0, -1);	// 从缓存查询userlist是否存在
 		if(CollectionUtils.isEmpty(userList)) {
 			Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -149,7 +146,7 @@ public class UserServiceImpl implements IUserService {
 			}
 		} else {
 			return userList;
-		}*/
+		}
 	}
 
 	@Override
