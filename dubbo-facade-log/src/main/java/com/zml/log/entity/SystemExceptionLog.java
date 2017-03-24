@@ -14,15 +14,15 @@ public class SystemExceptionLog extends BaseEntity {
 	 */
 	private static final long serialVersionUID = -2064327607957482560L;
 
-	private Long userId;
+	private Long userId = 0L;
 
-	private String userName;
+	private String userName = "";
 	
-	private Long staffNum;			// 编制号
+	private Long staffNum = 0L;		// 编制号
 	
 	private String methodName;		// 请求方法
 	
-	private Integer errorCode;			// 异常代码
+	private Integer errorCode;		// 异常代码
 	
 	private String errorName;		// 异常名称
 	
@@ -30,7 +30,7 @@ public class SystemExceptionLog extends BaseEntity {
 	
 	private String params;			// 请求参数
 	
-	private String ip;				// ip地址
+	private String ip = "";				// ip地址
 	
 	private String content;			// 操作内容
 

@@ -64,7 +64,16 @@ public class ControllerLogAspect {
 	 */
 	@Before("aspectController()")
 	public  void before(JoinPoint joinPoint) throws Exception {
+		StringBuffer methodName = new StringBuffer();
+		methodName.append(joinPoint.getTarget().getClass().getName()).append(".").append(joinPoint.getSignature().getName()).append("()");
+		logger.info("=====前置通知开始====="); 
+		logger.info("请求方法:" + methodName.toString());
+		logger.info("方法描述:" + getControllerMethodDescription(joinPoint));    
+		
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();    
+		String[] param = getControllerMethodDescription(joinPoint);
+		UserOperateLog operateLog= new UserOperateLog();
+		String ip = request.getRemoteAddr();
 		String userId = (String) request.getAttribute(SystemConstant.CURRENT_USER_ID);
 		if(StringUtils.isNotBlank(userId)) {
 			Object user = this.userRedis.getCacheObject(CacheConstant.CURRENT_USER_ID + userId);
@@ -74,28 +83,19 @@ public class ControllerLogAspect {
 			}
 			if(user != null) {
 				Map<String, Object> userMap = this.object2Map(user);
-				String ip = request.getRemoteAddr();
-				StringBuffer methodName = new StringBuffer();
-				methodName.append(joinPoint.getTarget().getClass().getName()).append(".").append(joinPoint.getSignature().getName()).append("()");
+				logger.info("请求人:" + userMap.get("userName"));    
+				logger.info("请求IP:" + ip);    
 				
-				logger.info("=====前置通知开始====="); 
-				logger.info("请求方法:" + methodName.toString());
-				logger.info("方法描述:" + getControllerMethodDescription(joinPoint));    
-	            logger.info("请求人:" + userMap.get("userName"));    
-	            logger.info("请求IP:" + ip);    
-	            
-	            String[] param = getControllerMethodDescription(joinPoint);
-	            UserOperateLog operateLog= new UserOperateLog();
 				operateLog.setUserId(Long.valueOf(userMap.get("id").toString()));
 				operateLog.setUserName(userMap.get("userName").toString());
 				operateLog.setStaffNum(Long.valueOf(userMap.get("staffNum").toString()));
-				operateLog.setMethodName(methodName.toString());
-				operateLog.setContent(param[0]);	// 操作描述
-				operateLog.setOperType(param[1]);	// 操作类型
-				operateLog.setIp(ip);
-				this.userOperateLogService.addLog(operateLog);
 			}
 		}
+		operateLog.setMethodName(methodName.toString());
+		operateLog.setContent(param[0]);	// 操作描述
+		operateLog.setOperType(param[1]);	// 操作类型
+		operateLog.setIp(ip);
+		this.userOperateLogService.addLog(operateLog);
 	}
 	
 	/**  

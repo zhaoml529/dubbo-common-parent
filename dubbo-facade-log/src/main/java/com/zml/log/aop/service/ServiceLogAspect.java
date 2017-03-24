@@ -6,9 +6,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -17,17 +14,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.zml.common.annotation.ControllerLog;
 import com.zml.common.annotation.ServiceLog;
-import com.zml.common.constant.CacheConstant;
-import com.zml.common.constant.SystemConstant;
 import com.zml.common.exceptions.ServiceException;
 import com.zml.common.utils.cache.redis.RedisUtil;
+import com.zml.log.entity.SystemExceptionLog;
 import com.zml.log.service.ISystemExceptionLogService;
 import com.zml.user.service.IUserService;
 
@@ -89,6 +82,20 @@ public class ServiceLogAspect {
         	System.out.println("code:"+((ServiceException) ex).getCode());
         	System.out.println("errMsg:"+((ServiceException) ex).getErrMsg());
         }
+        
+        String content = getServiceMethodDescription(joinPoint);
+        SystemExceptionLog log = new SystemExceptionLog();
+        log.setMethodName(methodName.toString());
+        log.setContent(content);
+        
+        log.setErrorName(ex.getClass().getName());	// 异常名称
+        log.setErrorMessage(ex.getMessage());		// 异常信息
+        log.setParams(params.toString());
+        if(ex instanceof ServiceException) {
+        	log.setErrorCode(((ServiceException) ex).getCode());
+        }
+        this.systemLogService.addLog(log);
+        
 		/*System.out.println("!!!!!!!:"+RequestContextHolder.getRequestAttributes());
 		System.out.println("#######:"+(ServletRequestAttributes) RequestContextHolder.getRequestAttributes());
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();    
@@ -112,16 +119,6 @@ public class ServiceLogAspect {
 		            }    
 		        }
 				
-				System.out.println("=====异常通知开始=====");    
-	            System.out.println("异常代码:" + ex.getClass().getName());    
-	            System.out.println("异常信息:" + ex.getMessage());    
-	            System.out.println("异常方法:" + methodName);    
-	            System.out.println("方法描述:" + getServiceMethodDescription(joinPoint));    
-	            System.out.println("请求人:" + userMap.get("userName").toString());    
-	            System.out.println("请求IP:" + ip);    
-	            System.out.println("请求参数:" + params.toString());  
-	            System.out.println("---------------------------------------------------------------------------");
-	            
 	            if(ex instanceof ServiceException) {
 	            	System.out.println("code:"+((ServiceException) ex).getCode());
 	            	System.out.println("errMsg:"+((ServiceException) ex).getErrMsg());
