@@ -46,6 +46,14 @@ public class User extends BaseEntity {
 	
 	private Date lastUpdatePwdTime;	// 最后一次修改密码时间 
 	
+	public User(){
+		
+	}
+	
+	public User(String userName) {
+		this.userName = userName;
+	}
+	
 	public String getUserName() {
 		return userName;
 	}

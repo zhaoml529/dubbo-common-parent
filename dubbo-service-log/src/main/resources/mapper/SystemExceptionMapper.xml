@@ -8,7 +8,7 @@
 		insert into
 		<include refid="table"/>
 		(userId, userName, staffNum, methodName, ip, content, errorCode, errorName, errorMessage, params, createDate, version)
-		values (#{userId}, #{userName}, #{staffNum}, #{methodName}, #{ip}, #{content}, #{errorCode}, #{errorName}, #{errorMessage}, ${params}, #{createDate}, #{version})
+		values (#{userId}, #{userName}, #{staffNum}, #{methodName}, #{ip}, #{content}, #{errorCode}, #{errorName}, #{errorMessage}, #{params}, #{createDate}, #{version})
 	</insert>
 	
 </mapper>
