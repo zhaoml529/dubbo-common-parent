@@ -3,118 +3,156 @@ package com.zml.common.web.base;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.validation.FieldError;
+import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.FieldError;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import com.zml.common.constant.CacheConstant;
+import com.zml.common.constant.SystemConstant;
+import com.zml.common.enums.OperateLogTypeEnum;
+import com.zml.common.utils.cache.redis.RedisUtil;
 import com.zml.common.web.entity.FieldErrorMessage;
-// 日志可以用AOP实现，有时间改掉。
+import com.zml.common.web.enums.OperateLogStatusEnum;
+import com.zml.log.entity.UserOperateLog;
+import com.zml.log.service.IUserOperateLogService;
+import com.zml.user.entity.User;
+/**
+ * 记录日志，或者使用@ControllerLog实现
+ * @author zhao
+ *
+ */
 public class BaseController {
 
-	/*@Autowired
+	@Autowired
 	private IUserOperateLogService operateLogService;
 	
-	*//**
+	@Autowired
+	private RedisUtil<User> userRedis;
+	
+	/**
 	 * 记录登陆日志
-	 *//*
-	protected void logLogin(String operateContent) {
-		this.setOperateLog(OperateLogTypeEnum.LOGIN, OperateLogStatusEnum.SUCCESS, operateContent);
+	 */
+	protected void logLogin(String operateContent, User user) {
+		this.setLoginLog(OperateLogTypeEnum.LOGIN, OperateLogStatusEnum.SUCCESS, operateContent, user);
 	}
 	
-	*//**
+	/**
 	 * 记录登陆错误日志
 	 * @param operateContent
-	 *//*
-	protected void logLoginErr(String operateContent, int...errorCode) {
-		this.setOperateLog(OperateLogTypeEnum.LOGOUT, OperateLogStatusEnum.ERROR, operateContent);
+	 */
+	protected void logLoginErr(String operateContent, User user) {
+		this.setLoginLog(OperateLogTypeEnum.LOGOUT, OperateLogStatusEnum.ERROR, operateContent, user);
 	}
 	
-	*//**
+	/**
 	 * 记录保存数据日志
 	 * @param operateContent
-	 *//*
+	 */
 	protected void logSave(String operateContent) {
 		this.setOperateLog(OperateLogTypeEnum.ADD, OperateLogStatusEnum.SUCCESS, operateContent);
 	}
 	
-	*//**
+	/**
 	 * 记录保存数据错误日志
 	 * @param operateContent
-	 *//*
-	protected void logSaveErr(String operateContent, int...errorCode) {
-		this.setOperateLog(OperateLogTypeEnum.ADD, OperateLogStatusEnum.ERROR, operateContent, errorCode);
+	 */
+	protected void logSaveErr(String operateContent) {
+		this.setOperateLog(OperateLogTypeEnum.ADD, OperateLogStatusEnum.ERROR, operateContent);
 	}
 	
-	*//**
+	/**
 	 * 记录更新数据日志
 	 * @param operateContent
-	 *//*
+	 */
 	protected void logUpdate(String operateContent) {
 		this.setOperateLog(OperateLogTypeEnum.UPDATE, OperateLogStatusEnum.SUCCESS, operateContent);
 	}
 	
-	*//**
+	/**
 	 * 记录更新数据错误日志
 	 * @param operateContent
-	 *//*
-	protected void logUpdateErr(String operateContent, int...errorCode) {
+	 */
+	protected void logUpdateErr(String operateContent) {
 		this.setOperateLog(OperateLogTypeEnum.UPDATE, OperateLogStatusEnum.ERROR, operateContent);
 	}
 	
-	*//**
+	/**
 	 * 记录删除数据日志
 	 * @param operateContent
-	 *//*
+	 */
 	protected void logDelete(String operateContent) {
 		this.setOperateLog(OperateLogTypeEnum.DELETE, OperateLogStatusEnum.SUCCESS, operateContent);
 	}
 	
-	*//**
+	/**
 	 * 记录删除数据错误日志
 	 * @param operateContent
-	 *//*
-	protected void logDeleteErr(String operateContent, int...errorCode) {
+	 */
+	protected void logDeleteErr(String operateContent) {
 		this.setOperateLog(OperateLogTypeEnum.DELETE, OperateLogStatusEnum.ERROR, operateContent);
 	}
 	
-	*//**
+	/**
 	 * 记录查询数据日志
 	 * @param operateContent
-	 *//*
+	 */
 	protected void logQuery(String operateContent) {
 		this.setOperateLog(OperateLogTypeEnum.QUERYA, OperateLogStatusEnum.SUCCESS, operateContent);
 	}
 	
-	*//**
+	/**
 	 * 记录查询数据错误日志
 	 * @param operateContent
-	 *//*
-	protected void logQueryErr(String operateContent, int...errorCode) {
+	 */
+	protected void logQueryErr(String operateContent) {
 		this.setOperateLog(OperateLogTypeEnum.QUERYA, OperateLogStatusEnum.ERROR, operateContent);
 	}
 	
 	
-	*//**
+	/**
 	 * 组装日志实体
 	 * @param logTypeEnum
 	 * @param logStatusEnum
 	 * @param content
-	 *//*
-	private void setOperateLog(OperateLogTypeEnum logTypeEnum, OperateLogStatusEnum logStatusEnum, String content, int... errorCode) {
-		User user = SessionUtil.getUserFromSession();
+	 */
+	private void setOperateLog(OperateLogTypeEnum logTypeEnum, OperateLogStatusEnum logStatusEnum, String content) {
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		String userId = (String) request.getAttribute(SystemConstant.CURRENT_USER_ID);
+		User user = this.userRedis.getCacheObject(CacheConstant.CURRENT_USER_ID + userId);
 		if(user != null) {
 			UserOperateLog operateLog= new UserOperateLog();
 			operateLog.setUserId(user.getId());
 			operateLog.setUserName(user.getUserName());
 			operateLog.setStaffNum(user.getStaffNum());
-			operateLog.setOperateStatus(logStatusEnum.getValue());
 			operateLog.setOperType(logTypeEnum.getValue());
-			operateLog.setIp(SessionUtil.getIpAddr());
-			operateLog.setContent(content);
-			if(errorCode.length > 0) {
-				operateLog.setErrorCode(errorCode[0]);
-			}
+			operateLog.setIp(request.getRemoteAddr());
+			operateLog.setContent(content + "-" + logStatusEnum.getValue());
 			this.operateLogService.addLog(operateLog);
 		}
-	}*/
+	}
+	
+	/**
+	 * 组装登陆日志实体
+	 * @param logTypeEnum
+	 * @param logStatusEnum
+	 * @param content
+	 * @param user
+	 */
+	private void setLoginLog(OperateLogTypeEnum logTypeEnum, OperateLogStatusEnum logStatusEnum, String content, User user) {
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		UserOperateLog operateLog= new UserOperateLog();
+		operateLog.setUserId(user.getId());
+		operateLog.setUserName(user.getUserName());
+		operateLog.setStaffNum(user.getStaffNum());
+		operateLog.setOperType(logTypeEnum.getValue());
+		operateLog.setIp(request.getRemoteAddr());
+		operateLog.setMethodName("com.zml.web.controller.user.LoginController.Login()");
+		operateLog.setContent(content + "-" + logStatusEnum.getValue());
+		this.operateLogService.addLog(operateLog);
+	}
 	
 	/**
 	 * 装载字段验证错误信息

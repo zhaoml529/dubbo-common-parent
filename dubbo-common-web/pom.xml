@@ -34,11 +34,17 @@
 		<version>${dubbo-facade-user.version}</version>
 	</dependency>
 	
-	<!-- <dependency>
+	<dependency>
 		<groupId>com.zml</groupId>
 		<artifactId>dubbo-facade-log</artifactId>
 		<version>${dubbo-facade-log.version}</version>
-	</dependency> -->
+		<exclusions>
+			<exclusion>
+				<groupId>com.zml</groupId>
+				<artifactId>dubbo-facade-user</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
 	
 	<!-- Spring Dependency Begin -->
 	<dependency>
