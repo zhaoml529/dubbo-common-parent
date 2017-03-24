@@ -6,7 +6,7 @@ import com.zml.core.dao.impl.BaseDaoImpl;
 import com.zml.log.dao.IUserOperateLogDao;
 import com.zml.log.entity.UserOperateLog;
 
-@Repository("operateDao")
+@Repository("operateLogDao")
 public class UserOperateLogDaoImpl extends BaseDaoImpl<UserOperateLog>
 		implements IUserOperateLogDao {
 

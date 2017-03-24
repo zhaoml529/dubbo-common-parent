@@ -31,5 +31,9 @@
 	
 	<!-- 服务提供者暴露服务配置: 声明需要暴露的服务接口 -->
 	<!-- retries:远程服务调用重试次数，不包括第一次调用，不需要重试请设为0 -->
+	<!-- 操作日志服务接口 -->
 	<dubbo:service retries="0" interface="com.zml.log.service.IUserOperateLogService" ref="userOperateLogService" />
+	
+	<!-- 异常日志服务接口 -->
+	<dubbo:service retries="0" interface="com.zml.log.service.ISystemExceptionLogService" ref="systemExceptionLogService" />
 </beans>  

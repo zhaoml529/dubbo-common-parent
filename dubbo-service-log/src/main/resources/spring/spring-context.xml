@@ -20,7 +20,10 @@
 	<context:property-placeholder location="classpath:system.properties,classpath:db.properties,classpath:redis.properties"/>
 	
 	<!-- 配置要扫描的包 -->
-    <context:component-scan base-package="com.zml" use-default-filters="true">
+    <context:component-scan base-package="com.zml.log" use-default-filters="true">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <context:component-scan base-package="com.zml.common" use-default-filters="true">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
     

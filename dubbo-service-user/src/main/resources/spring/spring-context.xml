@@ -20,9 +20,18 @@
 	<context:property-placeholder location="classpath:system.properties,classpath:db.properties,classpath:redis.properties"/>
 	
 	<!-- 配置要扫描的包 -->
-    <context:component-scan base-package="com.zml" use-default-filters="true">
+    <context:component-scan base-package="com.zml.user" use-default-filters="true">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
+    <context:component-scan base-package="com.zml.common" use-default-filters="true">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <context:component-scan base-package="com.zml.log.aop.service" use-default-filters="true">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    
+   	<!-- 添加 Spring AOP 权限注解的支持，走CGLIB类代理。 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
     
 	<!-- 基于Druid数据库链接池的数据源配置 -->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init">
@@ -105,13 +114,12 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
-    <!-- <aop:config proxy-target-class="true"></aop:config> -->
-    <aop:aspectj-autoproxy proxy-target-class="true"/>
 	<!-- 注解事务 -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	<!--======= 事务配置 End =================== -->
 		
 	<!-- <import resource="classpath:spring/spring-activemq.xml" /> -->
+    <import resource="classpath:dubbo/spring-dubbo-consumer.xml" />
     <import resource="classpath:dubbo/spring-dubbo-provider.xml" />
     <import resource="classpath:redis/spring-context-jedis-single.xml"/>
     

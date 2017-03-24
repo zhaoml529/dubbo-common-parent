@@ -13,15 +13,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
 
+import com.zml.common.annotation.ControllerLog;
+import com.zml.common.enums.OperateLogTypeEnum;
 import com.zml.common.page.Page;
 import com.zml.common.page.Parameter;
 import com.zml.common.web.annotation.CurrentUser;
 import com.zml.common.web.annotation.Permission;
 import com.zml.common.web.base.BaseController;
 import com.zml.common.web.entity.Message;
-import com.zml.log.annotation.ControllerLog;
-import com.zml.log.enums.OperateLogTypeEnum;
 import com.zml.user.entity.User;
 import com.zml.user.service.IUserService;
 
@@ -49,6 +50,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Message getDetail(@PathVariable("id") long id) {
 		Message message = new Message();
+		System.out.println("******:"+RequestContextHolder.getRequestAttributes());
 		User user = this.userService.getUserById(id);
 		message.setData(user);
 		return message;
@@ -59,6 +61,7 @@ public class UserController extends BaseController {
 	 * 获取所有用户列表
 	 * @return
 	 */
+	@ControllerLog(content = "查询所用用户列表", operationType = OperateLogTypeEnum.QUERYA)
 	@Permission("user:view:list")
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
     public Message listAllUsers() {

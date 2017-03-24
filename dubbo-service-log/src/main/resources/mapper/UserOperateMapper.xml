@@ -7,8 +7,8 @@
 	<insert id="insert" parameterType="UserOperateLog" useGeneratedKeys="true" keyProperty="id">
 		insert into
 		<include refid="table"/>
-		(userId, createDate, userName, staffNum, methodName, ip, content, operType)
-		values (#{userId}, #{createDate}, #{userName}, #{staffNum}, #{methodName}, #{ip}, #{content}, #{operType})
+		(userId, userName, staffNum, methodName, ip, content, operType, createDate, version)
+		values (#{userId}, #{userName}, #{staffNum}, #{methodName}, #{ip}, #{content}, #{operType}, #{createDate}, #{version})
 	</insert>
 	
 </mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zml.log.dao.impl.SystemExceptionLogDaoImpl">
+
+	<sql id="table">TB_SYSTEM_EXCEPTION_LOG</sql>
+
+	<insert id="insert" parameterType="SystemExceptionLog" useGeneratedKeys="true" keyProperty="id">
+		insert into
+		<include refid="table"/>
+		(userId, userName, staffNum, methodName, ip, content, errorCode, errorName, errorMessage, params, createDate, version)
+		values (#{userId}, #{userName}, #{staffNum}, #{methodName}, #{ip}, #{content}, #{errorCode}, #{errorName}, #{errorMessage}, ${params}, #{createDate}, #{version})
+	</insert>
+	
+</mapper>

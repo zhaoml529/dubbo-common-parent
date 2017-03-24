@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zml.common.annotation.ControllerLog;
 import com.zml.common.constant.CacheConstant;
 import com.zml.common.constant.SystemConstant;
+import com.zml.common.enums.OperateLogTypeEnum;
 import com.zml.common.utils.cache.redis.RedisUtil;
 import com.zml.common.web.entity.Message;
 import com.zml.common.web.utils.TokenUtil;
-import com.zml.log.annotation.ControllerLog;
-import com.zml.log.enums.OperateLogTypeEnum;
 import com.zml.user.entity.User;
 import com.zml.user.exceptions.UserServiceException;
 import com.zml.user.service.IUserService;

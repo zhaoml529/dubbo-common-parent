@@ -5,6 +5,8 @@
             http://code.alibabatech.com/schema/dubbo  
             http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-	<!-- 日志服务接口 -->
+	
+	<!-- 异常日志服务接口 -->
+	<dubbo:reference retries="0" interface="com.zml.log.service.ISystemExceptionLogService" id="systemExceptionLogService" check="false"/>
 	
 </beans>  

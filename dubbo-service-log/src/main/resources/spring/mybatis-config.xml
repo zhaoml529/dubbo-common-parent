@@ -45,6 +45,7 @@
 
 	<mappers>
 		<mapper resource="mapper/UserOperateMapper.xml" />
+		<mapper resource="mapper/SystemExceptionMapper.xml" />
 	</mappers>
 
 </configuration>
