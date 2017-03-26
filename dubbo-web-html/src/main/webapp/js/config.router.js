@@ -5,12 +5,18 @@
  */
 angular.module('app')
     .run(
-        [  '$rootScope', '$state', '$stateParams', 'subject', 'usernamePasswordToken',
-            function ($rootScope, $state, $stateParams, subject, usernamePasswordToken) {
+        [  '$rootScope', '$state', '$stateParams', 'subject',
+            function ($rootScope, $state, $stateParams, subject) {
+        	    // 通过rootscope设置全局变量
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
                 $rootScope.subject = subject;
-                $rootScope.usernamePasswordToken = usernamePasswordToken;
+                
+                $rootScope.paginationConf = {  
+            		maxSize : 5,		// 页面上可选页数范围
+                    currentPage : 1, 	// 当前页
+                    itemsPerPage : 10, 	// 每页显示多少条数据   
+                };  
             }
         ]
     )
@@ -55,7 +61,8 @@ angular.module('app')
                         views : {
                         	'main' :{
                         		controller: 'userCtrl',
-			                    templateUrl: "tpls/user/user-list.html"
+			                    templateUrl: "tpls/user/user-list.html",
+		                        permission: 'view:list'
 			                }
                         },
                         resolve: {

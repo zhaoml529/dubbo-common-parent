@@ -2,9 +2,9 @@
 
 var app = angular.module('app');
 /**
- * http响应拦截器
+ * http响应拦截器 
  */
-app.factory('httpInterceptor', [ '$q', '$injector',function($q, $injector) {
+app.factory('httpInterceptor', [ '$q', '$injector',function($q, $injector) { // 内联注解 创建httpInterceptor对象
     return {
         'responseError': function (response) {
             if (response.status == 401) {
@@ -13,6 +13,15 @@ app.factory('httpInterceptor', [ '$q', '$injector',function($q, $injector) {
                 rootScope.$state.go('signin');
                 $.notify({
                     message: "<div style='text-align: center'><i class='fa fa-warning'></i> 身份验证异常，请重新登录！</div>"
+                },{
+                    type:"danger",
+                    placement:{
+                        align:"center"
+                    }
+                });
+            } else if(response.status == 403) {
+            	$.notify({
+                    message: "<div style='text-align: center'><i class='fa fa-warning'></i> 没有相应权限！</div>"
                 },{
                     type:"danger",
                     placement:{

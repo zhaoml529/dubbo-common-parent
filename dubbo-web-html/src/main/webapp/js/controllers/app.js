@@ -16,6 +16,8 @@ app.controller("AppCtrl",function ($scope, $state, $cookieStore, SweetAlert, sub
     $scope.app = {
         name:"后台管理系统"
     };
+    
+    // angular.permission.js中的$stateChangeStart 可以放在此处
     $scope.$on('$stateChangeStart',
         function(event, toState, toParams, fromState, fromParams){
     		alert("$stateChangeStart");
@@ -24,12 +26,12 @@ app.controller("AppCtrl",function ($scope, $state, $cookieStore, SweetAlert, sub
                 event.preventDefault();
                 $state.go('login');
             }
-	    	if(toState.name.toLowerCase().indexOf('list') > 0 || toState.name.toLowerCase().indexOf('page') > 0) {
+	    	/*if(toState.name.toLowerCase().indexOf('list') > 0 || toState.name.toLowerCase().indexOf('page') > 0) {
 	    		// datatable分页参数初始化
 	    		$scope.maxSize = 5;			// 页面上可选页数范围
 	    		$scope.currentPage = 1;		// 当前页
 	    		$scope.itemsPerPage = 2;	// 每页显示多少条数据
-	    	}
+	    	}*/
     });
     $scope.welcomePage = function () {
     	SweetAlert.swal("提示", "Welcome!", "success");

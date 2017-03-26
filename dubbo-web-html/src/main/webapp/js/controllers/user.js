@@ -18,10 +18,11 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert) 
     
     /**
      * app.js 初始化
-     * $scope.maxSize		页面上可选页数范围
-     * $scope.totalItems	总共有多少数据
-     * $scope.itemsPerPage	每页多少条数据
-     * $scope.currentPage	当前页
+     * $scope.paginationConf.maxSize		页面上可选页数范围
+     * $scope.paginationConf.totalItems		总共有多少数据
+     * $scope.paginationConf.itemsPerPage	每页多少条数据
+     * $scope.paginationConf.currentPage	当前页
+     * 每个Controller层都会先在当前的scope找需要的变量，找不到，再到rootscope上去寻找。如果还是找不到，就会报错。
      * -------------------------------------
      * 请求传参
      * currPage				当前页
@@ -33,6 +34,8 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert) 
      * message				提示信息
      * statusCode			http状态码 200-OK 请求成功
      * 								 400-Bad Request
+     * 								 401-Unauthorized 认证失败
+     * 								 403-Forbidden 无权限
      * 								 405-Method Not Allowed
      * 								 415-Unsupported Media Type
      * 								 500-Internal Server Error 服务器错误
@@ -42,8 +45,8 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert) 
      * 
      */
     $scope.pageChanged = function() {
-        // var param = {"currPage" : $scope.currentPage, "numPage" : $scope.itemsPerPage, "paramMap" : {"userName" : "admin", "staffNum" : "10001"}};
-        var param = {"currPage" : $scope.currentPage, "numPage" : $scope.itemsPerPage};
+        // var param = {"currPage" : $scope.paginationConf.currentPage, "numPage" : $scope.paginationConf.itemsPerPage, "paramMap" : {"userName" : "admin", "staffNum" : "10001"}};
+        var param = {"currPage" : $scope.paginationConf.currentPage, "numPage" : $scope.paginationConf.itemsPerPage};
         $http({
             method: "post",
             data: angular.toJson(param),//JsonData = {"id":1,"value":"hello"}
