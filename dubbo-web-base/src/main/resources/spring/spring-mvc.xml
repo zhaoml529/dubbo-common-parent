@@ -95,6 +95,15 @@
         <bean class="com.zml.common.web.interceptor.PermissionInterceptor"></bean>
     </mvc:interceptors>
 	
+	<!--springmvc 4.2以上开始支持 - 跨域请求配置;过滤器实现：com.zml.common.web.filter.CorsFilter -->
+	<mvc:cors>
+		<mvc:mapping path="/**"
+			allowed-origins="http://localhost:8117"
+			allowed-methods="GET,POST,PUT,DELETE"
+			allowed-headers="Content-Type,Authorization"
+			allow-credentials="true"/>
+	</mvc:cors>
+	
 	<!--静态资源默认servlet配置
     	1、加入对静态资源的处理:js,css,gif,png
     	2、允许使用"/"做整体映射
