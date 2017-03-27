@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author zhaomingliang
  * @date 2017年3月9日
  */
-public class FieldErrorMessage implements Serializable{
+public class FieldErrorMessage implements Serializable {
 
 	/**
 	 * 

@@ -28,11 +28,14 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 		String uri = request.getRequestURI();
 		String url = path + uri;
 		
+		
 		// 不需要拦截的路径
-		if("login".startsWith(url) || "regist".startsWith(url)) {
+		if("/login".startsWith(url) || "/regist".startsWith(url)) {
 			return true;
 		}
+		
 		String token = request.getHeader("Authorization");	// 获取header
+		System.out.println("AuthorizationInterceptor token info:"+ token);
 		if(StringUtils.isBlank(token)) {
 			response.sendError(HttpStatus.UNAUTHORIZED.value(), "认证失败!");
 			return false;

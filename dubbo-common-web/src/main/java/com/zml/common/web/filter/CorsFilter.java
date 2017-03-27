@@ -29,6 +29,8 @@ import org.apache.commons.lang3.StringUtils;
  * 为了解决跨多个域的问题，需要在代码中做一些处理，这里将Filter初始化参数(allowOrigin)作为一个域名的集合（用逗号分隔），
  * 只需从当前请求中获取Origin请求头，就知道是从哪个域中发出的请求，若该请求在以上允许的域名集合中，
  * 则将其放入Access-Control-Allow-Origin响应头，这样跨多个域的问题就轻松解决了。
+ * 
+ * spring mvc 从4.2版本开始增加了对CORS的支持 <mvc:cors> or @CrossOrigin, 所以打算采用
  * @Description
  * @author zhaomingliang
  * @date 2017年3月9日

@@ -1,11 +1,17 @@
 package com.zml.common.web.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
 
-public class Message {
+public class Message implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7210488587886011921L;
+	
 	private String title = "提示";
 	private String message = "";
 	private Integer statusCode = HttpStatus.OK.value(); // HttpStatus.OK.value()

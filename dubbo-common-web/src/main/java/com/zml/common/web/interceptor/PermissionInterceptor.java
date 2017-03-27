@@ -20,7 +20,12 @@ import com.zml.common.utils.cache.redis.RedisUtil;
 import com.zml.common.web.annotation.Permission;
 import com.zml.user.exceptions.UserServiceException;
 import com.zml.user.service.IUserService;
-
+/**
+ * 权限拦截器
+ * 拦截标有@Permission的controller方法
+ * @author zhaomingliang
+ * @date 2017年3月27日
+ */
 @Component
 public class PermissionInterceptor extends HandlerInterceptorAdapter {
 	private  static final Logger logger = LoggerFactory.getLogger(PermissionInterceptor. class);
