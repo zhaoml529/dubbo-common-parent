@@ -4,7 +4,7 @@
  * No dependence
  */
 
-angular.module('angular.permission', [])
+angular.module('angular.permission', ['ngStorage'])
 
 /*  .config(['$httpProvider', function($httpProvider) {
       $httpProvider.responseInterceptors.push('httpResponsePermissionInterceptor');
@@ -15,24 +15,22 @@ angular.module('angular.permission', [])
    * if route change then check if user has permission
    */
 /*  .run(['$rootScope', function($rootScope){
-	  $rootScope.userPermissionList="";
+	  $rootScope.permissions="";
   }])*/
 
   /**
    * factory service provide permission data set and check
    */
   .factory('angularPermission', ['$rootScope',function ($rootScope) {
-    //var userPermissionList;
     return {
       setPermissions: function(permissions) {
-        //userPermissionList = permissions;
-        $rootScope.userPermissionList = permissions;
-        console.log("setPermission:"+$rootScope.userPermissionList);
+    	sessionStorage.permissions = permissions;	// 将权限列表放入SessionStorage中
+        console.log("setPermission:"+sessionStorage.getItem('permissions'));
         $rootScope.$broadcast('permissionsChanged')
       },
       hasPermission: function (permission) {
-    	console.log("userPermissionList:"+$rootScope.userPermissionList);
-        if($rootScope.userPermissionList.indexOf(permission.trim()) > -1){
+    	console.log("permissions:"+sessionStorage.getItem('permissions'));
+        if(sessionStorage.getItem('permissions').indexOf(permission.trim()) > -1){
           return true;
         }else{
           return false;
