@@ -1,7 +1,7 @@
 /**
  * Created by fangf on 2016/5/19.
  */
-app.controller('SigninCtrl',function ($scope,$state,host,SweetAlert,$http,angularPermission) {
+app.controller('SigninCtrl',function ($scope,$rootScope,$state,host,SweetAlert,$http,angularPermission) {
     $scope.submit = function () {
     	console.log(angular.toJson($scope.user));
     	if (!$scope.user.username) {

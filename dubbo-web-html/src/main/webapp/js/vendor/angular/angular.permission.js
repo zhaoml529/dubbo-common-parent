@@ -4,7 +4,7 @@
  * No dependence
  */
 
-angular.module('angular.permission', ['ui.router'])
+angular.module('angular.permission', [])
 
 /*  .config(['$httpProvider', function($httpProvider) {
       $httpProvider.responseInterceptors.push('httpResponsePermissionInterceptor');
@@ -14,29 +14,25 @@ angular.module('angular.permission', ['ui.router'])
   /**
    * if route change then check if user has permission
    */
-/*  .run(['$rootScope','$location','angularPermission', function($rootScope,$location,angularPermission){
-    angularPermission.setPermissions($rootScope.userPermissionList);
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-      var permission = toState.permission;
-      if(angular.isString(permission) && !angularPermission.hasPermission(permission)){
-        // here I redirect page to '/unauthorized',you can edit it
-        $location.path('/unauthorized');
-      }
-    });
+/*  .run(['$rootScope', function($rootScope){
+	  $rootScope.userPermissionList="";
   }])*/
 
   /**
    * factory service provide permission data set and check
    */
   .factory('angularPermission', ['$rootScope',function ($rootScope) {
-    var userPermissionList;
+    //var userPermissionList;
     return {
       setPermissions: function(permissions) {
-        userPermissionList = permissions;
+        //userPermissionList = permissions;
+        $rootScope.userPermissionList = permissions;
+        console.log("setPermission:"+$rootScope.userPermissionList);
         $rootScope.$broadcast('permissionsChanged')
       },
       hasPermission: function (permission) {
-        if(userPermissionList.indexOf(permission.trim()) > -1){
+    	console.log("userPermissionList:"+$rootScope.userPermissionList);
+        if($rootScope.userPermissionList.indexOf(permission.trim()) > -1){
           return true;
         }else{
           return false;

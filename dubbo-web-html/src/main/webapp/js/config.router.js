@@ -7,14 +7,18 @@ angular.module('app')
     .run(
         [  '$rootScope', '$state', '$stateParams',
             function ($rootScope, $state, $stateParams) {
-        	    // 通过rootscope设置全局变量
-                $rootScope.$state = $state;
+        		/*通过rootscope设置全局变量
+        		 *AngularJS is a JavaScript framework, 
+        		 *everything is stored in memory heap and the heap is starts when you open a page and it's destroyed after you close it. 
+        		 *In this context, browser refresh is like closing and re-opening the page.
+        		 **/
+        		$rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
                 
                 $rootScope.paginationConf = {  
             		maxSize : 5,		// 页面上可选页数范围
                     currentPage : 1, 	// 当前页
-                    itemsPerPage : 10, 	// 每页显示多少条数据   
+                    itemsPerPage : 2, 	// 每页显示多少条数据   
                 };  
             }
         ]

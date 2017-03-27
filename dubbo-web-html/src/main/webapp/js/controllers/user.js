@@ -51,9 +51,6 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert) 
             method: "post",
             data: angular.toJson(param),//JsonData = {"id":1,"value":"hello"}
             url: host+"/listUser"
-            /*headers:{
-            	"Authorization":sessionStorage.getItem('token')
-            }*/
         }).success(function (d) { 
         	if (d.statusCode==200) {
         		$scope.totalItems = d.totalCount;

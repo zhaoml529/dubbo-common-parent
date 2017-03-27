@@ -47,13 +47,14 @@ app.factory('httpInterceptor', [ '$q', '$injector',function($q, $injector) { // 
             return response;
         },
         'request': function (config) {
+        	/*前台跨域post请求，由于CORS（cross origin resource share）规范的存在，
+        	 *浏览器会首先发送一次options嗅探，同时header带上origin，判断是否有跨域请求权限，
+        	 *服务器响应access control allow origin的值，供浏览器与origin匹配，如果匹配则正式发送post请求。*/
         	config.headers = config.headers || {};
-            var token;
+            var token = "";
             if (token = sessionStorage.getItem('token')) {
-            	// config.headers['Authorization'] = token;
-            	config.headers.Authorization = token;
+            	config.headers['Authorization'] = token;
             }
-            console.log("httpInterceptor headers:" + config);
             return config;
         },
         'requestError': function (config) {

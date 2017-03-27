@@ -18,7 +18,7 @@
 	          <td>{{item.staffNum}}</td>
 	          <td>{{item.registerDate}}</td>
 	          <td>
-	          	<button type="button" data-ng-click="edit($index)" class="btn btn-success btn-sm">编辑</button>
+	          	<button type="button" data-ng-click="edit($index)" class="btn btn-success btn-sm" has-permission='user:update'>编辑</button>
 	          	<button type="button" data-ng-click="del(item.id)" class="btn btn-danger btn-sm">删除</button>
 	          	<button type="button" data-ng-click="lock(item.id, item.isLock)" class="btn {{item.isLock==100?'btn-warning':'btn-info'}} btn-sm">{{item.isLock==100?'锁定':'启用'}}</button>
 	          </td>
