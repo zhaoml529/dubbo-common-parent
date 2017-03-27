@@ -10,10 +10,10 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.RequestContextHolder;
 
 import com.zml.common.annotation.ControllerLog;
 import com.zml.common.enums.OperateLogTypeEnum;
@@ -50,7 +50,6 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Message getDetail(@PathVariable("id") long id) {
 		Message message = new Message();
-		System.out.println("******:"+RequestContextHolder.getRequestAttributes());
 		User user = this.userService.getUserById(id);
 		message.setData(user);
 		return message;
@@ -80,9 +79,10 @@ public class UserController extends BaseController {
 	 * @param param
 	 * @return
 	 */
-	@Permission("user:view:list")
+	//@Permission("user:view:list")
 	@RequestMapping(value = "/listUser", method = RequestMethod.POST)
-	public Message listUserPage(@RequestBody Parameter<User> param) {
+	public Message listUserPage(@RequestBody Parameter<User> param, @RequestHeader("Authorization") String token) {
+		System.out.println("TOKEN: "+ token);
 		Message message = new Message();
 		Page page = this.userService.getUserPage(param);
 		message.setMessage("获取列表成功！");

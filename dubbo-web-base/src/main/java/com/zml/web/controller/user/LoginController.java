@@ -1,6 +1,7 @@
 package com.zml.web.controller.user;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -28,7 +29,10 @@ public class LoginController  extends BaseController {
 	private IUserService userService;
 	
 	@Autowired
-	private RedisUtil<User> redisUtil;
+	private RedisUtil<Object> redisUtil;
+	
+	@Autowired
+	private RedisUtil<String> stringRedis;
 	
 	@Value("${jwt.info.base64Secret}")
     private String base64Secret;		// key
@@ -37,7 +41,7 @@ public class LoginController  extends BaseController {
 	private String issuer;				// 发行者
 	
 	@Value("${jwt.info.expiresSecond}")
-	private long expiresSecond;			// 有效期
+	private long expiresSecond;			// 有效期 默认2天
 	
 	//@ControllerLog(content = "登录系统", operationType = OperateLogTypeEnum.LOGIN)
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -58,12 +62,20 @@ public class LoginController  extends BaseController {
 			claims.put(SystemConstant.CURRENT_USER_ID, user.getId());
 			claims.put(SystemConstant.CURRENT_USER_NAME, user.getUserName());
 			
-			//Date expires = getExpiryDate(30 * 24 * 60);// 30天的有效日期
 			String token = TokenUtil.getTokenString(user, this.expiresSecond, this.issuer, this.base64Secret, claims);
+			System.out.println("token: " + token);
+			// 缓存用户信息
 			this.redisUtil.setCacheObject(CacheConstant.CURRENT_USER_ID + user.getId().toString(), user);	// 默认过期时间2小时,token过期考虑清除缓存
-			System.out.println("token:" + token);
+			// 缓存权限信息
+			List<String> permissions = this.cachePermissions(user.getId().toString());
+			
+			// 返回数据到前台
+			Map<String, Object> data = new HashMap<String, Object> ();
+			data.put("token", token);
+			data.put("permissions", permissions);
+			
 			message.setSuc();
-			message.setData(token);
+			message.setData(data);
 			super.logLogin("登录系统！", user);
 		} else {
 			super.logLoginErr("用户名或密码错误！" + UserServiceException.LOGIN_PWD_ERROR, user);
@@ -71,5 +83,21 @@ public class LoginController  extends BaseController {
 		}
 		return message;
     }
+	
+	/**
+	 * 缓存用户权限列表
+	 * @param userId
+	 */
+	private List<String> cachePermissions(String userId) {
+		// 从缓存取出权限字符串
+		List<String> permissions = this.stringRedis.lrange(CacheConstant.USER_PERMISSION_KEY + userId, 0, -1);
+		if(permissions.isEmpty()) {
+			// 根据用户编制号获取权限字符串列表
+			permissions = this.userService.getPermissionByUserId(userId);
+			// 将权限列表放入缓存
+			this.stringRedis.setCacheList(CacheConstant.USER_PERMISSION_KEY + userId, permissions);
+		}
+		return permissions;
+	}
 	
 }
