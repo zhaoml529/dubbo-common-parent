@@ -99,8 +99,8 @@
 	<mvc:cors>
 		<mvc:mapping path="/**"
 			allowed-origins="http://localhost:8117"
-			allowed-methods="GET,POST,PUT,DELETE"
-			allowed-headers="Content-Type,Authorization"
+			allowed-methods="GET,POST,PUT,DELETE,OPTIONS"
+			allowed-headers="Accept,Content-Type,Authorization"
 			allow-credentials="true"/>
 	</mvc:cors>
 	

@@ -79,10 +79,9 @@ public class UserController extends BaseController {
 	 * @param param
 	 * @return
 	 */
-	//@Permission("user:view:list")
+	@Permission("user:view:list")
 	@RequestMapping(value = "/listUser", method = RequestMethod.POST)
-	public Message listUserPage(@RequestBody Parameter<User> param, @RequestHeader("Authorization") String token) {
-		System.out.println("TOKEN: "+ token);
+	public Message listUserPage(@RequestBody Parameter<User> param) {
 		Message message = new Message();
 		Page page = this.userService.getUserPage(param);
 		message.setMessage("获取列表成功！");

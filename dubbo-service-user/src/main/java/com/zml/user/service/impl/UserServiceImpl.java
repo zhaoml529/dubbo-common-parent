@@ -13,7 +13,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.request.RequestContextHolder;
 
 import com.zml.common.annotation.ServiceLog;
 import com.zml.common.constant.CacheConstant;
@@ -131,8 +130,6 @@ public class UserServiceImpl implements IUserService {
 
 	@ServiceLog(content = "查询所有用户信息")
 	public List<User> getAllUser() throws UserServiceException {
-		System.out.println("*****************:"+RequestContextHolder.getRequestAttributes());
-		System.out.println(1/0);
 		List<User> userList = this.redisUtil.lrange(CacheConstant.ALL_USER_LIST, 0, -1);	// 从缓存查询userlist是否存在
 		if(CollectionUtils.isEmpty(userList)) {
 			Map<String, Object> paramMap = new HashMap<String, Object>();
