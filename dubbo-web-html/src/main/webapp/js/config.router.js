@@ -5,12 +5,11 @@
  */
 angular.module('app')
     .run(
-        [  '$rootScope', '$state', '$stateParams', 'subject',
-            function ($rootScope, $state, $stateParams, subject) {
+        [  '$rootScope', '$state', '$stateParams',
+            function ($rootScope, $state, $stateParams) {
         	    // 通过rootscope设置全局变量
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
-                $rootScope.subject = subject;
                 
                 $rootScope.paginationConf = {  
             		maxSize : 5,		// 页面上可选页数范围
@@ -29,12 +28,12 @@ angular.module('app')
                     .state('login', {
                         controller: 'SigninCtrl',
                         url: '/login',
-                        templateUrl: 'tpls/login.html'
-                        /*resolve: {
+                        templateUrl: 'tpls/login.html',
+                        resolve: {
 		                    deps:["$ocLazyLoad",function($ocLazyLoad){
-		                        return $ocLazyLoad.load("js/controllers/signin.js");
+		                        return $ocLazyLoad.load("js/controllers/login.js");
 		                    }]
-                        }*/
+                        }
                     })
                     .state("index",{
 			            url: "/index",

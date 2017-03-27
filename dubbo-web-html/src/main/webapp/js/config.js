@@ -30,7 +30,6 @@ app.factory('httpInterceptor', [ '$q', '$injector',function($q, $injector) { // 
                 });
             } else {
             	// response.status == 400、405、415、500
-            	console.log("httpInterceptor: "+response);
             	var result = response.data;
             	$.notify({
                     message: "<div style='text-align: center'><i class='fa fa-warning'></i>"+result.message+"</div>"
@@ -48,13 +47,13 @@ app.factory('httpInterceptor', [ '$q', '$injector',function($q, $injector) { // 
             return response;
         },
         'request': function (config) {
+        	config.headers = config.headers || {};
             var token;
-            if (token = sessionStorage.getItem('token'))
-                config.headers['Authorization'] = token;
-            console.dir(config);
-            if(config.url.toLowerCase().indexOf('authenticate') > 0) {
-            	config.headers['Content-Type'] = "application/x-www-form-urlencoded";
+            if (token = sessionStorage.getItem('token')) {
+            	// config.headers['Authorization'] = token;
+            	config.headers.Authorization = token;
             }
+            console.log("httpInterceptor headers:" + config);
             return config;
         },
         'requestError': function (config) {
@@ -64,8 +63,8 @@ app.factory('httpInterceptor', [ '$q', '$injector',function($q, $injector) { // 
 }]);
 
 app.config(
-    [        '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', '$locationProvider','$httpProvider','angularShiroConfigProvider','authenticatorProvider',
-    function ($controllerProvider,   $compileProvider,   $filterProvider,   $provide ,$locationProvider, $httpProvider, shiroConfig, authenticator) {
+    [        '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', '$locationProvider','$httpProvider',
+    function ($controllerProvider,   $compileProvider,   $filterProvider,   $provide ,	$locationProvider, 	$httpProvider) {
         // lazy controller, directive and service
         app.controller = $controllerProvider.register;
         app.directive  = $compileProvider.directive;
@@ -84,8 +83,7 @@ app.config(
         // $locationProvider.html5Mode(true);
         $httpProvider.interceptors.push('httpInterceptor');	// 注册拦截器服务
         
-        shiroConfig.setAuthenticateUrl('http://localhost:8112/login');
     }
   ]);
 
-app.constant('host','http://localhost:8114');
+app.constant('host','http://localhost:8112');

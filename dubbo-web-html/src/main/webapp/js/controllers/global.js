@@ -2,7 +2,6 @@
  * Created by zml on 2017/2/20.
  */
 app.controller('GlobalCtrl',function($scope,$state){	// 隐式注解
-	alert("GlobalCtrl");
     $scope.reload = function () {
         $state.reload();
     };

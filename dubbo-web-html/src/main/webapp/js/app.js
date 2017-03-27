@@ -12,5 +12,5 @@ angular.module('app', [
     'oc.lazyLoad',
     'oitozero.ngSweetAlert',
     'ng-pagination',
-    'angularShiro'
+    'angular.permission'
 ]);

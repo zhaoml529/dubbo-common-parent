@@ -14,7 +14,7 @@ angular.module('angular.permission', ['ui.router'])
   /**
    * if route change then check if user has permission
    */
-  .run(['$rootScope','$location','angularPermission', function($rootScope,$location,angularPermission){
+/*  .run(['$rootScope','$location','angularPermission', function($rootScope,$location,angularPermission){
     angularPermission.setPermissions($rootScope.userPermissionList);
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
       var permission = toState.permission;
@@ -23,7 +23,7 @@ angular.module('angular.permission', ['ui.router'])
         $location.path('/unauthorized');
       }
     });
-  }])
+  }])*/
 
   /**
    * factory service provide permission data set and check
@@ -52,7 +52,7 @@ angular.module('angular.permission', ['ui.router'])
     return {
       link: function(scope, element, attrs) {
         if(!angular.isString(attrs.hasPermission))
-          throw "hasPermission value must be a string, 你懂了吗亲?";
+          throw "hasPermission value must be a string!";
         var value = attrs.hasPermission.trim();
         var notPermissionFlag = value[0] === '!';
         if(notPermissionFlag) {
