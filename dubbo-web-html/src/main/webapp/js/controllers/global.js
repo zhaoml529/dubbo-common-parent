@@ -1,7 +1,7 @@
 /**
  * Created by zml on 2017/2/20.
  */
-app.controller('GlobalCtrl',function($scope,$state){	// 隐式注解
+app.controller('GlobalCtrl',function($scope,$state,SweetAlert){	// 隐式注解
     $scope.reload = function () {
         $state.reload();
     };
@@ -16,5 +16,7 @@ app.controller('GlobalCtrl',function($scope,$state){	// 隐式注解
     $scope.logout = function () {
         sessionStorage.removeItem("token");
         sessionStorage.removeItem("permissions");
+        SweetAlert.swal("提示", "注销成功！", "success");
+        $state.go('login');
     };
 });

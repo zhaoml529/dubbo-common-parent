@@ -54,7 +54,7 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert) 
         }).success(function (d) { 
         	if (d.statusCode==200) {
         		console.log(d.totalCount + "-" + d.data);
-        		$scope.totalItems = d.totalCount;
+        		$scope.paginationConf.totalItems = d.totalCount;
             	$scope.userList = d.data;
             } else {
             	$('.table').dataTable();
