@@ -159,8 +159,8 @@ public class BaseDaoImpl<T extends BaseEntity> extends SqlSessionDaoSupport impl
 		// 统计总记录数
 		Object countObject = this.sessionTemplate.selectOne(getStatement(SQL_LIST_COUNT), paramMap);
 		//Object countObject = (Object) getSqlSession().selectOne(getStatement(SQL_LIST_PAGE), paramMap);
-		Long count = Long.valueOf(countObject.toString());
-		return new Page(pageParam.getCurrPage(), pageParam.getNumPage(), count.intValue(), list);
+		Integer count = Integer.valueOf(countObject.toString());
+		return new Page(pageParam.getCurrPage(), pageParam.getNumPage(), count, list);
 	}
 
 	@Override
@@ -174,9 +174,8 @@ public class BaseDaoImpl<T extends BaseEntity> extends SqlSessionDaoSupport impl
 		List<Object> list = this.sessionTemplate.selectList(getStatement(sqlId), paramMap, new RowBounds(pageParams[0], pageParams[1]));
 		// 统计总记录数
 		Object countObject = this.sessionTemplate.selectOne(getStatement(sqlId), paramMap);
-		Long count = Long.valueOf(countObject.toString());
-		
-		return new Page(pageParam.getCurrPage(), pageParam.getNumPage(), count.intValue(), list);
+		Integer count = Integer.valueOf(countObject.toString());
+		return new Page(pageParam.getCurrPage(), pageParam.getNumPage(), count, list);
 	}
 
 	public String getStatement(String sqlId) {

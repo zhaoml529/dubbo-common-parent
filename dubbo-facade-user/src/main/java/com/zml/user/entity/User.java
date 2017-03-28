@@ -24,7 +24,6 @@ public class User extends BaseEntity {
 	@NotNull(message = "{user.staffNum.not.null}")
 	private Long staffNum;		// 编制号
 	
-	@JsonIgnore
 	@NotBlank(message = "{user.passwd.not.blank}")
 	@Length(min = 8, max = 15, message = "{user.passwd.length.illegal}")
 	@Pattern(regexp = "^[a-zA-Z0-9]+$", message="{user.passwd.illegal}")

@@ -10,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -96,7 +95,7 @@ public class UserController extends BaseController {
 	 * @param ucBuilder
 	 * @return
 	 */
-	//@ControllerLog(content = "添加用户", operationType = "ADD")
+	@ControllerLog(content = "添加用户", operationType = OperateLogTypeEnum.ADD)
 	@Permission("user:create")
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	public Message createUser(@Valid @RequestBody User user/*, BindingResult result*/) {
@@ -113,7 +112,7 @@ public class UserController extends BaseController {
 	 * @param user
 	 * @return
 	 */
-	//@ControllerLog(content = "更新用户", operationType = "UPDATE")
+	@ControllerLog(content = "更新用户", operationType = OperateLogTypeEnum.UPDATE)
 	@Permission("user:update")
 	@RequestMapping(value = "/user", method = RequestMethod.PUT)
     public Message updateUser(@Valid @RequestBody User user, BindingResult result) {
@@ -133,7 +132,7 @@ public class UserController extends BaseController {
 	 * @param id
 	 * @return
 	 */
-	//@ControllerLog(content = "删除用户", operationType = "DELETE")
+	@ControllerLog(content = "删除用户", operationType = OperateLogTypeEnum.DELETE)
 	@Permission("user:delete")
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
     public Message deleteUser(@PathVariable("id") long id) {
