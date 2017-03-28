@@ -35,7 +35,7 @@ angular.module('app')
                         templateUrl: 'tpls/login.html',
                         resolve: {
 		                    deps:["$ocLazyLoad",function($ocLazyLoad){
-		                        return $ocLazyLoad.load("js/controllers/login.js");
+		                        return $ocLazyLoad.load("js/common/login.js");
 		                    }]
                         }
                     })
@@ -57,7 +57,12 @@ angular.module('app')
 			                'footer@index' :{
 			                    templateUrl: "tpls/layout/footer.html"
 			                }
-			            }
+			            },
+			            resolve: {
+		                    global:["$ocLazyLoad",function($ocLazyLoad){
+		                        return $ocLazyLoad.load("js/common/global.js");
+		                    }]
+                        }
 			        })
 			        .state('index.userList', {
                         url: '/user',
@@ -70,15 +75,25 @@ angular.module('app')
                         },
                         resolve: {
 		                    users:["$ocLazyLoad",function($ocLazyLoad){
-		                        return $ocLazyLoad.load("js/controllers/user.js");
+		                        return $ocLazyLoad.load(
+		                        	[
+		                        	  'js/business/user/userCtrl.js',
+		                        	  'js/business/user/userService.js'
+		                        	]
+		                        );
 		                    }]
                         }
                     })
-                    .state('app', {
+                    /*.state('app', {
                         controller: 'GlobalCtrl',
                         url: '/app',
-                        templateUrl: 'tpls/app.html'
-                    })
+                        templateUrl: 'tpls/app.html',
+                        resolve: {
+		                    global:["$ocLazyLoad",function($ocLazyLoad){
+		                        return $ocLazyLoad.load("js/common/global.js");
+		                    }]
+                        }
+                    })*/
             }
         ]
     );

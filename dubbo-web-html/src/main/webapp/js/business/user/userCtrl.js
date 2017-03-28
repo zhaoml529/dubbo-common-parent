@@ -14,7 +14,7 @@
 	
  * $http.patch
  */
-app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert) {
+app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert,userService) {
     
     /**
      * app.js 初始化
@@ -47,7 +47,21 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert) 
     $scope.pageChanged = function() {
         // var param = {"currPage" : $scope.paginationConf.currentPage, "numPage" : $scope.paginationConf.itemsPerPage, "paramMap" : {"userName" : "admin", "staffNum" : "10001"}};
         var param = {"currPage" : $scope.paginationConf.currentPage, "numPage" : $scope.paginationConf.itemsPerPage};
-        $http({
+        userService.listPage(param).then(
+    		function(answer){
+    			if (answer.statusCode==200) {
+	        		console.log(answer.totalCount + "-" + d.data);
+	        		$scope.paginationConf.totalItems = answer.totalCount;
+	            	$scope.userList = answer.data;
+	            } else {
+	            	$('.table').dataTable();
+	            }
+    	    },
+    	    function(error){
+    	        console.dir(error);
+    	    }	
+        );
+        /*$http({
             method: "post",
             data: angular.toJson(param),//JsonData = {"id":1,"value":"hello"}
             url: host+"/listUser"
@@ -59,7 +73,7 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert) 
             } else {
             	$('.table').dataTable();
             }
-        });
+        });*/
         /*.error(function(error){
         	console.log(error);
         });*/
