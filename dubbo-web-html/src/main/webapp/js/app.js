@@ -11,6 +11,5 @@ angular.module('app', [
     'ui.bootstrap',
     'oc.lazyLoad',
     'oitozero.ngSweetAlert',
-    'ng-pagination',
     'angular.permission'
 ]);

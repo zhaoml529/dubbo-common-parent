@@ -53,6 +53,7 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert) 
             url: host+"/listUser"
         }).success(function (d) { 
         	if (d.statusCode==200) {
+        		console.log(d.totalCount + "-" + d.data);
         		$scope.totalItems = d.totalCount;
             	$scope.userList = d.data;
             } else {
@@ -75,6 +76,7 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert) 
                     if (!$scope.user.userName) {
                     	return;
                     }
+                    console.log(angular.toJson($scope.user));
                     $http({
                         method: "post",
                         data: angular.toJson($scope.user),//JsonData = {"id":1,"value":"hello"}
