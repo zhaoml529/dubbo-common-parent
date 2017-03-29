@@ -34,7 +34,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 			return true;
 		}
 		// 不需要拦截的路径
-		if("/login".startsWith(url) || "/regist".startsWith(url)) {
+		if("/api/login".startsWith(url) || "/api/regist".startsWith(url)) {
 			return true;
 		}
 		
