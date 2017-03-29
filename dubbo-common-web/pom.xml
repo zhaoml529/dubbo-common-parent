@@ -89,8 +89,8 @@
 		<artifactId>fastdfs-client-java</artifactId>
 	</dependency>
 	<dependency>
-		<groupId>jstl</groupId>
-		<artifactId>jstl</artifactId>
+	    <groupId>io.springfox</groupId>
+	    <artifactId>springfox-swagger2</artifactId>
 	</dependency>
 	<!-- Others End -->
 	

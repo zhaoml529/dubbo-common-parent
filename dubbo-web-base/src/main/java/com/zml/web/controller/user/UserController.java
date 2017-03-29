@@ -1,5 +1,10 @@
 package com.zml.web.controller.user;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -23,6 +28,7 @@ import com.zml.common.web.annotation.Permission;
 import com.zml.common.web.base.BaseController;
 import com.zml.common.web.entity.Message;
 import com.zml.user.entity.User;
+import com.zml.user.exceptions.UserServiceException;
 import com.zml.user.service.IUserService;
 
 /**
@@ -45,6 +51,10 @@ public class UserController extends BaseController {
 	 * @param id
 	 * @return
 	 */
+	@ApiOperation(value = "根据用户id查询用户详情", notes = "我是备注说明", response = Message.class)
+	@ApiResponses(value = { @ApiResponse(code = UserServiceException.USERINFO_NOT_EXIST, message = "未找到相应用户信息！", response = UserServiceException.class)})
+	@ApiImplicitParam(value = "用户id", name = "id", paramType = "path", required = true, dataType = "long")
+	
 	@ControllerLog(content = "查询用户详情", operationType = OperateLogTypeEnum.QUERYA)
 	@Permission("user:view:detail")
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
