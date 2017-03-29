@@ -1,20 +1,8 @@
 /**
  * Created by zml on 2017/3/2.
- * $http.get
- *
- * $http.head
- *
- * $http.post
-	
- * $http.put
-	
- * $http.delete
-	
- * $http.jsonp
-	
- * $http.patch
+ * 用户控制层
  */
-app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert,userService) {
+app.controller('userCtrl',function ($scope,$modal,$state,SweetAlert,userService) {
     
     /**
      * app.js 初始化
@@ -48,35 +36,16 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert,u
         // var param = {"currPage" : $scope.paginationConf.currentPage, "numPage" : $scope.paginationConf.itemsPerPage, "paramMap" : {"userName" : "admin", "staffNum" : "10001"}};
         var param = {"currPage" : $scope.paginationConf.currentPage, "numPage" : $scope.paginationConf.itemsPerPage};
         userService.listPage(param).then(
-    		function(answer){
-    			if (answer.statusCode==200) {
-	        		console.log(answer.totalCount + "-" + d.data);
-	        		$scope.paginationConf.totalItems = answer.totalCount;
-	            	$scope.userList = answer.data;
+    		function(data){
+    			if (data.statusCode==200) {
+	        		console.log(data.totalCount + "-" + data.data);
+	        		$scope.paginationConf.totalItems = data.totalCount;
+	            	$scope.userList = data.data;
 	            } else {
 	            	$('.table').dataTable();
 	            }
-    	    },
-    	    function(error){
-    	        console.dir(error);
     	    }	
         );
-        /*$http({
-            method: "post",
-            data: angular.toJson(param),//JsonData = {"id":1,"value":"hello"}
-            url: host+"/listUser"
-        }).success(function (d) { 
-        	if (d.statusCode==200) {
-        		console.log(d.totalCount + "-" + d.data);
-        		$scope.paginationConf.totalItems = d.totalCount;
-            	$scope.userList = d.data;
-            } else {
-            	$('.table').dataTable();
-            }
-        });*/
-        /*.error(function(error){
-        	console.log(error);
-        });*/
     };
     
     // 添加
@@ -90,22 +59,19 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert,u
                     if (!$scope.user.userName) {
                     	return;
                     }
-                    console.log(angular.toJson($scope.user));
-                    $http({
-                        method: "post",
-                        data: angular.toJson($scope.user),//JsonData = {"id":1,"value":"hello"}
-                        url: host+"/user",
-                        headers: { "Content-Type": "application/json" }
-                    }).success(function (d) { 
-                    	if (d.statusCode==200) {
-                    		SweetAlert.swal("增加成功", "新增用户“"+$scope.user.userName+"”", "success");
-                        } else {
-                        	SweetAlert.swal("增加失败", d.message, "error");
-                        }
-                        $modalInstance.close();
-                        $state.reload();
-                    });
+                    userService.addUser($scope.user).then(
+                		function(data){
+                			if (d.statusCode==200) {
+                        		SweetAlert.swal("增加成功", "新增用户“"+$scope.user.userName+"”", "success");
+                            } else {
+                            	SweetAlert.swal("增加失败", d.message, "error");
+                            }
+                            $modalInstance.close();
+                            $state.reload();
+                	    }	
+                    );
                 };
+                
                 $scope.cancel = function(){
                     $modalInstance.dismiss();
                 }
@@ -129,22 +95,19 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert,u
                     if (!$scope.user.staffNum) {
                     	return;
                     }
-                    $http({
-                        method: "put",
-                        data: angular.toJson($scope.user),//JsonData = {"id":1,"value":"hello"}
-                        url: host+"/user/"+user.id,
-                        headers: { "Content-Type": "application/json" }
-                    }).success(function (d) { 
-                    	if (d.statusCode==200) {
-                            SweetAlert.swal("编辑成功", "", "success");
-                            $state.reload()
-                        } else {
-                        	console.log(d.fieldErrors);
-                        	SweetAlert.swal("编辑失败", d.msg, "error");
-                        }
-                        $modalInstance.close();
-                        $state.reload();
-                    });
+                    userService.editUser($scope.user).then(
+                		function(data){
+                			if (d.statusCode==200) {
+                                SweetAlert.swal("编辑成功", "", "success");
+                                $state.reload()
+                            } else {
+                            	console.log(d.fieldErrors);
+                            	SweetAlert.swal("编辑失败", d.msg, "error");
+                            }
+                            $modalInstance.close();
+                            $state.reload();
+                	    }	
+                    );
                 };
                 $scope.cancel = function(){
                     $modalInstance.dismiss();
@@ -169,20 +132,18 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert,u
                 closeOnConfirm: false},
             function(ok){
                 if (ok) {
-                	$http({
-                        method: "delete",
-                        url: host+"/user/"+id,
-                    }).success(function (d) { 
-                    	console.dir(d);
-                    	if (d.statusCode==200) {
-                    		SweetAlert.swal("删除成功", "成功删除用户！", "success");
-                            $state.reload()
-                        } else {
-                        	SweetAlert.swal("删除失败", d.message, "error");
-                        }
-                    });
+                	userService.delUser(id).then(
+                		function(data){
+                			if (d.statusCode==200) {
+                        		SweetAlert.swal("删除成功", "成功删除用户！", "success");
+                                $state.reload()
+                            } else {
+                            	SweetAlert.swal("删除失败", d.message, "error");
+                            }
+                	    }	
+                    );
                 }
-            });
+        });
     };
     
     // 锁定/激活
@@ -206,18 +167,17 @@ app.controller('userCtrl',function ($scope,$modal,$http,host,$state,SweetAlert,u
                 closeOnConfirm: false},
             function(ok){
                 if (ok) {
-                	$http({
-                        method: "get",
-                        url: host+"/user/"+id+"/lock/"+status,
-                    }).success(function (d) { 
-                    	if (d.statusCode==200) {
-                    		SweetAlert.swal("操作成功", d.message, "success");
-                            $state.reload()
-                        } else {
-                        	SweetAlert.swal("操作失败", d.message, "error");
-                        }
-                    });
+                	userService.lockUser(id, status).then(
+                		function(data){
+                			if (d.statusCode==200) {
+                        		SweetAlert.swal("操作成功", d.message, "success");
+                                $state.reload()
+                            } else {
+                            	SweetAlert.swal("操作失败", d.message, "error");
+                            }
+                	    }	
+                    );
                 }
-            });
+        });
     };
 });
