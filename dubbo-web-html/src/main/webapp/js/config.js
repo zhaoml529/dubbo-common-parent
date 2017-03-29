@@ -87,4 +87,4 @@ app.config(
     }
   ]);
 
-app.constant('host','http://localhost:8112');
+app.constant('host','http://localhost:8112/api');
