@@ -19,6 +19,7 @@ import com.zml.user.exceptions.CompanyServiceException;
 import com.zml.user.service.ICompanyService;
 
 @RestController
+@RequestMapping("/api")
 public class CompanyController extends BaseController {
 
 	@Autowired

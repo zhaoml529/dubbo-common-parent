@@ -34,6 +34,7 @@ import com.zml.user.service.IUserService;
  * @date 2017年3月20日
  */
 @RestController
+@RequestMapping("/api")
 public class UserController extends BaseController {
 	
 	@Autowired

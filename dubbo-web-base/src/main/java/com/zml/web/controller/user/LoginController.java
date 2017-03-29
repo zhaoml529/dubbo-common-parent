@@ -23,6 +23,7 @@ import com.zml.user.exceptions.UserServiceException;
 import com.zml.user.service.IUserService;
 
 @RestController
+@RequestMapping("/api")
 public class LoginController  extends BaseController {
 	
 	@Autowired
