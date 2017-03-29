@@ -62,23 +62,6 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
-	<!-- shiro过虑器，DelegatingFilterProxy通过代理模式将spring容器中的bean和filter关联起来 -->
-	<!-- <filter>
-		<filter-name>shiroFilter</filter-name>
-		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-		<async-supported>true</async-supported>
-		设置true由servlet容器控制filter的生命周期
-		<init-param>
-			<param-name>targetFilterLifecycle</param-name>
-			<param-value>true</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>shiroFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-	</filter-mapping> -->
-	
 	<!-- 跨域请求过滤器， 使用springmvc实现 -->
     <!-- <filter>
 	    <filter-name>corsFilter</filter-name>
@@ -139,4 +122,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<welcome-file-list>
+	    <welcome-file>index.html</welcome-file>
+	</welcome-file-list>
 </web-app>
