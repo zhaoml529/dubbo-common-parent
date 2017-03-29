@@ -61,10 +61,10 @@ app.controller('userCtrl',function ($scope,$modal,$state,SweetAlert,userService)
                     }
                     userService.addUser($scope.user).then(
                 		function(data){
-                			if (d.statusCode==200) {
+                			if (data.statusCode==200) {
                         		SweetAlert.swal("增加成功", "新增用户“"+$scope.user.userName+"”", "success");
                             } else {
-                            	SweetAlert.swal("增加失败", d.message, "error");
+                            	SweetAlert.swal("增加失败", data.message, "error");
                             }
                             $modalInstance.close();
                             $state.reload();
@@ -97,12 +97,12 @@ app.controller('userCtrl',function ($scope,$modal,$state,SweetAlert,userService)
                     }
                     userService.editUser($scope.user).then(
                 		function(data){
-                			if (d.statusCode==200) {
+                			if (data.statusCode==200) {
                                 SweetAlert.swal("编辑成功", "", "success");
                                 $state.reload()
                             } else {
-                            	console.log(d.fieldErrors);
-                            	SweetAlert.swal("编辑失败", d.msg, "error");
+                            	console.log(data.fieldErrors);
+                            	SweetAlert.swal("编辑失败", data.msg, "error");
                             }
                             $modalInstance.close();
                             $state.reload();
@@ -134,11 +134,11 @@ app.controller('userCtrl',function ($scope,$modal,$state,SweetAlert,userService)
                 if (ok) {
                 	userService.delUser(id).then(
                 		function(data){
-                			if (d.statusCode==200) {
+                			if (data.statusCode==200) {
                         		SweetAlert.swal("删除成功", "成功删除用户！", "success");
                                 $state.reload()
                             } else {
-                            	SweetAlert.swal("删除失败", d.message, "error");
+                            	SweetAlert.swal("删除失败", data.message, "error");
                             }
                 	    }	
                     );
@@ -169,11 +169,11 @@ app.controller('userCtrl',function ($scope,$modal,$state,SweetAlert,userService)
                 if (ok) {
                 	userService.lockUser(id, status).then(
                 		function(data){
-                			if (d.statusCode==200) {
-                        		SweetAlert.swal("操作成功", d.message, "success");
+                			if (data.statusCode==200) {
+                        		SweetAlert.swal("操作成功", data.message, "success");
                                 $state.reload()
                             } else {
-                            	SweetAlert.swal("操作失败", d.message, "error");
+                            	SweetAlert.swal("操作失败", data.message, "error");
                             }
                 	    }	
                     );
