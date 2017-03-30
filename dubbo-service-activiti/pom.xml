@@ -1,0 +1,152 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.zml</groupId>
+    <artifactId>dubbo-common-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <relativePath>../../dubbo-common-parent</relativePath>
+  </parent>
+  
+  <artifactId>dubbo-service-activiti</artifactId>
+  <version>${dubbo-service-activiti.version}</version>
+  <name>dubbo-service-activiti</name>
+  
+  <properties>
+  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+	<dependency>
+		<groupId>com.zml</groupId>
+		<artifactId>dubbo-common</artifactId>
+		<version>${dubbo-common.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.zml</groupId>
+		<artifactId>dubbo-common-config</artifactId>
+		<version>${dubbo-common-config.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.zml</groupId>
+		<artifactId>dubbo-common-core</artifactId>
+		<version>${dubbo-common-core.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.zml</groupId>
+		<artifactId>dubbo-facade-user</artifactId>
+		<version>${dubbo-facade-user.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.zml</groupId>
+		<artifactId>dubbo-facade-activiti</artifactId>
+		<version>${dubbo-facade-activiti.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.zml</groupId>
+		<artifactId>dubbo-facade-log</artifactId>
+		<version>${dubbo-facade-log.version}</version>
+		<exclusions>
+			<exclusion>
+				<groupId>com.zml</groupId>
+				<artifactId>dubbo-facade-user</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	
+	<!-- dubbo required jars start -->
+    <dependency>
+        <groupId>io.netty</groupId>
+        <artifactId>netty</artifactId>
+    </dependency>
+	<dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>dubbo</artifactId>
+		<exclusions>
+			<exclusion>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.zookeeper</groupId>
+		<artifactId>zookeeper</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>com.101tec</groupId>
+		<artifactId>zkclient</artifactId>
+	</dependency>
+	
+  </dependencies>
+  
+  <build>
+	<finalName>dubbo-service-activiti</finalName>
+	<resources>
+		<resource>
+			<targetPath>${project.build.directory}/classes</targetPath>
+			<directory>src/main/resources</directory>
+			<filtering>true</filtering>
+			<includes>
+				<include>**/*.xml</include>
+				<include>**/*.properties</include>
+			</includes>
+		</resource>
+		<!-- 结合com.alibaba.dubbo.container.Main -->
+		<resource>
+			<targetPath>${project.build.directory}/classes/META-INF/spring</targetPath>
+			<directory>src/main/resources/spring</directory>
+			<filtering>true</filtering>
+			<includes>
+				<include>spring-context.xml</include>
+			</includes>
+		</resource>
+	</resources>
+	<plugins>
+		<!-- 打包jar文件时，配置manifest文件，加入lib包的jar依赖 -->
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-jar-plugin</artifactId>
+			<configuration>
+				<classesDirectory>target/classes/</classesDirectory>
+				<archive>
+					<manifest>
+						<mainClass>com.alibaba.dubbo.container.Main</mainClass>
+						<!-- 打包时 MANIFEST.MF文件不记录的时间戳版本 -->
+						<useUniqueVersions>false</useUniqueVersions>
+						<addClasspath>true</addClasspath>
+						<classpathPrefix>lib/</classpathPrefix>
+					</manifest>
+					<manifestEntries>
+						<Class-Path>.</Class-Path>
+					</manifestEntries>
+				</archive>
+			</configuration>
+		</plugin>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-dependency-plugin</artifactId>
+			<executions>
+				<execution>
+					<id>copy-dependencies</id>
+					<phase>package</phase>
+					<goals>
+						<goal>copy-dependencies</goal>
+					</goals>
+					<configuration>
+						<type>jar</type>
+						<includeTypes>jar</includeTypes>
+						<useUniqueVersions>false</useUniqueVersions>
+						<outputDirectory>
+							${project.build.directory}/lib
+						</outputDirectory>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+	</plugins>
+  </build>
+</project>
