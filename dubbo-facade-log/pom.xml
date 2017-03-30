@@ -28,4 +28,8 @@
 		<version>${dubbo-facade-user.version}</version>
 	</dependency>
   </dependencies>
+  
+  <build>
+    <finalName>dubbo-facade-log</finalName>
+  </build>
 </project>

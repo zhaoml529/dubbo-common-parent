@@ -22,4 +22,8 @@
 		<version>${dubbo-common.version}</version>
 	</dependency>
   </dependencies>
+  
+  <build>
+    <finalName>dubbo-facade-user</finalName>
+  </build>
 </project>
