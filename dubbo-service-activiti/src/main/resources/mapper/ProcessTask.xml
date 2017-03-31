@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zml.activiti.dao.impl.ProcessTaskDaoImpl">
+	<insert id="add" parameterType="ProcessTask">
+		INSERT INTO TB_PROCESS_TASK(
+			applyStaffId,title,url,businessType,businessKey,taskId,executionId,processInstanceId,assign,owner,status,operationType,completeDate,creatorId,createTime,remark)
+		VALUES( 
+			#{applyStaffId},#{title},#{url},#{businessType},#{businessKey},#{taskId},#{executionId},#{processInstanceId},
+			#{assign},#{owner},#{status},#{operationType},#{completeDate},#{creatorId},#{createTime},#{remark})
+		<selectKey resultType="Long" keyProperty="processTaskId">
+			SELECT LAST_INSERT_ID() AS processTaskId FROM TB_PROCESS_TASK LIMIT 1	
+		</selectKey>
+	</insert>
+	
+	<update id="update" parameterType="ProcessTask">
+		UPDATE TB_PROCESS_TASK
+		<set>
+			<if test="applyStaffId != null and applyStaffId != '' ">applyStaffId = #{applyStaffId},</if>
+			<if test="title != null and title != '' ">title = #{title},</if>
+			<if test="url != null and url != '' ">url = #{url},</if>
+			<if test="businessType != null and businessType != '' ">businessType = #{businessType},</if>
+			<if test="businessKey != null and businessKey != '' ">businessKey = #{businessKey},</if>
+			<if test="taskId != null and taskId != '' ">taskId = #{taskId},</if>
+			<if test="executionId != null and executionId != '' ">executionId = #{executionId},</if>
+			<if test="processInstanceId != null and processInstanceId != '' ">processInstanceId = #{processInstanceId},</if>
+			<if test="assign != null and assign != '' ">assign = #{assign},</if>
+			<if test="owner != null and owner != '' ">owner = #{owner},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="operationType != null and operationType != '' ">operationType = #{operationType},</if>
+			<if test="completeDate != null and completeDate != '' ">completeDate = #{completeDate},</if>
+			<if test="creatorId != null and creatorId != '' ">creatorId = #{creatorId},</if>
+			<if test="createTime != null and createTime != '' ">createTime = #{createTime},</if>
+			remark = #{remark}
+		</set>
+		<where>
+			processTaskId = #{processTaskId}
+		</where>
+	</update>
+	
+	<select id="findById" parameterType="Long" resultType="ProcessTask">
+		SELECT p.*, a1.nickName as applyUserName, a2.nickName as assignName, a3.nickName as ownerName FROM TB_PROCESS_TASK p
+		LEFT JOIN db_sysmgt.TB_STAFFING s1 ON p.applyStaffId = s1.staffId AND s1.status = 1
+		LEFT JOIN db_sysmgt.TB_STAFFING s2 ON p.assign = s2.staffId AND s2.status = 1
+		LEFT JOIN db_sysmgt.TB_STAFFING s3 ON p.owner = s3.staffId AND s3.status = 1
+		LEFT JOIN db_sysmgt.TB_ADMIN a1 ON a1.adminId = s1.adminId AND a1.status = 1
+		LEFT JOIN db_sysmgt.TB_ADMIN a2 ON a2.adminId = s2.adminId AND a2.status = 1
+		LEFT JOIN db_sysmgt.TB_ADMIN a3 ON a3.adminId = s3.adminId AND a3.status = 1
+		WHERE processTaskId = #{processTaskId} LIMIT 1
+	</select>
+	
+	<select id="findByTaskId" parameterType="String" resultType="ProcessTask">
+		SELECT * FROM TB_PROCESS_TASK WHERE taskId = #{taskId} LIMIT 1
+	</select>
+	
+	<select id="findAllTask" parameterType="java.util.HashMap" resultType="ProcessTask">
+		SELECT p.*, a1.nickName as applyUserName, a2.nickName as assignName, a3.nickName as ownerName FROM TB_PROCESS_TASK p 
+		LEFT JOIN db_sysmgt.TB_STAFFING s1 ON p.applyStaffId = s1.staffId AND s1.status = 1
+		LEFT JOIN db_sysmgt.TB_STAFFING s2 ON p.assign = s2.staffId AND s2.status = 1
+		LEFT JOIN db_sysmgt.TB_STAFFING s3 ON p.owner = s3.staffId AND s3.status = 1
+		LEFT JOIN db_sysmgt.TB_ADMIN a1 ON a1.adminId = s1.adminId AND a1.status = 1
+		LEFT JOIN db_sysmgt.TB_ADMIN a2 ON a2.adminId = s2.adminId AND a2.status = 1
+		LEFT JOIN db_sysmgt.TB_ADMIN a3 ON a3.adminId = s3.adminId AND a3.status = 1
+		<where>
+			<if test="applyStaffId != null and applyStaffId != '' "> AND p.applyStaffId = #{applyStaffId}</if>
+			<if test="assign != null and assign != '' "> AND p.assign = #{assign}</if>
+			<if test="owner != null and owner != '' "> AND p.owner = #{owner}</if>
+			<if test="executionId != null and executionId != '' "> AND p.executionId = #{executionId}</if>
+			<if test="processInstanceId != null and processInstanceId != '' "> AND p.processInstanceId = #{processInstanceId}</if>
+			<if test="businessType != null and businessType != '' "> AND p.businessType = #{businessType}</if>
+			<if test="status != null"> AND p.status = #{status}</if>
+		</where>
+		ORDER BY createTime DESC
+		<if test="start != null and end != null">
+			LIMIT #{start},#{end}
+		</if>
+	</select>
+	
+	<select id="findAllCount" parameterType="java.util.HashMap" resultType="int">
+		SELECT count(1) FROM TB_PROCESS_TASK 
+		<where>
+			<if test="applyStaffId != null and applyStaffId != '' "> AND applyStaffId = #{applyStaffId}</if>
+			<if test="assign != null and assign != '' "> AND assign = #{assign}</if>
+			<if test="owner != null and owner != '' "> AND owner = #{owner}</if>
+			<if test="executionId != null and executionId != '' "> AND executionId = #{executionId}</if>
+			<if test="processInstanceId != null and processInstanceId != '' "> AND processInstanceId = #{processInstanceId}</if>
+			<if test="businessType != null and businessType != '' "> AND businessType = #{businessType}</if>
+			<if test="status != null"> AND status = #{status}</if>
+		</where>
+	</select>
+	
+	<update id="completeTask" parameterType="java.lang.String">
+		UPDATE TB_PROCESS_TASK SET status = 1,completeDate = date_format(now(),'%Y-%m-%d %H:%i:%s') WHERE taskId = #{taskId}
+	</update>
+	
+	<update id="claimTask" parameterType="java.lang.String">
+		UPDATE TB_PROCESS_TASK SET assign = #{staffId} WHERE taskId = #{taskId}
+	</update>
+	
+	<select id="findRunningProcess" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT p.*, a1.nickName as applyUserName, s1.staffName as applyUserStaffName, a2.nickName as assignName, s2.staffName as assignStaffName,
+		a3.nickName as ownerName, s3.staffName as ownerStaffName, c.MESSAGE_ as comment FROM TB_PROCESS_TASK p 
+		LEFT JOIN ACT_HI_COMMENT c ON (c.ACTION_ = 'AddComment' AND c.TASK_ID_ = p. taskId AND c.PROC_INST_ID_ = p.processInstanceId)
+		LEFT JOIN db_sysmgt.TB_STAFFING s1 ON p.applyStaffId = s1.staffId AND s1.status = 1
+		LEFT JOIN db_sysmgt.TB_STAFFING s2 ON p.assign = s2.staffId AND s2.status = 1
+		LEFT JOIN db_sysmgt.TB_STAFFING s3 ON p.owner = s3.staffId AND s3.status = 1
+		LEFT JOIN db_sysmgt.TB_ADMIN a1 ON a1.adminId = s1.adminId AND a1.status = 1
+		LEFT JOIN db_sysmgt.TB_ADMIN a2 ON a2.adminId = s2.adminId AND a2.status = 1
+		LEFT JOIN db_sysmgt.TB_ADMIN a3 ON a3.adminId = s3.adminId AND a3.status = 1
+		<where>
+			<if test="applyStaffId != null and applyStaffId != '' "> AND p.applyStaffId = #{applyStaffId}</if>
+			<if test="assign != null and assign != '' "> AND p.assign = #{assign}</if>
+			<if test="owner != null and owner != '' "> AND p.owner = #{owner}</if>
+			<if test="executionId != null and executionId != '' "> AND p.executionId = #{executionId}</if>
+			<if test="processInstanceId != null and processInstanceId != '' "> AND p.processInstanceId = #{processInstanceId}</if>
+			<if test="businessType != null and businessType != '' "> AND p.businessType = #{businessType}</if>
+			<if test="status != null"> AND p.status = #{status}</if>
+		</where>
+		ORDER BY completeDate
+	</select>
+</mapper>

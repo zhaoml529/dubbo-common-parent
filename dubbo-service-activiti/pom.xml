@@ -49,12 +49,12 @@
 		<groupId>com.zml</groupId>
 		<artifactId>dubbo-facade-log</artifactId>
 		<version>${dubbo-facade-log.version}</version>
-		<exclusions>
+		<!-- <exclusions>
 			<exclusion>
 				<groupId>com.zml</groupId>
 				<artifactId>dubbo-facade-user</artifactId>
 			</exclusion>
-		</exclusions>
+		</exclusions> -->
 	</dependency>
 	
 	<!-- dubbo required jars start -->

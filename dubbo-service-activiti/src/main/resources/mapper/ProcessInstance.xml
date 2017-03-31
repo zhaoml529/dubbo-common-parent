@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zml.activiti.dao.impl.ProcessInstanceDaoImpl">
+	<insert id="add" parameterType="ProcessInstance">
+		INSERT INTO TB_PROCESS_INSTANCE(
+			modelId,procDefId,operationType,targetRef,createTime,creatorId,remark)
+		VALUES( 
+			#{modelId},#{procDefId},#{operationType},#{targetRef},#{createTime},#{creatorId},#{remark})
+		<selectKey resultType="Long" keyProperty="id">
+			SELECT LAST_INSERT_ID() AS id FROM TB_PROCESS_INSTANCE LIMIT 1	
+		</selectKey>
+	</insert>
+	
+	<update id="update" parameterType="ProcessInstance">
+		UPDATE TB_PROCESS_INSTANCE
+		<set>
+			<if test="modelId != null and modelId != '' ">modelId = #{modelId},</if>
+			<if test="procDefId != null and procDefId != '' ">procDefId = #{procDefId},</if>
+			<if test="operationType != null and operationType != '' ">operationType = #{operationType},</if>
+			<if test="targetRef != null and targetRef != '' ">targetRef = #{targetRef},</if>
+			<if test="createTime != null and createTime != '' ">createTime = #{createTime},</if>
+			<if test="creatorId != null and creatorId != '' ">creatorId = #{creatorId},</if>
+			remark = #{remark}
+		</set>
+		<where>
+			id = #{id}
+		</where>
+	</update>
+	
+	<select id="findById" parameterType="Long" resultType="ProcessInstance">
+		SELECT * FROM TB_PROCESS_INSTANCE WHERE id = #{id} LIMIT 1
+	</select>
+	
+	<select id="findAllInstance" parameterType="java.util.HashMap" resultType="ProcessInstance">
+		SELECT * FROM TB_PROCESS_INSTANCE
+		<where>
+			<if test="modelId != null and modelId != '' "> AND modelId = #{modelId}</if>
+			<if test="procDefId != null and procDefId != '' "> AND procDefId = #{procDefId}</if>
+		</where>
+		ORDER BY createTime DESC
+		<if test="start != null and end != null">
+			LIMIT #{start},#{end}
+		</if>
+	</select>
+	
+	<select id="findAllCount" parameterType="java.util.HashMap" resultType="int">
+		SELECT count(1) FROM TB_PROCESS_INSTANCE 
+		<where>
+			<if test="modelId != null and modelId != '' "> AND modelId = #{modelId}</if>
+			<if test="procDefId != null and procDefId != '' "> AND procDefId = #{procDefId}</if>
+		</where>
+	</select>
+	
+	<delete id="deleteByDefId" parameterType="Long">
+		DELETE FROM TB_PROCESS_INSTANCE WHERE procDefId = #{procDefId}
+	</delete>
+	
+</mapper>

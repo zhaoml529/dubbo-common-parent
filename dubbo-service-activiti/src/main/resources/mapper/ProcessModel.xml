@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zml.activiti.dao.impl.ProcessModelDaoImpl">
+	<insert id="add" parameterType="ProcessModel">
+		INSERT INTO TB_PROCESS_MODEL(
+			processType,processName,processKey,deploymentId,suspensionState,description,deployDate,createTime,creatorId,status,remark)
+		VALUES( 
+			#{processType},#{processName},#{processKey},#{deploymentId},#{suspensionState},#{description},#{deployDate},#{createTime},#{creatorId},#{status},#{remark})
+		<selectKey resultType="Long" keyProperty="id">
+			SELECT LAST_INSERT_ID() AS id FROM TB_PROCESS_MODEL LIMIT 1	
+		</selectKey>
+	</insert>
+	
+	<update id="update" parameterType="ProcessModel">
+		UPDATE TB_PROCESS_MODEL
+		<set>
+			<if test="processType != null and processType != '' ">processType = #{processType},</if>
+			<if test="processName != null and processName != '' ">processName = #{processName},</if>
+			<if test="processKey != null and processKey != '' ">processKey = #{processKey},</if>
+			<if test="deploymentId != null and deploymentId != '' ">deploymentId = #{deploymentId},</if>
+			<if test="suspensionState != null and suspensionState != '' ">suspensionState = #{suspensionState},</if>
+			<if test="description != null and description != '' ">description = #{description},</if>
+			<if test="deployDate != null and deployDate != '' ">deployDate = #{deployDate},</if>
+			<if test="createTime != null and createTime != '' ">createTime = #{createTime},</if>
+			<if test="creatorId != null and creatorId != '' ">creatorId = #{creatorId},</if>
+			<if test="status != null and status != '' ">status = #{status},</if>
+			remark = #{remark}
+		</set>
+		<where>
+			id = #{id}
+		</where>
+	</update>
+	
+	<select id="findById" parameterType="Long" resultType="ProcessModel">
+		SELECT * FROM TB_PROCESS_MODEL WHERE id = #{modelId} LIMIT 1
+	</select>
+	
+	<select id="findByKey" parameterType="String" resultType="ProcessModel">
+		SELECT * FROM TB_PROCESS_MODEL WHERE processKey = #{processKey} AND status = 1 LIMIT 1
+	</select>
+	
+	<select id="findAllModel" parameterType="java.util.HashMap" resultType="ProcessModel">
+		SELECT * FROM TB_PROCESS_MODEL
+		<where>
+			<if test="processType != null and processType != '' ">AND processType = #{processType}</if>
+			<if test="processName != null and processName != '' ">AND processName like CONCAT('%',#{processName},'%')</if>
+			<if test="suspensionState != null and suspensionState != '' "> AND suspensionState = #{suspensionState}</if>
+			<if test="deploymentId != null and deploymentId != '' "> AND deploymentId = #{deploymentId}</if>
+			<if test="status != null and status != '' "> AND status = #{status}</if>
+		</where>
+		ORDER BY createTime DESC
+		<if test="start != null and end != null">
+			LIMIT #{start},#{end}
+		</if>
+	</select>
+	
+	<select id="findAllCount" parameterType="java.util.HashMap" resultType="int">
+		SELECT count(1) FROM TB_PROCESS_MODEL 
+		<where>
+			<if test="processType != null and processType != '' "> AND processType = #{processType}</if>
+			<if test="processName != null and processName != '' ">AND processName like CONCAT('%',#{processName},'%')</if>
+			<if test="suspensionState != null and suspensionState != '' "> AND suspensionState = #{suspensionState}</if>
+			<if test="deploymentId != null and deploymentId != '' "> AND deploymentId = #{deploymentId}</if>
+			<if test="status != null and status != '' "> AND status = #{status}</if>
+		</where>
+	</select>
+	
+	<select id="findRepeatByName" parameterType="java.util.HashMap" resultType="ProcessModel">
+		SELECT * FROM TB_PROCESS_MODEL WHERE processName = #{processName} AND id != #{id}
+	</select>
+</mapper>

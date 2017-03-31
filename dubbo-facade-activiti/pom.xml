@@ -17,10 +17,26 @@
 		<version>${dubbo-common.version}</version>
 	</dependency>
 	
+	<!--begin activiti -->
+	<!-- https://mvnrepository.com/artifact/org.activiti/activiti-engine -->
 	<dependency>
 	    <groupId>org.activiti</groupId>
 	    <artifactId>activiti-engine</artifactId>
 	</dependency>
+	<dependency>
+        <groupId>org.activiti</groupId>
+        <artifactId>activiti-spring</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.activiti</groupId>
+        <artifactId>activiti-json-converter</artifactId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.activiti/activiti-bpmn-layout -->
+	<dependency>
+	    <groupId>org.activiti</groupId>
+	    <artifactId>activiti-bpmn-layout</artifactId>
+	</dependency>
+	<!--end activiti -->
   </dependencies>
   
   <properties>

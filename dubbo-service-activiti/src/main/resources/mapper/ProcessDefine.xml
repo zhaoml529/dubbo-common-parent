@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zml.activiti.dao.impl.ProcessDefineDaoImpl">
+
+	<sql id="table">TB_PROCESS_DEFINE</sql>
+	
+	<insert id="insert" parameterType="ProcessDefine" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO TB_PROCESS_DEFINE(
+			modelId,taskId,taskName,candidateType,candidateIds,isStartEvent,isInitiator,targetGateway,createTime,creatorId,remark)
+		VALUES( 
+			#{modelId},#{taskId},#{taskName},#{candidateType},#{candidateIds},#{isStartEvent},#{isInitiator},#{targetGateway},#{createTime},#{creatorId},#{remark})
+	</insert>
+	
+	<update id="update" parameterType="ProcessDefine">
+		UPDATE TB_PROCESS_DEFINE
+		<set>
+			<if test="modelId != null and modelId != '' ">modelId = #{modelId},</if>
+			<if test="taskId != null and taskId != '' ">taskId = #{taskId},</if>
+			<if test="taskName != null and taskName != '' ">taskName = #{taskName},</if>
+			<if test="candidateType != null and candidateType != '' ">candidateType = #{candidateType},</if>
+			candidateIds = #{candidateIds},
+			<if test="isStartEvent != null and isStartEvent != '' or isStartEvent == 0">isStartEvent = #{isStartEvent},</if>
+			<if test="isInitiator != null and isInitiator != '' or isInitiator == 0">isInitiator = #{isInitiator},</if>
+			<if test="targetGateway != null and targetGateway != '' ">targetGateway = #{targetGateway},</if>
+			<if test="createTime != null and createTime != '' ">createTime = #{createTime},</if>
+			<if test="creatorId != null and creatorId != '' ">creatorId = #{creatorId},</if>
+			remark = #{remark}
+		</set>
+		<where>
+			id = #{id} and version = #{version}
+		</where>
+	</update>
+	
+	<select id="getById" parameterType="long" resultType="ProcessDefine">
+		select * from
+		<include refid="table" />
+		where id = #{id}
+	</select>
+	
+	
+	<delete id="deleteById" parameterType="long">
+		update
+		<include refid="table"/>
+		set status = 101
+		where id = #{id}
+	</delete>
+	
+	<delete id="deleteByModelId" parameterType="Long">
+		update
+		<include refid="table"/>
+		set status = 101
+		where modelId = #{modelId}
+	</delete>
+	
+	<resultMap type="ProcessDefine" id="processDefineMap">
+		<id column="id" property="id"/>
+		<result column="modelId" property="modelId"/>
+		<result column="taskId" property="taskId"/>
+		<result column="taskName" property="taskName"/>
+		<result column="candidateType" property="candidateType"/>
+		<result column="candidateIds" property="candidateIds"/>
+		<result column="isStartEvent" property="isStartEvent"/>
+		<result column="isInitiator" property="isInitiator"/>
+		<result column="targetGateway" property="targetGateway"/>
+		<result column="createTime" property="createTime"/>
+		<result column="creatorId" property="creatorId"/>
+		<result column="remark" property="remark"/>
+		<collection property="processInstanceList" column="{procDefId=id, modelId = modelId}" javaType="ArrayList" ofType="ProcessInstance" select="getInstanceList">
+		</collection>
+	</resultMap>
+	
+	<select id="getInstanceList" parameterType="java.util.HashMap" resultType="ProcessInstance">
+		SELECT * FROM TB_PROCESS_INSTANCE WHERE modelId = #{modelId} AND procDefId = #{procDefId}
+	</select>
+	
+	<select id="findAllDefine" parameterType="java.util.HashMap" resultMap="processDefineMap">
+		SELECT * FROM TB_PROCESS_DEFINE
+		<where>
+			<if test="modelId != null and modelId != '' "> AND modelId = #{modelId}</if>
+		</where>
+		ORDER BY id ASC
+		<if test="start != null and end != null">
+			LIMIT #{start},#{end}
+		</if>
+	</select>
+	
+	<select id="findAllCount" parameterType="java.util.HashMap" resultType="int">
+		SELECT count(1) FROM TB_PROCESS_DEFINE 
+		<where>
+			<if test="modelId != null and modelId != '' "> AND modelId = #{modelId}</if>
+		</where>
+	</select>
+	
+	<select id="findById" parameterType="Long" resultMap="processDefineMap">
+		SELECT * FROM TB_PROCESS_DEFINE WHERE id = #{id} LIMIT 1
+	</select>
+	
+	<select id="findRepeatByName" parameterType="java.util.HashMap" resultType="ProcessDefine">
+		SELECT * FROM TB_PROCESS_DEFINE WHERE taskName = #{taskName} AND modelId = #{modelId} AND id != #{id}
+	</select>
+	
+</mapper>
