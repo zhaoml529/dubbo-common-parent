@@ -82,7 +82,7 @@ public class UserServiceImpl implements IUserService {
 	public void updateUser(User user) throws UserServiceException {
 		User u = this.getUserById(user.getId());
 		if(u == null) {
-			throw UserServiceException.create("所更新的用户不存在！", UserServiceException.USERINFO_NOT_EXIST);
+			throw UserServiceException.UPDATE_USER_FAIL;
 		} else {
 			//u.setUserName(user.getUserName());
 			u.setStaffNum(user.getStaffNum());

@@ -61,7 +61,9 @@ public class UserServiceException extends ServiceException {
 	/**
 	 * 更新用户失败
 	 */
-	public static final int UPDATE_USER_FAIL = 10010011;
+	//public static final int UPDATE_USER_FAIL = 10010011;
+	
+	public static final UserServiceException UPDATE_USER_FAIL = new UserServiceException(10010011, "更新用户失败!");
 	
 	public UserServiceException() {
 		

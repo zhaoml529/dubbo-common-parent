@@ -24,6 +24,8 @@ public interface BaseDao<T> {
 	
 	public T getBy(Map<String, Object> paramMap);
 	
+	public T getBy(Map<String, Object> paramMap, String sqlId);
+	
 	public List<T> getList(Map<String, Object> paramMap);
 	
 	public List<T> getList(Map<String, Object> paramMap, String sqlId);

@@ -127,7 +127,7 @@ public class BaseDaoImpl<T extends BaseEntity> extends SqlSessionDaoSupport impl
 	
 	@Override
 	public List<T> getList(Map<String, Object> paramMap, String sqlId) {
-		if (paramMap == null) {
+		if (paramMap == null || paramMap.isEmpty()) {
 			paramMap = new HashMap<String, Object>();
 		}
 
@@ -140,7 +140,15 @@ public class BaseDaoImpl<T extends BaseEntity> extends SqlSessionDaoSupport impl
 			return null;
 		}
 
-		return this.sessionTemplate.selectOne(getStatement(SQL_GET_LIST), paramMap);
+		return this.getBy(paramMap, getStatement(SQL_GET_LIST));
+	}
+	
+	@Override
+	public T getBy(Map<String, Object> paramMap, String sqlId) {
+		if (paramMap == null || paramMap.isEmpty())
+			return null;
+
+		return this.sessionTemplate.selectOne(getStatement(sqlId), paramMap);
 	}
 
 	@Override
