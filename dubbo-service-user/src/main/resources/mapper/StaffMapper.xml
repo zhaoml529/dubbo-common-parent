@@ -10,8 +10,8 @@
 	    </selectKey>    
 		insert into
 		<include refid="table" />
-		(version, createDate, name, staffNum, companyId, deptId, postId, status)
-		values (0, #{createDate}, #{name}, #{staffNum}, #{companyId}, #{deptId}, #{postId}, #{status})
+		(version, createDate, name, staffNum, companyId, deptId, postId, roleId, status)
+		values (0, #{createDate}, #{name}, #{staffNum}, #{companyId}, #{deptId}, #{postId}, #{roleId}, #{status})
 	</insert>
 
 	<!-- 更新:version+1 实现乐观锁 -->
@@ -25,6 +25,7 @@
 			<if test="companyId != null and companyId != '' ">companyId = #{companyId},</if>
 			<if test="deptId != null and deptId != '' ">deptId = #{deptId},</if>
 			<if test="postId != null and postId != '' ">postId = #{postId},</if>
+			<if test="roleId != null and roleId != '' ">roleId = #{roleId},</if>
 			<if test="status != null and status != '' ">status = #{status},</if>
 		</set>
 		<where>
@@ -44,6 +45,7 @@
 		<if test="companyId != null and companyId != ''"> and companyId = #{companyId} </if>
 		<if test="deptId != null and deptId != ''"> and deptId = #{deptId} </if>
 		<if test="postId != null and postId != ''"> and postId = #{postId} </if>
+		<if test="roleId != null and roleId != ''"> and roleId = #{roleId} </if>
 		<if test="status != null and status != ''"> and status = #{status} </if>
 	</sql>
 

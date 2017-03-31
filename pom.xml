@@ -50,6 +50,7 @@
 	<fastjson.version>1.2.7</fastjson.version>
 	<jackson.version>2.5.3</jackson.version>
 	<fastdfs.version>1.25</fastdfs.version>
+	<activiti.version>5.18.0</activiti.version>
   </properties>
   
   <distributionManagement>
@@ -405,7 +406,39 @@
 		    <groupId>com.octo.captcha</groupId>
 		    <artifactId>jcaptcha</artifactId>
 		    <version>1.0</version>
-		</dependency> -->		
+		</dependency> -->
+		
+		<!--begin activiti -->
+		<!-- https://mvnrepository.com/artifact/org.activiti/activiti-engine -->
+		<dependency>
+		    <groupId>org.activiti</groupId>
+		    <artifactId>activiti-engine</artifactId>
+		    <version>${activiti.version}</version>
+		</dependency>
+		<dependency>
+	        <groupId>org.activiti</groupId>
+	        <artifactId>activiti-spring</artifactId>
+	        <version>${activiti.version}</version>
+	        <!-- activiti 会引用spring-tx这样与Spring.jdbc中的tx冲突，所以此处排除依赖 -->
+	        <exclusions>
+		      	<exclusion>
+		      		<artifactId>spring-tx</artifactId>
+		      		<groupId>org.springframework</groupId>
+		      	</exclusion>
+		    </exclusions>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.activiti</groupId>
+	        <artifactId>activiti-json-converter</artifactId>
+	        <version>${activiti.version}</version>
+	    </dependency>
+	    <!-- https://mvnrepository.com/artifact/org.activiti/activiti-bpmn-layout -->
+		<dependency>
+		    <groupId>org.activiti</groupId>
+		    <artifactId>activiti-bpmn-layout</artifactId>
+		    <version>${activiti.version}</version>
+		</dependency>
+		<!--end activiti -->
 	  </dependencies>
   </dependencyManagement>
   
@@ -435,5 +468,6 @@
   	<module>dubbo-facade-log</module>
   	<module>dubbo-service-log</module>
   	<module>dubbo-facade-activiti</module>
+  	<module>dubbo-service-activiti</module>
   </modules>
 </project>

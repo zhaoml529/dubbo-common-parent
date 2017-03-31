@@ -7,8 +7,8 @@
 	<insert id="insert" parameterType="Post" keyProperty="id" useGeneratedKeys="true">
 		insert into
 		<include refid="table" />
-		(version, createDate, name, companyId, deptId, roleId, status)
-		values (0, #{createDate}, #{name}, #{companyId}, #{deptId}, #{roleId}, #{status})
+		(version, createDate, name, companyId, deptId, status)
+		values (0, #{createDate}, #{name}, #{companyId}, #{deptId}, #{status})
 	</insert>
 
 	<!-- 更新:version+1 实现乐观锁 -->
@@ -20,7 +20,6 @@
 			<if test="name != null and name != '' ">name = #{name},</if>
 			<if test="companyId != null and companyId != '' ">companyId = #{companyId},</if>
 			<if test="deptId != null and deptId != '' ">deptId = #{deptId},</if>
-			<if test="roleId != null and roleId != '' ">roleId = #{roleId},</if>
 			<if test="status != null and status != '' ">status = #{status},</if>
 		</set>
 		<where>
@@ -38,7 +37,6 @@
 		<if test="name != null and name !=''"> and name = #{name} </if>
 		<if test="companyId != null and companyId != ''"> and companyId = #{companyId} </if>
 		<if test="deptId != null and deptId != ''"> and deptId = #{deptId} </if>
-		<if test="roleId != null and roleId != ''"> and roleId = #{roleId} </if>
 		<if test="status != null and status != ''"> and status = #{status} </if>
 	</sql>
 

@@ -24,6 +24,8 @@ public class Staff extends BaseEntity {
 
 	private Long postId;		// 所属岗位		
 	
+	private Long roleId;		// 所属角色
+	
 	private Integer status = 100;	// 100=正常 101=禁用
 
 	public String getName() {
@@ -72,6 +74,14 @@ public class Staff extends BaseEntity {
 
 	public void setStaffNum(Long staffNum) {
 		this.staffNum = staffNum;
+	}
+
+	public Long getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
 	}
 	
 }

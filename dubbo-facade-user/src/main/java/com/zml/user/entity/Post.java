@@ -19,8 +19,6 @@ public class Post extends BaseEntity {
 	
 	private Long deptId;		// 所属部门
 	
-	private Long roleId;		// 所属角色
-	
 	private Integer status = 100;	// 100=正常 101=禁用
 
 	public String getName() {
@@ -54,13 +52,4 @@ public class Post extends BaseEntity {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-
-	public Long getRoleId() {
-		return roleId;
-	}
-
-	public void setRoleId(Long roleId) {
-		this.roleId = roleId;
-	}
-	
 }
