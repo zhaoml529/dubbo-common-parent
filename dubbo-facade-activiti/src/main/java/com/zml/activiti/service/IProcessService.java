@@ -12,7 +12,6 @@ import org.activiti.engine.task.Task;
 import com.zml.activiti.entity.Comments;
 import com.zml.activiti.entity.ProcessTask;
 import com.zml.activiti.exceptions.ProcessServiceException;
-import com.zml.common.page.Page;
 import com.zml.common.page.Parameter;
 
 
@@ -36,7 +35,7 @@ public interface IProcessService {
 	 * @return
 	 * @throws ProcessServiceException
 	 */
-	public Page findTodoTask(Parameter<ProcessTask> param) throws ProcessServiceException;
+	public List<ProcessTask> findTodoTask(Parameter<ProcessTask> param) throws ProcessServiceException;
 	
     /**
      * 签收任务

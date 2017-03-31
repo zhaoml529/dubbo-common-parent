@@ -33,11 +33,11 @@
 		<version>${dubbo-common-core.version}</version>
 	</dependency>
 	
-	<dependency>
+	<!-- <dependency>
 		<groupId>com.zml</groupId>
 		<artifactId>dubbo-facade-user</artifactId>
 		<version>${dubbo-facade-user.version}</version>
-	</dependency>
+	</dependency> -->
 	
 	<dependency>
 		<groupId>com.zml</groupId>
