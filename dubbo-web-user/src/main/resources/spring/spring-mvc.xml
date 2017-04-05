@@ -16,7 +16,7 @@
 	<!-- 读入配置属性文件 -->
 	<context:property-placeholder location="classpath:system.properties"/>
 	
-	<!-- 配置要扫描的包 @Component @Controller @Service @Repository-->
+	<!-- 配置要扫描的包，只扫描 @Controller-->
 	<context:component-scan base-package="com.zml.web.controller" use-default-filters="false">
 	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>

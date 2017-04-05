@@ -23,6 +23,7 @@ import com.zml.common.web.entity.Message;
 
 /**
  * 全局异常处理器
+ * 应用到所有@RequestMapping注解的方法，在其抛出异常时执行
  * 系统遇到异常，在程序中抛出，dao抛给Service，Service抛给Controller，Controller抛给前端控制器，前端控制器调用全局异常处理器
  * 全局异常处理器解析出异常类型：
  * 1.如果该异常类型是系统自定义异常(如：ServiceException)，直接取出异常信息，在错误界面展示。
