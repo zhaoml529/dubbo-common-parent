@@ -62,7 +62,6 @@
 		<mapper resource="mapper/ResourceMapper.xml" />
 		<mapper resource="mapper/RoleAndResourceMapper.xml" />
 		<mapper resource="mapper/RoleMapper.xml" />
-		<mapper resource="mapper/StaffMapper.xml" /> 
 		<mapper resource="mapper/UserMapper.xml" />
 	</mappers>
 

@@ -7,8 +7,8 @@
 	<insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
 		insert into
 		<include refid="table"/>
-		(version, createDate, userName, staffNum, passwd, salt, registerDate, isLock, status, lastLoginTime, pwdErrorLastTime, lastUpdatePwdTime)
-		values (0, #{createDate}, #{userName}, #{staffNum}, #{passwd}, #{salt}, #{registerDate}, #{isLock}, #{status}, #{lastLoginTime}, #{pwdErrorLastTime}, #{lastUpdatePwdTime})
+		(version, createDate, userName, staffNum, passwd, salt, postId, roleId, dataPermission, registerDate, isLock, status, lastLoginTime, pwdErrorLastTime, lastUpdatePwdTime)
+		values (0, #{createDate}, #{userName}, #{staffNum}, #{passwd}, #{salt}, #{postId}, #{roleId}, #{dataPermission}, #{registerDate}, #{isLock}, #{status}, #{lastLoginTime}, #{pwdErrorLastTime}, #{lastUpdatePwdTime})
 	</insert>
 
 	<!-- 更新:version+1 实现乐观锁 -->
@@ -21,7 +21,10 @@
 			staffNum = #{staffNum},
 			passwd = #{passwd},
 			salt = #{salt},
+			postId = #{postId},
+			roleId = #{roleId},
 			isLock = #{isLock},
+			dataPermission = #{dataPermission},
 			status = #{status},
 			lastLoginTime = #{lastLoginTime},
 			pwdErrorLastTime = #{pwdErrorLastTime},
@@ -96,9 +99,7 @@
 	<select id="getPermissionList" parameterType="map" resultType="string">
 		select COALESCE(r.permission,'') as permission
 		from TB_USER u
-		left join TB_STAFF s ON s.staffNum = u.staffNum and s.status = 100
-		left join TB_POST p ON p.id = s.postId and p.status = 100
-		left join TB_ROLE_RESOURCE rr ON rr.roleId = p.roleId
+		left join TB_ROLE_RESOURCE rr ON rr.roleId = u.roleId
 		left join TB_RESOURCE r ON r.id = rr.resourceId and r.status = 100
 		<where>
 			<if test="userId != null and userId != ''"> and u.id = #{userId}</if>

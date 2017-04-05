@@ -44,7 +44,6 @@ public class LoginController  extends BaseController {
 	@Value("${jwt.info.expiresSecond}")
 	private long expiresSecond;			// 有效期 默认2天
 	
-	//@ControllerLog(content = "登录系统", operationType = OperateLogTypeEnum.LOGIN)
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
     public Message Login(@RequestParam("username") String userName, @RequestParam("password") String password) throws Exception {
 		Message message = new Message();
@@ -64,7 +63,6 @@ public class LoginController  extends BaseController {
 			claims.put(SystemConstant.CURRENT_USER_NAME, user.getUserName());
 			
 			String token = TokenUtil.getTokenString(user, this.expiresSecond, this.issuer, this.base64Secret, claims);
-			System.out.println("token: " + token);
 			// 缓存用户信息
 			this.redisUtil.setCacheObject(CacheConstant.CURRENT_USER_ID + user.getId().toString(), user);	// 默认过期时间2小时,token过期考虑清除缓存
 			// 缓存权限信息

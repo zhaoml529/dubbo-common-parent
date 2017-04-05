@@ -29,23 +29,22 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 		String url = path + uri;
 		String requestMethod = request.getMethod();	// post get options...
 		
-		// options是跨域复杂请求时的预检请求(Preflighted requests)的一次嗅探
-		if("options".equals(requestMethod.toLowerCase())) {
-			return true;
-		}
 		// 不需要拦截的路径
 		if("/api/login".startsWith(url) || "/api/regist".startsWith(url)) {
 			return true;
 		}
 		
-		String token = request.getHeader("Authorization");	// 获取header
-		System.out.println("AuthorizationInterceptor token info:"+ token);
+		// options是跨域复杂请求时的预检请求(Preflighted requests)的一次嗅探
+		if("options".equals(requestMethod.toLowerCase())) {
+			return true;
+		}
 		
+		String token = request.getHeader("Authorization");	// 获取header
 		if(StringUtils.isBlank(token)) {
 			response.sendError(HttpStatus.UNAUTHORIZED.value(), "认证失败!");
 			return false;
 		}
-		// Key key = WebConstant.KEY;
+		
 		if(TokenUtil.isValid(token, base64Secret)) {
 			String userId = TokenUtil.getUserId(token, base64Secret);	// 解析出userId
 			//String name = TokenUtil.getUserName(token,base64Secret);	// 解析出userName

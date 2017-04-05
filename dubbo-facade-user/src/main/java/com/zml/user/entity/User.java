@@ -22,7 +22,7 @@ public class User extends BaseEntity {
 	private String userName;
 	
 	@NotNull(message = "{user.staffNum.not.null}")
-	private Long staffNum;		// 编制号
+	private Long staffNum;			// 用户编号(唯一)
 	
 	@NotBlank(message = "{user.passwd.not.blank}")
 	@Length(min = 8, max = 15, message = "{user.passwd.length.illegal}")
@@ -32,10 +32,17 @@ public class User extends BaseEntity {
 	@JsonIgnore
 	private String salt;
 	
+	private Long postId;			// 所属岗位		
+	
+	private Long roleId;			// 所属角色
+	
+	private Integer dataPermission;	// 数据权限 @see DataPermsiisonEnum
+	
 	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date registerDate = new Date();
 	
 	private Integer isLock = 100;	// 100=正常 101=锁定
+	
 	
 	private Integer status = 100;	// 100=正常 101=禁用
 	
@@ -131,6 +138,30 @@ public class User extends BaseEntity {
 
 	public void setLastUpdatePwdTime(Date lastUpdatePwdTime) {
 		this.lastUpdatePwdTime = lastUpdatePwdTime;
+	}
+
+	public Long getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
+	}
+
+	public Long getPostId() {
+		return postId;
+	}
+
+	public void setPostId(Long postId) {
+		this.postId = postId;
+	}
+
+	public Integer getDataPermission() {
+		return dataPermission;
+	}
+
+	public void setDataPermission(Integer dataPermission) {
+		this.dataPermission = dataPermission;
 	}
 
 }
