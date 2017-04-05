@@ -22,7 +22,7 @@ public class Resource extends BaseEntity {
 	 
 	 private String permission; // 权限字符串
 	 
-	 private Integer parentId;	// 父id
+	 private Long parentId;		// 父id
 	 
 	 private Integer sort;		// 排序
 	 
@@ -62,11 +62,11 @@ public class Resource extends BaseEntity {
 		this.permission = permission;
 	}
 
-	public Integer getParentId() {
+	public Long getParentId() {
 		return parentId;
 	}
 
-	public void setParentId(Integer parentId) {
+	public void setParentId(Long parentId) {
 		this.parentId = parentId;
 	}
 
