@@ -5,7 +5,7 @@ package com.zml.user.enums;
  * @author zhaomingliang
  * @date 2017年4月5日
  */
-public enum DataPermsiisonEnum {
+public enum DataPermissionEnum {
 
 	OWNED("查看自己的数据", 1),
 	PART_OF_POST("所属岗位下的数据", 2),
@@ -29,7 +29,7 @@ public enum DataPermsiisonEnum {
 		return value;
 	}
 	
-	DataPermsiisonEnum(String desc, int value) {
+	DataPermissionEnum(String desc, int value) {
 		this.desc = desc;
 		this.value = value;
 	}
@@ -38,9 +38,9 @@ public enum DataPermsiisonEnum {
 	 * 取枚举的json字符串
 	 */
 	public static String getEnumJsonStr() {
-		DataPermsiisonEnum[] enums = DataPermsiisonEnum.values();
+		DataPermissionEnum[] enums = DataPermissionEnum.values();
 		StringBuffer jsonBuff = new StringBuffer("[");
-		for (DataPermsiisonEnum senum : enums) {
+		for (DataPermissionEnum senum : enums) {
 			if (!"[".equals(jsonBuff.toString())) {
 				jsonBuff.append(",");
 			}
@@ -51,6 +51,6 @@ public enum DataPermsiisonEnum {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(DataPermsiisonEnum.getEnumJsonStr());
+		System.out.println(DataPermissionEnum.getEnumJsonStr());
 	}
 }

@@ -48,12 +48,10 @@
 		<typeHandler javaType="Boolean" jdbcType="SMALLINT"  handler="wusc.edu.pay.common.core.mybatis.BooleanTypeHandler" />
 	</typeHandlers> -->
 	
-	<!-- 数据库适配器 -->
-<!-- 	<plugins>
-		<plugin interceptor="wusc.edu.pay.common.core.mybatis.interceptor.ExecutorInterceptor">
-			<property name="dialectClass" value="${dialectClass}" />
-		</plugin>
-	</plugins> -->
+	<!-- 数据权限拦截器 -->
+	<plugins>
+		<plugin interceptor="com.zml.core.mybatis.interceptor.DataPermissionInterceptor"/>
+	</plugins>
 
 	<mappers>
 		<mapper resource="mapper/CompanyMapper.xml" />

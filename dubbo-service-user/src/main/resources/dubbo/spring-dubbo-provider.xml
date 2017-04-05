@@ -35,7 +35,6 @@
 	<dubbo:service retries="0" interface="com.zml.user.service.ICompanyService" ref="companyService" />
 	<dubbo:service retries="0" interface="com.zml.user.service.IDepartmentService" ref="departmentService" />
 	<dubbo:service retries="0" interface="com.zml.user.service.IPostService" ref="postService" />
-	<dubbo:service retries="0" interface="com.zml.user.service.IStaffService" ref="staffService" />
 	<dubbo:service retries="0" interface="com.zml.user.service.IRoleService" ref="roleService" />
 	<dubbo:service retries="0" interface="com.zml.user.service.IRoleAndResourceService" ref="roleAndResourceService" />
 	<dubbo:service retries="0" interface="com.zml.user.service.IResourceService" ref="resourceService" />
