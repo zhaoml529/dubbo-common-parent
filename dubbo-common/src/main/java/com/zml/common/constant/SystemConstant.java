@@ -5,8 +5,11 @@ public class SystemConstant {
 	/***************** session key *****************/
 	public static final String CURRENT_USER_ID = "userId";
     public static final String CURRENT_USER_NAME = "userName";
-    //public static final String GROUP_ID = "groupId";
-    public static final String SESSION_FORCE_LOGOUT_KEY = "session_force._logout";
+    
+    /***************** service key *****************/
+    public static final String DATA_PERMISSION = "dataPermission";					// 是否支持数据权限
+    public static final String DATA_PERMISSION_USER_ID = "dataPermissionUserId";	// mbs拦截器获取userId关联查询数据权限
+    public static final String DATA_PERMISSION_TYPE = "dataPermissionType";			// 数据权限类型
     
 	/***************** activiti *****************/
 	public static final String ASSIGNEE = "assignee";

@@ -81,8 +81,7 @@ public class UserController extends BaseController {
         }
         message.setMessage("获取列表成功！");
         message.setData(users);
-        return message;
-    }
+        return message;    }
 	
 	/**
 	 * 分页获取用户列表
@@ -93,6 +92,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/listUser", method = RequestMethod.POST)
 	public Message listUserPage(@RequestBody Parameter<User> param) {
 		Message message = new Message();
+		super.setDataPermission(param.getParamMap());	// 设置数据权限
 		Page page = this.userService.getUserPage(param);
 		message.setMessage("获取列表成功！");
         message.setData(page.getRecordList());

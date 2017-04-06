@@ -2,6 +2,7 @@ package com.zml.common.web.base;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -169,5 +170,15 @@ public class BaseController {
 			errorList.add(fieldErrorMessage);
 		}
 		return errorList;
+	}
+	
+	protected void setDataPermission(Map<String, Object> params) {
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		String userId = (String) request.getAttribute(SystemConstant.CURRENT_USER_ID);
+		User user = this.userRedis.getCacheObject(CacheConstant.CURRENT_USER_ID + userId);
+		// 设置支持数据权限的参数
+		params.put(SystemConstant.DATA_PERMISSION, true);							// 开启数据权限查询
+		params.put(SystemConstant.DATA_PERMISSION_USER_ID, user.getId());			// 当前用户的数据权限
+		params.put(SystemConstant.DATA_PERMISSION_TYPE, user.getDataPermission());	// 当前用户数据权限类型
 	}
 }
