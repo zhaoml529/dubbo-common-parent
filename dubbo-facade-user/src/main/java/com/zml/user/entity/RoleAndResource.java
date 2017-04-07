@@ -3,7 +3,7 @@ package com.zml.user.entity;
 import com.zml.common.entity.BaseEntity;
 
 /**
- * 权限-角色和资源的关联表
+ * 角色功能点(角色对应的功能点集合)
  * @author zhao
  *
  */
