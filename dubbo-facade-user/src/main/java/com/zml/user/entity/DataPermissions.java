@@ -21,9 +21,60 @@ public class DataPermissions extends BaseEntity {
 	
 	private Long roleId;	// 角色id
 	
-	private Long postId;	// 所选岗位id(多个用逗号隔开)
+	private Long postId;	// 要查看岗位下的数据(多个用逗号隔开)
 	
-	private Long deptId;	// 所选部门id(多个用逗号隔开)
+	private Long deptId;	// 要查看部门下的数据(多个用逗号隔开)
 	
-	private Long companyId;	// 所选公司id(多个用逗号隔开)
+	private Long companyId;	// 要查看公司下的数据(多个用逗号隔开)
+	
+	private Integer allData;// 是否查看所有数据(100=是 101=否)
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Long getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
+	}
+
+	public Long getPostId() {
+		return postId;
+	}
+
+	public void setPostId(Long postId) {
+		this.postId = postId;
+	}
+
+	public Long getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(Long deptId) {
+		this.deptId = deptId;
+	}
+
+	public Long getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Long companyId) {
+		this.companyId = companyId;
+	}
+
+	public Integer getAllData() {
+		return allData;
+	}
+
+	public void setAllData(Integer allData) {
+		this.allData = allData;
+	}
+
 }

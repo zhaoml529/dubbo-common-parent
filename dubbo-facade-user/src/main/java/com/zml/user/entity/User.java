@@ -36,8 +36,6 @@ public class User extends BaseEntity {
 	
 	private Long roleId;			// 所属角色
 	
-	private Integer dataPermission;	// 数据权限 @see DataPermsiisonEnum
-	
 	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date registerDate = new Date();
 	
@@ -154,14 +152,6 @@ public class User extends BaseEntity {
 
 	public void setPostId(Long postId) {
 		this.postId = postId;
-	}
-
-	public Integer getDataPermission() {
-		return dataPermission;
-	}
-
-	public void setDataPermission(Integer dataPermission) {
-		this.dataPermission = dataPermission;
 	}
 
 }

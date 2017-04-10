@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zml.user.dao.impl.DataPermissionDaoImpl">
+
+	<sql id="table">TB_DATA_PERMISSION</sql>
+
+	<insert id="insert" parameterType="DataPermissions" keyProperty="id" useGeneratedKeys="true">
+		insert into
+		<include refid="table" />
+		(version, createDate, name, roleId, postId, deptId, companyId, allData)
+		values (0, #{createDate}, #{name}, #{roleId}, #{postId}, #{deptId}, #{companyId}, #{allData})
+	</insert>
+
+	<!-- 更新:version+1 实现乐观锁 -->
+	<update id="update" parameterType="DataPermissions">
+		update
+		<include refid="table" />
+		<set>
+			version = #{version}+1 ,
+			<if test="name != null and name != '' ">name = #{name},</if>
+			<if test="roleId != null">roleId = #{roleId},</if>
+			<if test="postId != null">postId = #{postId},</if>
+			<if test="deptId != null">deptId = #{deptId},</if>
+			<if test="companyId != null">companyId = #{companyId},</if>
+			<if test="allData != null">allData = #{allData},</if>
+		</set>
+		<where>
+			id = #{id} and version = #{version}
+		</where>
+	</update>
+
+	<select id="getById" parameterType="long" resultType="DataPermissions">
+		select * from
+		<include refid="table" />
+		where id = #{id}
+	</select>
+
+	<sql id="condition_sql">
+		<if test="name != null and name !=''"> and name = #{name} </if>
+		<if test="roleId != null and roleId !=''"> and roleId = #{roleId} </if>
+	</sql>
+
+	<select id="getList" parameterType="map" resultType="DataPermissions">
+		select * from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+	
+	<!-- 物理删除 -->
+	<delete id="deleteById" parameterType="long">
+		delete from
+		<include refid="table"/>
+		where id = #{id}
+	</delete>
+	
+</mapper>

@@ -29,6 +29,9 @@
     <context:component-scan base-package="com.zml.log.aop.service" use-default-filters="true">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
+    <context:component-scan base-package="com.zml.core.mybatis.interceptor" use-default-filters="true">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
     
    	<!-- 添加 Spring AOP 权限注解的支持，走CGLIB类代理。 -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
@@ -121,6 +124,7 @@
 	<!-- <import resource="classpath:spring/spring-activemq.xml" /> -->
     <import resource="classpath:dubbo/spring-dubbo-consumer.xml" />
     <import resource="classpath:dubbo/spring-dubbo-provider.xml" />
-    <import resource="classpath:redis/spring-context-jedis-single.xml"/>
+    <!-- <import resource="classpath:redis/spring-context-jedis-single.xml"/> -->
+    <import resource="classpath:redis/spring-context-jedis-cluster.xml"/>
     
 </beans>

@@ -27,6 +27,8 @@
 	
 	<dubbo:reference retries="0" interface="com.zml.user.service.IRoleAndResourceService" id="rarService" check="false"/>
 	
+	<dubbo:reference retries="0" interface="com.zml.user.service.IDataPermissionService" id="dataPermissionService" check="false"/>
+	
 	<!-- 操作日志服务接口 -->
 	<!-- 如果通过context:component-scan扫描到有需要注入(消费)的service则此处必须配置消费者 -->
 	<dubbo:reference retries="0" interface="com.zml.log.service.IUserOperateLogService" id="userOperateLogService" check="false"/>
