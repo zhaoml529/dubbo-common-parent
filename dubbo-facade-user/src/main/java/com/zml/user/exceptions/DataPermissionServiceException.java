@@ -19,6 +19,8 @@ public class DataPermissionServiceException extends ServiceException {
 	public static final DataPermissionServiceException UPDATE_DATA_PERMISSION_ERR = new DataPermissionServiceException(10050002, "更新数据权限失败！");
 	
 	public static final DataPermissionServiceException DELETE_DATA_PERMISSION_ERR = new DataPermissionServiceException(10050003, "删除数据权限失败！");
+	
+	public static final DataPermissionServiceException DATA_PERMISSION_IS_EXIST = new DataPermissionServiceException(10050004, "此权限组名称已经存在！");
 
 	public DataPermissionServiceException() {
 		

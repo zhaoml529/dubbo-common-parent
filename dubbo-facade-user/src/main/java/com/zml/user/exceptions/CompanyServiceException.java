@@ -25,7 +25,7 @@ public class CompanyServiceException extends ServiceException {
 	 */
 	public static final CompanyServiceException UPDATE_COMPANY_ERR = new CompanyServiceException(10020002, "更新公司信息失败！");
 	
-	public static final CompanyServiceException COMPANY_IS_EXIST = new CompanyServiceException(10020003, "未找到相应的公司信息！");
+	public static final CompanyServiceException COMPANY_IS_EXIST = new CompanyServiceException(10020003, "公司名称已经存在！");
 	
 	public static final CompanyServiceException COMPANY_NOT_EXIST = new CompanyServiceException(10020004, "未找到相应的公司信息！");
 	

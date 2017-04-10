@@ -25,10 +25,7 @@ public class CompanyServiceImpl implements ICompanyService {
 	@Transactional(rollbackFor = Exception.class, readOnly = false)
 	@Override
 	public Long addCompany(Company company) throws CompanyServiceException {
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("name", company.getName());
-		Company c = this.companyDao.getBy(paramMap);
-		if(c != null) {
+		if(isExist(company.getName())) {
 			throw CompanyServiceException.COMPANY_IS_EXIST;
 		}
 		return this.companyDao.insert(company);
@@ -37,11 +34,21 @@ public class CompanyServiceImpl implements ICompanyService {
 	@Transactional(rollbackFor = Exception.class, readOnly = false)
 	@Override
 	public Long updateCompany(Company company) throws CompanyServiceException {
-		Company c = this.getById(company.getId());
-		if(c == null) {
-			throw CompanyServiceException.UPDATE_COMPANY_FAIL;
+		if(isExist(company.getName())) {
+			throw CompanyServiceException.COMPANY_IS_EXIST;
 		}
 		return this.companyDao.update(company);
+	}
+	
+	private boolean isExist(String name) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("name", name);
+		Company c = this.companyDao.getBy(paramMap);
+		if(c != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -75,7 +82,7 @@ public class CompanyServiceImpl implements ICompanyService {
 	public Long deleteCompany(Long id) throws CompanyServiceException {
 		Company c = this.getById(id);
 		if(c == null) {
-			throw CompanyServiceException.DELETE_COMPANY_FAIL;
+			throw CompanyServiceException.DELETE_COMPANY_ERR;
 		}
 		return this.companyDao.deleteById(id);
 	}

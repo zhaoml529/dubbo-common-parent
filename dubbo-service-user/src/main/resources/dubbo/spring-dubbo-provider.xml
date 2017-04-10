@@ -38,5 +38,6 @@
 	<dubbo:service retries="0" interface="com.zml.user.service.IRoleService" ref="roleService" />
 	<dubbo:service retries="0" interface="com.zml.user.service.IRoleAndResourceService" ref="roleAndResourceService" />
 	<dubbo:service retries="0" interface="com.zml.user.service.IResourceService" ref="resourceService" />
+	<dubbo:service retries="0" interface="com.zml.user.service.IDataPermissionService" ref="dataPermissionService" />
 	
 </beans>  

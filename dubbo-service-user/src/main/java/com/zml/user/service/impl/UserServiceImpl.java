@@ -82,7 +82,7 @@ public class UserServiceImpl implements IUserService {
 	public void updateUser(User user) throws UserServiceException {
 		User u = this.getUserById(user.getId());
 		if(u == null) {
-			throw UserServiceException.UPDATE_USER_FAIL;
+			throw UserServiceException.UPDATE_USER_ERR;
 		} else {
 			//u.setUserName(user.getUserName());
 			u.setStaffNum(user.getStaffNum());
