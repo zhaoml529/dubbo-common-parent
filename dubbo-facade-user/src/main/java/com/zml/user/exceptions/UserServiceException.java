@@ -16,7 +16,7 @@ public class UserServiceException extends ServiceException {
 	/**
 	 * 登录：密码错误
 	 */
-	public static final int LOGIN_PWD_ERROR = 10010002;
+	public static final int LOGIN_PWD_ERR = 10010002;
 
 	/**
 	 * 登录：密码错误次数超限
@@ -26,7 +26,7 @@ public class UserServiceException extends ServiceException {
 	/**
 	 * 登陆：身份验证失败
 	 */
-	public static final int LOGIN_AUTHENTICATION_FAIL = 10010004;
+	public static final int LOGIN_AUTHENTICATION_ERR = 10010004;
 
 	/**
 	 * 登录：账号被锁定
@@ -63,7 +63,7 @@ public class UserServiceException extends ServiceException {
 	 */
 	//public static final int UPDATE_USER_FAIL = 10010011;
 	
-	public static final UserServiceException UPDATE_USER_FAIL = new UserServiceException(10010011, "更新用户失败!");
+	public static final UserServiceException UPDATE_USER_ERR = new UserServiceException(10010011, "更新用户失败!");
 	
 	public UserServiceException() {
 		

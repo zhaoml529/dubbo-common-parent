@@ -14,9 +14,9 @@ public class PostServiceException extends ServiceException {
 	 */
 	private static final long serialVersionUID = -7384571092010938604L;
 
-	public static final PostServiceException ADD_POST_FAIL = new PostServiceException(10040001, "添加岗位失败！");
+	public static final PostServiceException ADD_POST_ERR = new PostServiceException(10040001, "添加岗位失败！");
 	
-	public static final PostServiceException UPDATE_POST_FAIL = new PostServiceException(10040002, "更新岗位信息失败！");
+	public static final PostServiceException UPDATE_POST_ERR = new PostServiceException(10040002, "更新岗位信息失败！");
 
 	public PostServiceException() {
 		
