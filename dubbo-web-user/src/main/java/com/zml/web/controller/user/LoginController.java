@@ -77,8 +77,8 @@ public class LoginController  extends BaseController {
 			message.setData(data);
 			super.logLogin("登录系统！", user);
 		} else {
-			super.logLoginErr("用户名或密码错误！" + UserServiceException.LOGIN_PWD_ERROR, user);
-			throw new UserServiceException(UserServiceException.LOGIN_PWD_ERROR, "用户名或密码错误！");
+			super.logLoginErr("用户名或密码错误！" + UserServiceException.LOGIN_PWD_ERR, user);
+			throw new UserServiceException(UserServiceException.LOGIN_PWD_ERR, "用户名或密码错误！");
 		}
 		return message;
     }
