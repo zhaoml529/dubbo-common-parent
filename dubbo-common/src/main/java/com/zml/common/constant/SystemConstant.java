@@ -8,8 +8,7 @@ public class SystemConstant {
     
     /***************** service key *****************/
     public static final String DATA_PERMISSION = "dataPermission";					// 是否支持数据权限
-    public static final String DATA_PERMISSION_USER_ID = "dataPermissionUserId";	// mbs拦截器获取userId关联查询数据权限
-    public static final String DATA_PERMISSION_TYPE = "dataPermissionType";			// 数据权限类型
+    public static final String DATA_PERMISSION_ROLE_ID = "permissionRoleId";
     
 	/***************** activiti *****************/
 	public static final String ASSIGNEE = "assignee";

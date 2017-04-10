@@ -340,6 +340,15 @@ public class RedisUtil<T> {
     }
     
     /**
+     * 移除给定 key 的过期时间，使得 key 永不过期
+     * @param key
+     * @return
+     */
+    public boolean persist(String key) {
+    	return redisTemplate.persist(key);
+    }
+    
+    /**
      * increment
      * @param key
      * @param step

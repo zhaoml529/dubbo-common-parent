@@ -23,15 +23,13 @@ public class CacheConstant {
 	public static final String USER_PERMISSION_KEY = "USER_PERMISSION_KEY_";
 	
 	/**
-	 * The Redis key prefix for the sessions 
+	 * 所有角色对应的数据权限key
 	 */
-	public static final String SHIRO_REDIS_SESSION = "SHIRO_REDIS_SESSION_";
+	public static final String DATA_PERMISSION_KEY = "DATA_PERMISSION_KEY";
 	
 	/**
-	 * The Redis key prefix for the caches  
+	 * 密码重试次数key
 	 */
-	public static final String SHIRO_REDIS_CACHE = "SHIRO_REDIS_CACHE_";
-	
 	public static final String PWD_RETRY_COUNT =  "PWD_RETRY_COUNT_";
 	
 	/**
