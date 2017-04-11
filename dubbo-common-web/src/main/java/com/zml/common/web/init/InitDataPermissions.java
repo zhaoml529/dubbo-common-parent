@@ -35,7 +35,6 @@ public class InitDataPermissions {
 	@PostConstruct
 	public void init() {
 		Map<Object, Object> dpmap = this.redisUtil.getCacheMap(CacheConstant.DATA_PERMISSION_KEY);
-		//List<DataPermissions> list = this.redisUtil.lrange(CacheConstant.DATA_PERMISSION_KEY, 0, -1);
 		if(dpmap == null || dpmap.isEmpty()) {
 			List<DataPermissions> list = this.dataPermissionService.getDataPermissionList();
 			if(!CollectionUtils.isEmpty(list)) {
