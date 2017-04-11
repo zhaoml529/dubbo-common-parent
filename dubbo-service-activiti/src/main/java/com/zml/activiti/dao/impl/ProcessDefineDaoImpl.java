@@ -6,7 +6,7 @@ import com.zml.activiti.dao.IProcessDefineDao;
 import com.zml.activiti.entity.ProcessDefine;
 import com.zml.core.dao.impl.BaseDaoImpl;
 
-@Repository("processDefindDao")
+@Repository("processDefineDao")
 public class ProcessDefineDaoImpl extends BaseDaoImpl<ProcessDefine> implements
 		IProcessDefineDao {
 

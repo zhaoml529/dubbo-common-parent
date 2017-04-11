@@ -100,7 +100,7 @@
     </filter-mapping> -->
 
 	<!-- druid -->
-	<servlet>
+	<!-- <servlet>
 		<servlet-name>DruidStatView</servlet-name>
 		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
 	</servlet>
@@ -120,7 +120,7 @@
 	<filter-mapping>
 		<filter-name>DruidWebStatFilter</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+	</filter-mapping> -->
 
 	<welcome-file-list>
 	    <welcome-file>index.html</welcome-file>

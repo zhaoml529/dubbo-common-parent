@@ -23,14 +23,11 @@
     <context:component-scan base-package="com.zml.user" use-default-filters="true">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
-    <context:component-scan base-package="com.zml.common" use-default-filters="true">
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    <context:component-scan base-package="com.zml.common.utils.cache.redis" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
     </context:component-scan>
-    <context:component-scan base-package="com.zml.log.aop.service" use-default-filters="true">
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-    </context:component-scan>
-    <context:component-scan base-package="com.zml.core.mybatis.interceptor" use-default-filters="true">
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    <context:component-scan base-package="com.zml.log.aop.service" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
     </context:component-scan>
     
    	<!-- 添加 Spring AOP 权限注解的支持，走CGLIB类代理。 -->

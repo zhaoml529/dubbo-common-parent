@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans.xsd  
+            http://code.alibabatech.com/schema/dubbo  
+            http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	
+	<!-- 异常日志服务接口 -->
+	<dubbo:reference retries="0" interface="com.zml.log.service.ISystemExceptionLogService" id="systemExceptionLogService" check="false"/>
+	
+	<dubbo:reference retries="0" interface="com.zml.user.service.IUserService" id="userService" check="false"/>
+	
+</beans>  

@@ -11,4 +11,9 @@
 		values (#{userId}, #{userName}, #{staffNum}, #{methodName}, #{ip}, #{content}, #{errorCode}, #{errorName}, #{errorMessage}, #{params}, #{createDate}, #{version})
 	</insert>
 	
+	<select id="getList" parameterType="map" resultType="SystemExceptionLog">
+		select * from
+		<include refid="table" />
+	</select>
+	
 </mapper>

@@ -23,8 +23,8 @@
     <context:component-scan base-package="com.zml.log" use-default-filters="true">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
-    <context:component-scan base-package="com.zml.common" use-default-filters="true">
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    <context:component-scan base-package="com.zml.common.utils.cache.redis" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
     </context:component-scan>
     
 	<!-- 基于Druid数据库链接池的数据源配置 -->
@@ -78,28 +78,26 @@
 		<!-- <property name="connectionProperties" value="config.decrypt=true" /> -->
 	</bean>
 	
-	<!-- 将数据源映射到sqlSessionFactory中 -->
+	<!-- mybatis与spring集成，将数据源映射到sqlSessionFactory中 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 配置mybatis配置文件的位置 -->
 		<property name="configLocation" value="classpath:spring/mybatis-config.xml" />
 		<property name="dataSource" ref="dataSource" />
+		<!-- 别名设置，目的是可以针对parameterType或resultType指定的类型定义一些别名，在mapper.xml中通过别名定义，方便开发。 -->
+		<property name="typeAliasesPackage" value="com.zml.log.entity"/>
+		<!-- 配置扫描Mapper XML的位置 -->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
 	</bean>
-	
-	<!--配置扫描Dao接口包,动态实现DAO接口,注入到spring容器-->
-<!--     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        注入SqlSessionFactory
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-        给出需要扫描的Dao接口
-        <property name="basePackage" value="com.zml.user.dao,com.zml.core.dao"/>
-    </bean> -->
-    
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.zml.log.dao" />
-    </bean>  
 	
 	<!-- SqlSession模板类实例 -->
 	<bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
+	
+	<!--配置扫描Dao接口包,动态实现DAO接口,注入到spring容器-->
+    <!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.zml.log.dao" />
+    </bean>   -->
 	
 	<!--======= 事务配置 Begin ================= -->
 	<!-- 事务管理器（由Spring管理MyBatis的事务） -->
@@ -108,7 +106,6 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
-    <!-- <aop:config proxy-target-class="true"></aop:config> -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 	<!-- 注解事务 -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>

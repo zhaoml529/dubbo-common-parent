@@ -186,12 +186,14 @@ public class BaseDaoImpl<T extends BaseEntity> extends SqlSessionDaoSupport impl
 		return new Page(pageParam.getCurrPage(), pageParam.getNumPage(), count, list);
 	}
 
+	/**
+	 * 获取要执行方法的命名空间 对应mapper中的namespace
+	 * @param sqlId
+	 * @return
+	 */
 	public String getStatement(String sqlId) {
-
 		String name = this.getClass().getName();
-
 		StringBuffer sb = new StringBuffer().append(name).append(".").append(sqlId);
-
 		return sb.toString();
 	}
 

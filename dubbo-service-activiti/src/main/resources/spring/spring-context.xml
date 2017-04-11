@@ -23,8 +23,11 @@
     <context:component-scan base-package="com.zml.activiti" use-default-filters="true">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
-    <context:component-scan base-package="com.zml.log.aop.service" use-default-filters="true">
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    <context:component-scan base-package="com.zml.common.utils.cache.redis" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+    </context:component-scan>
+    <context:component-scan base-package="com.zml.log.aop.service" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
     </context:component-scan>
     
    	<!-- 添加 Spring AOP 权限注解的支持，走CGLIB类代理。 -->
@@ -111,7 +114,7 @@
 	<!-- 流程引擎的配置 -->
 	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
 		<property name="dataSource" ref="dataSource" />
-		<!-- <property name="databaseSchemaUpdate" value="true"/> -->
+		<property name="databaseSchemaUpdate" value="true"/>
 		<property name="transactionManager" ref="transactionManager" />
 		<property name="activityFontName" value="宋体"/>
         <property name="labelFontName" value="宋体"/>
@@ -133,8 +136,8 @@
 	<!-- Activiti End-->
 		
 	<!-- <import resource="classpath:spring/spring-activemq.xml" /> -->
-    <!-- <import resource="classpath:dubbo/spring-dubbo-consumer.xml" /> -->
+    <import resource="classpath:dubbo/spring-dubbo-consumer.xml" />
     <import resource="classpath:dubbo/spring-dubbo-provider.xml" />
-    <!-- <import resource="classpath:redis/spring-context-jedis-single.xml"/> -->
+    <import resource="classpath:redis/spring-context-jedis-cluster.xml"/>
     
 </beans>

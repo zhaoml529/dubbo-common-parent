@@ -11,10 +11,6 @@
     "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-
-	<!-- 引用系统全局配置文件 -->
-	<properties resource="system.properties" />
-	
 	<settings>
 		<!-- 这个配置使全局的映射器启用或禁用 缓存 -->
 		<setting name="cacheEnabled" value="true" />
@@ -37,15 +33,4 @@
 		<setting name="jdbcTypeForNull" value="OTHER" />
 		<setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString" />
 	</settings>
-
-	<!-- 类型别名是为 Java类型命名一个短的名字。 它只和 XML配置有关,只用来减少类完全 限定名的多余部分 -->
-	<typeAliases>
-		<package name="com.zml.log.entity"/>
-	</typeAliases>
-
-	<mappers>
-		<mapper resource="mapper/UserOperateMapper.xml" />
-		<mapper resource="mapper/SystemExceptionMapper.xml" />
-	</mappers>
-
 </configuration>
