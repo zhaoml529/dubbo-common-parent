@@ -32,7 +32,11 @@ public class User extends BaseEntity {
 	@JsonIgnore
 	private String salt;
 	
-	private Long postId;			// 所属岗位		
+	private Long companyId;			// 公司id
+	
+	private Long deptId;			// 部门id
+	
+	private Long postId;			// 岗位id		
 	
 	private Long roleId;			// 所属角色
 	
@@ -152,6 +156,22 @@ public class User extends BaseEntity {
 
 	public void setPostId(Long postId) {
 		this.postId = postId;
+	}
+
+	public Long getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Long companyId) {
+		this.companyId = companyId;
+	}
+
+	public Long getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(Long deptId) {
+		this.deptId = deptId;
 	}
 
 }
