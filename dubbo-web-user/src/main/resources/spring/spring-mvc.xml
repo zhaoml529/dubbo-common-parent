@@ -98,7 +98,7 @@
 	<!--springmvc 4.2以上开始支持 - 跨域请求配置;过滤器实现：com.zml.common.web.filter.CorsFilter -->
 	<mvc:cors>
 		<mvc:mapping path="/**"
-			allowed-origins="http://localhost:8117"
+			allowed-origins="*"
 			allowed-methods="GET,POST,PUT,DELETE,OPTIONS"
 			allowed-headers="Accept,Content-Type,Authorization"
 			allow-credentials="true"/>
@@ -111,12 +111,12 @@
     <!-- <mvc:default-servlet-handler/> -->
     <!-- 对静态资源文件的访问 -->  
 	<!-- 所有的页面引用到css/**的资源都从css/*里面进行查找 -->
-    <mvc:resources mapping="/js/**" location="/js/" cache-period="31556926"/>  
-    <mvc:resources mapping="/css/**" location="/css/" cache-period="31556926"/>
-    <mvc:resources mapping="/images/**" location="/images/" cache-period="31556926"/>
-	<mvc:resources mapping="/dist/**" location="/dist/" cache-period="31556926"/>
-	<mvc:resources mapping="/fonts/**" location="/fonts/" cache-period="31556926"/>
-	<mvc:resources mapping="/tpls/**" location="/tpls/" cache-period="31556926"/>
+    <mvc:resources mapping="/js/**" location="/js/" cache-period="8640000"/>  
+    <mvc:resources mapping="/css/**" location="/css/" cache-period="8640000"/>
+    <mvc:resources mapping="/images/**" location="/images/" cache-period="8640000"/>
+	<mvc:resources mapping="/dist/**" location="/dist/" cache-period="8640000"/>
+	<mvc:resources mapping="/fonts/**" location="/fonts/" cache-period="8640000"/>
+	<mvc:resources mapping="/tpls/**" location="/tpls/" cache-period="8640000"/>
 	
 	<!--视图处理器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
