@@ -6,15 +6,9 @@
 	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
 	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
 	the specific language governing permissions and limitations under the License. -->
-<!DOCTYPE configuration
-    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-
-	<!-- 引用系统全局配置文件 -->
-	<properties resource="system.properties" />
-	
 	<settings>
 		<!-- 这个配置使全局的映射器启用或禁用 缓存 -->
 		<setting name="cacheEnabled" value="true" />
@@ -37,29 +31,4 @@
 		<setting name="jdbcTypeForNull" value="OTHER" />
 		<setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString" />
 	</settings>
-
-	<!-- 类型别名是为 Java类型命名一个短的名字。 它只和 XML配置有关,只用来减少类完全 限定名的多余部分 -->
-	<typeAliases>
-		<package name="com.zml.activiti.entity"/>
-	</typeAliases>
-
-	<!-- 放在mappers定义之前 -->
-<!-- 	<typeHandlers>
-		<typeHandler javaType="Boolean" jdbcType="SMALLINT"  handler="wusc.edu.pay.common.core.mybatis.BooleanTypeHandler" />
-	</typeHandlers> -->
-	
-	<!-- 数据库适配器 -->
-<!-- 	<plugins>
-		<plugin interceptor="wusc.edu.pay.common.core.mybatis.interceptor.ExecutorInterceptor">
-			<property name="dialectClass" value="${dialectClass}" />
-		</plugin>
-	</plugins> -->
-
-	<mappers>
-		<mapper resource="mapper/ProcessDefine.xml" />
-		<mapper resource="mapper/ProcessInstance.xml" />
-		<mapper resource="mapper/ProcessModel.xml" />
-		<mapper resource="mapper/ProcessTask.xml" />
-	</mappers>
-
 </configuration>

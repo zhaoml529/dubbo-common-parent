@@ -8,7 +8,7 @@
 	
 	<!-- 异常日志服务接口 -->
 	<dubbo:reference retries="0" interface="com.zml.log.service.ISystemExceptionLogService" id="systemExceptionLogService" check="false"/>
-	
+	<!-- 用户服务接口 -->
 	<dubbo:reference retries="0" interface="com.zml.user.service.IUserService" id="userService" check="false"/>
 	
 </beans>  

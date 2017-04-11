@@ -88,19 +88,16 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:spring/mybatis-config.xml" />
 		<property name="dataSource" ref="dataSource" />
+		<!-- 别名设置，目的是可以针对parameterType或resultType指定的类型定义一些别名，在mapper.xml中通过别名定义，方便开发。 -->
+		<property name="typeAliasesPackage" value="com.zml.user.entity"/>
+		<!-- 配置扫描Mapper XML的位置 -->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
 	</bean>
 	
 	<!--配置扫描Dao接口包,动态实现DAO接口,注入到spring容器-->
-<!--     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        注入SqlSessionFactory
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-        给出需要扫描的Dao接口
-        <property name="basePackage" value="com.zml.user.dao,com.zml.core.dao"/>
-    </bean> -->
-    
-    <bean id="mybatisMapperScannerConfigure" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <!-- <bean id="mybatisMapperScannerConfigure" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.zml.user.dao" />
-    </bean>  
+    </bean> -->  
 	
 	<!-- SqlSession模板类实例 -->
 	<bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">

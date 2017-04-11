@@ -86,13 +86,14 @@
 	
 	<!-- 将数据源映射到sqlSessionFactory中 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 配置mybatis配置文件的位置 -->
 		<property name="configLocation" value="classpath:spring/mybatis-config.xml" />
 		<property name="dataSource" ref="dataSource" />
+		<!-- 别名设置，目的是可以针对parameterType或resultType指定的类型定义一些别名，在mapper.xml中通过别名定义，方便开发。 -->
+		<property name="typeAliasesPackage" value="com.zml.activiti.entity"/>
+		<!-- 配置扫描Mapper XML的位置 -->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
 	</bean>
-	
-    <bean id="mybatisMapperScannerConfigure" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.zml.activiti.dao" />
-    </bean>  
 	
 	<!-- SqlSession模板类实例 -->
 	<bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">

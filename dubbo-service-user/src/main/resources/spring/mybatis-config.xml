@@ -11,10 +11,6 @@
     "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-
-	<!-- 引用系统全局配置文件 -->
-	<properties resource="system.properties" />
-	
 	<settings>
 		<!-- 这个配置使全局的映射器启用或禁用 缓存 -->
 		<setting name="cacheEnabled" value="true" />
@@ -38,30 +34,8 @@
 		<setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString" />
 	</settings>
 
-	<!-- 类型别名是为 Java类型命名一个短的名字。 它只和 XML配置有关,只用来减少类完全 限定名的多余部分 -->
-	<typeAliases>
-		<package name="com.zml.user.entity"/>
-	</typeAliases>
-
-	<!-- 放在mappers定义之前 -->
-<!-- 	<typeHandlers>
-		<typeHandler javaType="Boolean" jdbcType="SMALLINT"  handler="wusc.edu.pay.common.core.mybatis.BooleanTypeHandler" />
-	</typeHandlers> -->
-	
 	<!-- 数据权限拦截器 -->
 	<plugins>
-		<plugin interceptor="com.zml.core.mybatis.interceptor.DataPermissionInterceptor"/>
+		<plugin interceptor="com.zml.core.mybatis.interceptor.DataPermissionInterceptor" />
 	</plugins>
-
-	<mappers>
-		<mapper resource="mapper/CompanyMapper.xml" />
-		<mapper resource="mapper/DepartmentMapper.xml" />
-		<mapper resource="mapper/PostMapper.xml" />
-		<mapper resource="mapper/ResourceMapper.xml" />
-		<mapper resource="mapper/RoleAndResourceMapper.xml" />
-		<mapper resource="mapper/RoleMapper.xml" />
-		<mapper resource="mapper/UserMapper.xml" />
-		<mapper resource="mapper/DataPermissionMapper.xml" />
-	</mappers>
-
 </configuration>
