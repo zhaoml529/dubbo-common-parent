@@ -8,11 +8,15 @@ dubbo分布式demo，功能完善中。
 <li>Dubbo-2.8.4</li>
 <li>Zookeeper-3.4.6</li>
 <li>Activiti 5.16</li>
-<li>Shiro-1.2.3</li>
 <li>Spring-Data-Redis-1.7.2.RELEASE</li>
 <li>Fastjson-1.2.7</li>
-<li>MySql5.5</li>
+<li>hibernate-validator-5.4</li>
+<li>MySql-5.5</li>
 </ul>
+
+项目简介
+--------
+此项基于Dubbo2.8.4开发的分布式服务框架、
 
 未来功能
 --------
