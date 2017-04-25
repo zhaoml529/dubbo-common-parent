@@ -9,7 +9,8 @@ dubbo分布式服务框架，功能完善中。
 <li>Zookeeper高可用集群，用于服务的注册和发现</li>
 <li>Redis缓存和FastDFS分布式文件系统</li>
 <li>Activiti工作流引擎</li>
-<li>基于restful的接口开发模式</li>
+<li>前后端分离</li>
+<li>基于无状态的REST API接口开发模式</li>
 <li>基于Token的WEB后台认证机制</li>
 <li>基于方法级别的权限控制</li>
 <li>统一的全局异常处理能力</li>
@@ -41,9 +42,5 @@ dubbo分布式服务框架，功能完善中。
 未来功能
 --------
 <ul>
-<li>前端AngularJS</li>
-<li>Redis集群高可用</li>
 <li>消息中间件ActiveMQ</li>
-<li>分布式文件系统FastDFS</li>
-<li>Zookeeper集群高可用</li>
 </ul>
