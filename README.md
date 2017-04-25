@@ -1,8 +1,28 @@
 # dubbo-common-parent
 dubbo分布式demo，功能完善中。
-主体框架
+
+技术点说明
 --------
 <ul>
+<li>框架整体基于Dubbo RPC分布式服务框架</li>
+<li>框架用到了Spring+SpringMVC+Mybatis</li>
+<li>Zookeeper高可用集群，用于服务的注册和发现</li>
+<li>Redis缓存和FastDFS分布式文件系统</li>
+<li>Activiti工作流引擎</li>
+<li>基于restful的接口开发模式</li>
+<li>基于Token的WEB后台认证机制</li>
+<li>基于方法级别的权限控制</li>
+<li>统一的全局异常处理能力</li>
+<li>后台数据验证</li>
+<li>操作日志和异常日志的记录</li>
+<li>统一的跨域资源共享 CORS</li>
+<li>前台使用Angularjs框架</li>
+</ul>
+
+框架版本信息
+--------
+<ul>
+<li>Spring-4.2.8.RELEASE</li>
 <li>Spring-4.2.8.RELEASE</li>
 <li>Mybatis-3.2.7</li>
 <li>Dubbo-2.8.4</li>
@@ -14,7 +34,7 @@ dubbo分布式demo，功能完善中。
 <li>MySql-5.5</li>
 </ul>
 
-项目简介
+系统架构图
 --------
 此项基于Dubbo2.8.4开发的分布式服务框架、
 
