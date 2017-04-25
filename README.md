@@ -36,7 +36,7 @@ dubbo分布式demo，功能完善中。
 
 系统架构图
 --------
-![](https://github.com/zhaoml529/dubbo-common-parent/tree/master/dubbo-web-html/src/main/webapp/images/dubbo架构图.png)  
+![](https://github.com/zhaoml529/dubbo-common-parent/tree/master/dubbo-web-html/src/main/webapp/images/dubbo.png)  
 
 未来功能
 --------
