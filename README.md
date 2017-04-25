@@ -36,7 +36,7 @@ dubbo分布式demo，功能完善中。
 
 系统架构图
 --------
-此项基于Dubbo2.8.4开发的分布式服务框架、
+![](https://github.com/zhaoml529/dubbo-common-parent/tree/master/dubbo-web-html/src/main/webapp/images/dubbo.png)  
 
 未来功能
 --------
