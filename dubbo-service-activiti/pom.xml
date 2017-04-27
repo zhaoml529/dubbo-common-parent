@@ -33,12 +33,6 @@
 		<version>${dubbo-common-core.version}</version>
 	</dependency>
 	
-	<!-- <dependency>
-		<groupId>com.zml</groupId>
-		<artifactId>dubbo-facade-user</artifactId>
-		<version>${dubbo-facade-user.version}</version>
-	</dependency> -->
-	
 	<dependency>
 		<groupId>com.zml</groupId>
 		<artifactId>dubbo-facade-activiti</artifactId>
@@ -49,12 +43,6 @@
 		<groupId>com.zml</groupId>
 		<artifactId>dubbo-facade-log</artifactId>
 		<version>${dubbo-facade-log.version}</version>
-		<!-- <exclusions>
-			<exclusion>
-				<groupId>com.zml</groupId>
-				<artifactId>dubbo-facade-user</artifactId>
-			</exclusion>
-		</exclusions> -->
 	</dependency>
 	
 	<!-- dubbo required jars start -->
@@ -81,6 +69,10 @@
 		<artifactId>zkclient</artifactId>
 	</dependency>
 	
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+	</dependency>
   </dependencies>
   
   <build>
