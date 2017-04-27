@@ -1,0 +1,25 @@
+@charset "utf-8";
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td{margin:0;padding:0;}
+body,button,input,select,textarea{font-size:14px;font-family:"Microsoft YaHei","微软雅黑",Arial; }
+address,cite,dfn,em,var{font-style:normal;}
+code,kbd,pre,samp{font-family:courier new,courier,monospace;}
+ul,ol{list-style:none;}
+a,a:hover,a:focus,a:visited,a:active{text-decoration:none;}
+sup{vertical-align:text-top;}
+sub{vertical-align:text-bottom;}
+legend{color:#000;}
+fieldset{border:0; vertical-align:top;}
+img{border: 0 none;  height: auto;  max-width: 100%;  vertical-align: middle;}
+table{border-collapse:collapse;border-spacing:0;}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{display:block;margin:0;padding:0;}
+mark{background:#ff0;}
+.cf:before,.cf:after{content:"";display:table;}
+.cf:after{clear:both;}
+.cf{zoom:1;}.clr{clear:both;font-size:0;height:0;line-height:0;overflow:hidden;}
+*:focus {outline: none; text-decoration: none;}
+.fl{float: left;}
+.fr{float: right;}
+.clearF{  visibility: hidden;  display: block;  font-size: 0;  content: " ";  clear: both;  height: 0;  }
+* html .clearF             { zoom: 1; } /* IE6 */
+*:first-child+html .clearfix { zoom: 1; } /* IE7 */
+

@@ -1,0 +1,93 @@
+<div class="main-location"><p>您当前的位置： 送货员 > 信息管理 > 角色查询 </p></div>
+<div class="container-fluid main-content">
+    <div class="row">
+        <div class="col-md-12">
+            <!--查询条件-->
+            <div class="now mb_20">
+                <span class="now_info mr440 ml_15">角色管理</span>
+                <p class="now_btns fr">
+                    <button type="button" data-ng-click="query()" class="btn btn-green btn-lg mr_10 l_btn ">查询</button>
+                    <button type="button" ui-sref="index.rolequeList.roleaddList" class="btn btn-green btn-lg mr_10 l_btn ">创建角色</button>
+                </p>
+            </div>
+            <!--表单-->
+            <form class="form-horizontal">
+                <div class="form-group prl_90_30">
+                    <label class="col-sm-2 control-label pr_0">角色名称：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control">
+                    </div>
+                    <label class="col-sm-2 control-label pr_0">标识：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+            </form>
+            <h3 class="query_show"><span>查询结果展示</span><i></i></h3>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered" data-ng-init="pageChanged()">
+                    <thead>
+                    <tr>
+                        <th class="text-center">角色名称</th>
+                        <th class="text-center">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!--<tr data-ng-repeat="item in userList" data-on-repeat-finish="renderTable()">-->
+                    <!--<th scope="row">{{$index+1}}</th>-->
+                    <!--<td>{{item.userName}}</td>-->
+                    <!--<td>{{item.staffNum}}</td>-->
+                    <!--<td>{{item.registerDate}}</td>-->
+                    <!--<td>-->
+                    <!--<button type="button" data-ng-click="edit($index)" class="btn btn-success btn-sm" data-has-permission='user:update'>编辑</button>-->
+                    <!--<button type="button" data-ng-click="del(item.id)" class="btn btn-danger btn-sm">删除</button>-->
+                    <!--<button type="button" data-ng-click="lock(item.id, item.isLock)" class="btn {{item.isLock==100?'btn-warning':'btn-info'}} btn-sm">{{item.isLock==100?'锁定':'启用'}}</button>-->
+                    <!--</td>-->
+                    <!--</tr>-->
+                    <tr>
+                        <td class="text-center">admin</td>
+                        <td class="text-center">
+                            <button type="button" data-ng-click="edit($index)" class="btn btn-success btn-sm" data-has-permission='user:update'>修改</button>
+                            <button type="button" data-ng-click="del(item.id)" class="btn btn-danger btn-sm">注销</button>
+                            <!--<button type="button" data-ng-click="lock(item.id, item.isLock)" class="btn {{item.isLock==100?'btn-warning':'btn-info'}} btn-sm">{{item.isLock==100?'锁定':'启用'}}</button>-->
+                            <button type="button" data-ng-click="del(item.id)" class="btn btn-danger btn-sm">冻结/恢复</button>
+                            <button type="button" data-ng-click="del(item.id)" class="btn btn-danger btn-sm">重置密码</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">admin</td>
+                        <td class="text-center">
+                            <button type="button" data-ng-click="edit($index)" class="btn btn-success btn-sm" data-has-permission='user:update'>修改</button>
+                            <button type="button" data-ng-click="del(item.id)" class="btn btn-danger btn-sm">注销</button>
+                            <!--<button type="button" data-ng-click="lock(item.id, item.isLock)" class="btn {{item.isLock==100?'btn-warning':'btn-info'}} btn-sm">{{item.isLock==100?'锁定':'启用'}}</button>-->
+                            <button type="button" data-ng-click="del(item.id)" class="btn btn-danger btn-sm">冻结/恢复</button>
+                            <button type="button" data-ng-click="del(item.id)" class="btn btn-danger btn-sm">重置密码</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">admin</td>
+                        <td class="text-center">
+                            <button type="button" data-ng-click="edit($index)" class="btn btn-success btn-sm" data-has-permission='user:update'>修改</button>
+                            <button type="button" data-ng-click="del(item.id)" class="btn btn-danger btn-sm">注销</button>
+                            <!--<button type="button" data-ng-click="lock(item.id, item.isLock)" class="btn {{item.isLock==100?'btn-warning':'btn-info'}} btn-sm">{{item.isLock==100?'锁定':'启用'}}</button>-->
+                            <button type="button" data-ng-click="del(item.id)" class="btn btn-danger btn-sm">冻结/恢复</button>
+                            <button type="button" data-ng-click="del(item.id)" class="btn btn-danger btn-sm">重置密码</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">admin</td>
+                        <td class="text-center">
+                            <button type="button" data-ng-click="edit($index)" class="btn btn-success btn-sm" data-has-permission='user:update'>修改</button>
+                            <button type="button" data-ng-click="del(item.id)" class="btn btn-danger btn-sm">注销</button>
+                            <!--<button type="button" data-ng-click="lock(item.id, item.isLock)" class="btn {{item.isLock==100?'btn-warning':'btn-info'}} btn-sm">{{item.isLock==100?'锁定':'启用'}}</button>-->
+                            <button type="button" data-ng-click="del(item.id)" class="btn btn-danger btn-sm">冻结/恢复</button>
+                            <button type="button" data-ng-click="del(item.id)" class="btn btn-danger btn-sm">重置密码</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <pagination total-items="paginationConf.totalItems" ng-model="paginationConf.currentPage" max-size="paginationConf.maxSize" first-text="第一页" previous-text="上一页" next-text="下一页" last-text="最后页" boundary-links="true" items-per-page="paginationConf.itemsPerPage" boundary-link-numbers="true" ng-change="pageChanged()"></pagination>
+    </div>
+</div>

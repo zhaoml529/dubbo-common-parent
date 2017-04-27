@@ -1,9 +1,9 @@
-<div class="container" data-ng-controller="GlobalCtrl">
+<div class="container" data-ng-controller="GlobalCtrl" style="height: 100%;">
     <div data-ui-view="header"></div>
-    <div class="col col-md-3">
-    	<div data-ui-view="menu"></div>
+    <div class="col col-md-3 menu-box">
+    	<div data-ui-view="menu" class="menu-left"></div>
 	</div>
-	<div class="col col-md-9">
+	<div class="col col-md-9 main-box content_right">
 	    <div data-ui-view="main"></div>
 	</div>
     <div data-ui-view="footer"></div>

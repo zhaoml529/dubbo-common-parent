@@ -6,9 +6,12 @@
 	<meta name="renderer" content="webkit">
 	<title></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="dist/css/vendor.css" type="text/css" />
     <link rel="stylesheet" href="dist/css/bundle.css" type="text/css" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" />
     <link rel="stylesheet" href="css/vendor/ng-pagination.css" type="text/css" />
+    <link rel="stylesheet" href="js/vendor/My97DatePicker/skin/WdatePicker.css" type="text/css" />
     <script type="text/javascript" src="dist/js/vendor.min.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/config.js"></script>
@@ -16,14 +19,17 @@
     <script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript" src="js/vendor/angular/ng-pagination.js"></script>
     <script type="text/javascript" src="js/vendor/angular/angular.permission.js"></script>
+    <script type="text/javascript" src="js/vendor/My97DatePicker/WdatePicker.js"></script>
     <script type="text/javascript" src="js/common/app.js"></script>
-    <!-- <script type="text/javascript" src="js/controllers/login.js"></script> -->
-    <!-- <script type="text/javascript" src="js/controllers/global.js"></script> -->
+    <!--[if lt IE 9]>
+    <script src=”http://www.AngularJS.cn/wp-content/themes/angularjs/js/HTML5.js” type=”text/JavaScript”></script>
+    <![endif]-->
+
 </head>
 <body>
 <body data-ng-controller="AppCtrl">
 	<!-- <div ng-include="'navbar'"></div> -->
-  	<div data-ui-view></div>
+  	<div data-ui-view style="height: 100%;" ></div>
 </body>
 </body>
 </html>

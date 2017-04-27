@@ -81,11 +81,11 @@ app.config(
         $httpProvider.defaults.transformRequest = function (data) {
             return angular.isObject(data) && String(data) !== '[object File]' ? $.param(data) : data;
         };
-        // $locationProvider.html5Mode(true);
+        //$locationProvider.html5Mode(true);
         $httpProvider.interceptors.push('httpInterceptor');	// 注册拦截器服务
         
     }
   ]);
 
-//app.constant('host','http://192.168.100.185:8112');
-app.constant('host','http://localhost:8112/api');
+app.constant('host','http://192.168.100.185:8112/api');
+//app.constant('host','http://localhost:8112/api');

@@ -1,0 +1,117 @@
+<div class="main-location"><p>您当前的位置： 送货员 &gt; 订单管理 &gt; 已送达商品查询</p></div>
+<div class="container-fluid main-content">
+	<div class="row">
+		<div class="col-md-12">
+			<!--查询条件-->
+			<div class="now mb_20">
+				<span class="now_info mr440 ml_15">已送达商品查询</span>
+				<p class="now_btns pull-right">
+					<a href="javascript:;" data-ng-click="add()" class="btn-handle mr_10">查询</a>
+				</p>
+			</div>
+			<!--表格-->
+			<form class="form-horizontal">
+				<div class="form-group pr_180">
+					<label class="col-sm-2 control-label pr_0">订单起始时间：</label>
+					<div class="col-sm-4">
+						<input class="Wdate WdateH form-control"  type="text" id="startTime" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',dateFmt:'yyyy-MM-dd'})">
+					</div>
+					<label class="col-sm-2 control-label pr_0">订单结束时间：</label>
+					<div class="col-sm-4">
+						<input class="Wdate WdateH form-control" id="endTime" type="text" onclick="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',dateFmt:'yyyy-MM-dd'})">
+					</div>
+				</div>
+				<div class="form-group pr_180">
+					<label class="col-sm-2 control-label pr_0">投诉ID：</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control">
+					</div>
+					<label class="col-sm-2 control-label pr_0">投诉来源：</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control">
+					</div>
+				</div>
+				<div class="form-group pr_180">
+					<label class="col-sm-2 control-label pr_0">内容：</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control">
+					</div>
+					<label class="col-sm-2 control-label pr_0">商户名称：</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control">
+					</div>
+				</div>
+				<div class="form-group pr_180">
+					<label class="col-sm-2 control-label pr_0">所在区域：</label>
+					<div class="col-sm-4">
+						<select class="form-control" name="Province" id="Province">
+							<option>==请选择===</option>
+						</select>
+					</div>
+					<label class="col-sm-2 control-label pr_0">订单编号：</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control">
+					</div>
+				</div>
+				<div class="form-group pr_180">
+					<label class="col-sm-2 control-label pr_0"></label>
+					<div class="col-sm-4">
+						<select class="form-control" name="City" id="City">
+							<option>==请选择===</option>
+						</select>
+					</div>
+					<label class="col-sm-2 control-label pr_0">处理状态：</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control">
+					</div>
+				</div>
+				<div class="form-group pr_180">
+					<label class="col-sm-2 control-label pr_0"></label>
+					<div class="col-sm-4">
+						<select class="form-control" name="Village" id="Village">
+							<option>==请选择===</option>
+						</select>
+					</div>
+				</div>
+			</form>
+			<!--表格-->
+			<h3 class="query_show"><span>查询结果展示</span><i></i></h3>
+			<table class="table table-striped table-hover table-bordered" data-ng-init="pageChanged()">
+				<thead>
+				<tr>
+					<th>商品编码</th>
+					<th>商品名称</th>
+					<th>规格</th>
+					<th>单位</th>
+					<th>单价（元）</th>
+					<th>操作</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr data-ng-repeat="item in userList"><!--data-on-repeat-finish="renderTable()"-->
+					<th scope="row">{{$index+1}}</th>
+					<td>{{item.userName}}</td>
+					<td>{{item.staffNum}}</td>
+					<td>{{item.registerDate}}</td>
+					<td>{{item.registerDate}}</td>
+					<td>
+						<button type="button" class="btn btn-success btn-sm" ng-click="toGoodsDetail(item.id)">修改</button>
+						<button type="button" data-ng-click="del(item.id)" class="btn btn-danger btn-sm">删除</button>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+		<!--分页样式列表-->
+		<div class="col-sn-12">
+			<pagination class="col-sm-6" total-items="paginationConf.totalItems" ng-model="paginationConf.currentPage" max-size="paginationConf.maxSize" first-text="第一页" previous-text="上一页" next-text="下一页" last-text="最后页" boundary-links="true" items-per-page="paginationConf.itemsPerPage" boundary-link-numbers="true" ng-change="pageChanged()"></pagination>
+			<div class="col-sm-4 col-sm-offset-2 pageInfor">
+				<span>
+					当前第<span class="green">{{paginationConf.currentPage}}</span>页
+					<span>/</span>共<span>{{paginationConf.totalPages}}</span>页，
+					共<span class="green">{{paginationConf.totalItems}}</span>条数据
+				</span>
+			</div>
+		</div>
+	</div>
+</div>

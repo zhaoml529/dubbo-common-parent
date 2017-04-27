@@ -19,11 +19,15 @@ app.controller('SigninCtrl',function ($scope,$rootScope,$state,host,SweetAlert,$
         }).success(function (d) { 
         	if (d.statusCode==200) {
         		sessionStorage.token = d.data.token;
-        		angularPermission.setPermissions(d.data.permissions);
-        		SweetAlert.swal("登录成功","欢迎登录，"+d.data,'success');
+        		if(d.data.permissions == '') {
+        			SweetAlert.swal("登录成功","您没有任何权限信息，请联系管理员！","warning");
+        		} else {
+        			angularPermission.setPermissions(d.data.permissions);
+        		}
+        		SweetAlert.swal("登录成功","欢迎登录！");
         		$state.go('index');
             } else {
-            	SweetAlert.swal("登录失败",d.message,'error');
+            	SweetAlert.swal("登录失败",d.message,"error");
             }
         });
         

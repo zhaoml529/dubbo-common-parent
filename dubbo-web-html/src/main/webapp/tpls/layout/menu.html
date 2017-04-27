@@ -1,10 +1,116 @@
-<div class="list-group">
-    <a class="list-group-item" style="text-align: center;background-color: slategray;color: whitesmoke">{{app.name}}</a>
+<!--<div class="list-group">
+    &lt;!&ndash;<a class="list-group-item" style="text-align: center;background-color: slategray;color: whitesmoke">{{app.name}}</a>&ndash;&gt;
     <a data-ui-sref=".userList" class="list-group-item">用户管理</a>
-    <a class="list-group-item" ui-sref-active="active">班级管理</a>
+
+    &lt;!&ndash;<a class="list-group-item" ui-sref-active="active">班级管理</a>
     <a class="list-group-item" ui-sref-active="active">课程管理</a>
     <a class="list-group-item" ui-sref-active="active">教师管理</a>
     <a class="list-group-item" ui-sref-active="active">学生管理</a>
-    <a class="list-group-item" ui-sref-active="active">修改密码</a>
-    <a href="javascript:void(0)" class="list-group-item" data-ng-click="logout()" style="text-align: center;background-color: lightcoral;color: whitesmoke;margin-top: 10px">注销登录</a>
+    <a class="list-group-item" ui-sref-active="active">修改密码</a>&ndash;&gt;
+    &lt;!&ndash;<a href="javascript:void(0)" class="list-group-item" data-ng-click="logout()" style="text-align: center;background-color: lightcoral;color: whitesmoke;margin-top: 10px">注销登录</a>&ndash;&gt;
+</div>-->
+<!--
+<ul class="nav nav-pills nav-stacked">
+    <li role="presentation" class="active">
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation" class="active"><a href="#">Home</a></li>
+            <li role="presentation"><a href="#">Profile</a></li>
+            <li role="presentation"><a href="#">Messages</a></li>
+        </ul>
+    </li>
+    <li role="presentation"><a href="#">Profile</a></li>
+    <li role="presentation"><a href="#">Messages</a></li>
+</ul>-->
+<div class="content_left">
+    <ul class="level_one">
+        <li class="show">
+            <h2 class="subnav1 cardIcon" ng-click="toggleMenu2($event)">会员管理<i></i></h2>
+            <ul class="menu2">
+                <li class="li_level2"><a href="javascript:;" class="subnav2" ng-click="toggleMenu3($event)">会员管理<i></i></a>
+                    <ul class="menu3">
+                        <li class="li_level3"><a data-ui-sref=".userList">会员信息管理</a></li><!--userList 嵌套路由（config.router里面配置--指定跳转的页面名称）-->
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="show">
+            <h2 class="subnav1 cardIcon" ng-click="toggleMenu2($event)">订单管理<i></i></h2>
+            <ul class="menu2">
+                <li class="li_level2"><a href="javascript:;" class="subnav2" ng-click="toggleMenu3($event)">订单查询<i></i></a>
+                    <ul class="menu3">
+                        <li class="li_level3"><a data-ui-sref=".goodsList">订单查询</a></li><!--userList 嵌套路由（config.router里面配置--指定跳转的页面名称）-->
+                    </ul>
+                </li>
+                <li class="li_level2"><a href="javascript:;" class="subnav2" ng-click="toggleMenu3($event)">订单录入<i></i></a>
+                    <ul class="menu3">
+                        <li class="li_level3"><a data-ui-sref=".goodsList">订单录入</a></li>
+                    </ul>
+                </li>
+                <li class="li_level2"><a href="javascript:;" class="subnav2" ng-click="toggleMenu3($event)">商品查询<i></i></a>
+                    <ul class="menu3">
+                        <li class="li_level3"><a data-ui-sref=".goodsList">商品查询</a></li>
+                    </ul>
+                </li>
+                <li class="li_level2"><a href="javascript:;" class="subnav2" ng-click="toggleMenu3($event)">商品录入<i></i></a>
+                    <ul class="menu3">
+                        <li class="li_level3"><a data-ui-sref=".goodsInput">商品录入</a></li>
+                    </ul>
+                </li>
+                <li class="li_level2"><a href="javascript:;" class="subnav2" ng-click="toggleMenu3($event)">已送达商品汇总<i></i></a>
+                    <ul class="menu3">
+                        <li class="li_level3"><a data-ui-sref=".goodsSum">已送达商品汇总</a></li>
+                    </ul>
+                </li>
+                <li class="li_level2"><a href="javascript:;" class="subnav2" ng-click="toggleMenu3($event)">金额统计<i></i></a>
+                    <ul class="menu3">
+                        <li class="li_level3"><a data-ui-sref=".goodsAmount">金额统计</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="show">
+            <h2 class="subnav1 cardIcon" ng-click="toggleMenu2($event)">投诉管理<i></i></h2>
+            <ul class="menu2">
+                <li class="li_level2"><a href="javascript:;" class="subnav2" ng-click="toggleMenu3($event)">投诉管理<i></i></a>
+                    <ul class="menu3">
+                        <li class="li_level3"><a data-ui-sref=".complainList">投诉查询</a></li><!--userList 嵌套路由（config.router里面配置--指定跳转的页面名称）-->
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="show">
+            <h2 class="subnav1 cardIcon" ng-click="toggleMenu2($event)">片区管理<i></i></h2>
+            <ul class="menu2">
+                <li class="li_level2"><a href="javascript:;" class="subnav2" ng-click="toggleMenu3($event)">片区管理<i></i></a>
+                    <ul class="menu3">
+                        <li class="li_level3"><a data-ui-sref=".areaList">片区划分</a></li><!--&lt;!&ndash;userList 嵌套路由（config.router里面配置&#45;&#45;指定跳转的页面名称）&ndash;&gt;-->
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="show">
+            <h2 class="subnav1 cardIcon" ng-click="toggleMenu2($event)">员工关怀<i></i></h2>
+            <ul class="menu2">
+                <li class="li_level2"><a href="javascript:;" class="subnav2" ng-click="toggleMenu3($event)">员工关怀<i></i></a>
+                    <ul class="menu3">
+                        <li class="li_level3"><a data-ui-sref=".staffList">动态查询</a></li><!--userList 嵌套路由（config.router里面配置--指定跳转的页面名称）-->
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="show">
+            <h2 class="subnav1 cardIcon" ng-click="toggleMenu2($event)">系统管理<i></i></h2>
+            <ul class="menu2">
+                <li class="li_level2"><a href="javascript:;" class="subnav2" ng-click="toggleMenu3($event)">信息管理<i></i></a>
+                    <ul class="menu3">
+                        <li class="li_level3"><a data-ui-sref=".AccountqueList">账号管理</a></li><!--userList 嵌套路由（config.router里面配置--指定跳转的页面名称）-->
+                        <li class="li_level3"><a data-ui-sref=".rolequeList">角色管理</a></li><!--userList 嵌套路由（config.router里面配置--指定跳转的页面名称）-->
+                        <li class="li_level3"><a data-ui-sref=".companyqueList">公司管理</a></li><!--userList 嵌套路由（config.router里面配置--指定跳转的页面名称）-->
+                        <li class="li_level3"><a data-ui-sref=".departmentqueList">部门管理</a></li><!--userList 嵌套路由（config.router里面配置--指定跳转的页面名称）-->
+                        <li class="li_level3"><a data-ui-sref=".postqueList">岗位管理</a></li><!--userList 嵌套路由（config.router里面配置--指定跳转的页面名称）-->
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
 </div>

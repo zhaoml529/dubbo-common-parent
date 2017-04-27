@@ -2,7 +2,7 @@
  * Created by zml on 2017/3/2.
  * 用户控制层
  */
-app.controller('userCtrl',function ($scope,$modal,$state,SweetAlert,userService) {
+app.controller('userCtrl',function ($scope,$modal,$state,SweetAlert,userService,comService) {
     
     /**
      * app.js 初始化
@@ -35,11 +35,13 @@ app.controller('userCtrl',function ($scope,$modal,$state,SweetAlert,userService)
     $scope.pageChanged = function() {
         // var param = {"currPage" : $scope.paginationConf.currentPage, "numPage" : $scope.paginationConf.itemsPerPage, "paramMap" : {"userName" : "admin", "staffNum" : "10001"}};
         var param = {"currPage" : $scope.paginationConf.currentPage, "numPage" : $scope.paginationConf.itemsPerPage};
-        userService.listPage(param).then(
+        var address="/listUser";
+        comService.listPage(param,address).then(
     		function(data){
     			if (data.statusCode==200) {
 	        		console.log(data.totalCount + "-" + data.data);
 	        		$scope.paginationConf.totalItems = data.totalCount;
+                    $scope.paginationConf.totalPages=Math.ceil(data.totalCount/$scope.paginationConf.itemsPerPage);
 	            	$scope.userList = data.data;
 	            } else {
 	            	$('.table').dataTable();
@@ -145,7 +147,12 @@ app.controller('userCtrl',function ($scope,$modal,$state,SweetAlert,userService)
                 }
         });
     };
-    
+    $scope.initDate=function(id){
+        /*$(id).datetimepicker('remove');*/
+      /* console.log(angular.element("#datetimepicker"))
+        angular.element(id).datetimepicker('remove');*/
+        WdatePicker({dateFmt:'yyyy-MM-dd'})
+    };
     // 锁定/激活
     $scope.lock = function (id, status) {
         if (!id){
