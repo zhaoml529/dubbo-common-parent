@@ -118,7 +118,7 @@
 	<!-- <import resource="classpath:spring/spring-activemq.xml" /> -->
     <import resource="classpath:dubbo/spring-dubbo-consumer.xml" />
     <import resource="classpath:dubbo/spring-dubbo-provider.xml" />
-    <!-- <import resource="classpath:redis/spring-context-jedis-single.xml"/> -->
-    <import resource="classpath:redis/spring-context-jedis-cluster.xml"/>
+    <import resource="classpath:redis/spring-context-jedis-single.xml"/>
+    <!-- <import resource="classpath:redis/spring-context-jedis-cluster.xml"/> -->
     
 </beans>

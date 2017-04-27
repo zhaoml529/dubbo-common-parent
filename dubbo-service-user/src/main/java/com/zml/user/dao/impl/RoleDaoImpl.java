@@ -13,7 +13,7 @@ public class RoleDaoImpl extends BaseDaoImpl<Role> implements IRoleDao {
 
 	@Override
 	public List<Role> getRoleByUserId(Long userId) {
-		return this.getSessionTemplate().selectList("findRoleByUserId", userId);
+		return this.getSessionTemplate().selectList(this.getStatement("findRoleByUserId"), userId);
 	}
 
 

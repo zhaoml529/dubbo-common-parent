@@ -35,7 +35,7 @@
 	</settings>
 
 	<!-- 数据权限拦截器 -->
-	<plugins>
+	<!-- <plugins>
 		<plugin interceptor="com.zml.core.mybatis.interceptor.DataPermissionInterceptor" />
-	</plugins>
+	</plugins> -->
 </configuration>

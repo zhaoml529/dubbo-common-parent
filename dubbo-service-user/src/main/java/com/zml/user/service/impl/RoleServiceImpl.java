@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.zml.common.page.Page;
+import com.zml.common.page.Parameter;
 import com.zml.user.dao.IRoleDao;
 import com.zml.user.entity.Role;
 import com.zml.user.exceptions.RoleServiceException;
@@ -20,15 +22,37 @@ public class RoleServiceImpl implements IRoleService {
 	@Autowired
 	private IRoleDao roleDao;
 	
+	@Override
+	public Role getById(Long id) throws RoleServiceException {
+		return roleDao.getById(id);
+	}
+	
+	@Override
+	public Page getListPage(Parameter<Role> param) throws RoleServiceException {
+		param.initPage();	
+		Page page = this.roleDao.listPage(param.getPageParam(), param.getParamMap());
+		return page;
+	}
+	
 	@Transactional(rollbackFor = Exception.class, readOnly = false)
-	public Long addRole(Role role) throws RoleServiceException {
+	@Override
+	public Long save(Role role) throws RoleServiceException {
 		return this.roleDao.insert(role);
 	}
-
-	public Long updateRole(Role role) throws RoleServiceException {
-		return this.roleDao.update(role);
+	
+	@Transactional(rollbackFor = Exception.class, readOnly = false)
+	@Override
+	public void update(Role role) throws RoleServiceException {
+		this.roleDao.update(role);
 	}
-
+	
+	@Transactional(rollbackFor = Exception.class, readOnly = false)
+	@Override
+	public void delete(Long id) throws RoleServiceException {
+		this.roleDao.deleteById(id);
+	}
+	
+	@Override
 	public List<Role> findAll(Map<String, Object> map)
 			throws RoleServiceException {
 		List<Role> list = this.roleDao.getList(map);
@@ -39,6 +63,7 @@ public class RoleServiceImpl implements IRoleService {
 		}
 	}
 
+	@Override
 	public List<Role> findRoleByUserId(Long userId)
 			throws RoleServiceException {
 		List<Role> roleList = this.roleDao.getRoleByUserId(userId);

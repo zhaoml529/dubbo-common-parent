@@ -21,6 +21,9 @@ public class User extends BaseEntity {
 	@NotBlank(message = "{user.name.not.blank}")
 	private String userName;
 	
+	
+	private String realName;
+	
 	@NotNull(message = "{user.staffNum.not.null}")
 	private Long staffNum;			// 用户编号(唯一)
 	
