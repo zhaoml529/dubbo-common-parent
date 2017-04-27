@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dili.deliver.dao.impl.MerchantReceiverDaoImpl">
+
+	<sql id="table">TB_MERCHANT_RECEIVER</sql>
+
+	<insert id="insert" parameterType="MerchantReceiver" useGeneratedKeys="true" keyProperty="id">
+		insert into
+		<include refid="table" />
+		(
+		id, merchantId, name, phone, status, version, createDate )
+		values
+		(
+		#{id}, #{merchantId}, #{name}, #{phone}, #{status}, 0, #{createDate} )
+	</insert>
+
+	<!-- 更新:version+1 实现乐观锁 -->
+	<update id="update" parameterType="MerchantReceiver">
+		update
+		<include refid="table" />
+		<set>
+			version = #{version}+1 ,
+			<if test="merchantId != null">merchantId = #{merchantId}, </if>
+			<if test="name != null">name = #{name}, </if>
+			<if test="phone != null">phone = #{phone}, </if>
+			<if test="status != null">status = #{status}, </if>
+			<if test="createDate != null">createDate = #{createDate}</if>
+		</set>
+		<where>
+			id = #{id} and version = #{version}
+		</where>
+	</update>
+
+	<!-- 逻辑删除 -->
+	<delete id="deleteById" parameterType="long">
+		update
+		<include refid="table" />
+		set status = 101
+		where id = #{id}
+	</delete>
+
+	<select id="getById" parameterType="long" resultType="MerchantReceiver">
+		select * from
+		<include refid="table" />
+		where id = #{id}
+	</select>
+
+	<!-- 根据自己需求增删查询字段 -->
+	<sql id="condition_sql">
+		<if test="merchantId != null"> and merchantId = #{merchantId} </if>
+		<if test="name != null"> and name = #{name} </if>
+		<if test="phone != null"> and phone = #{phone} </if>
+		<if test="status != null"> and status = #{status} </if>
+		<if test="createDate != null"> and createDate = #{createDate} </if>
+	</sql>
+
+	<!-- 根据多参数进行查询数据 -->
+	<select id="listPage" parameterType="map" resultType="MerchantReceiver">
+		select * from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		<![CDATA[ order by id desc]]>
+	</select>
+
+	<select id="getList" parameterType="map" resultType="MerchantReceiver">
+		select * from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+</mapper>

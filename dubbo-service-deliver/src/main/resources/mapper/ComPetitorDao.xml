@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dili.deliver.dao.impl.ComPetitorDaoImpl">
+	
+	<sql id="table">TB_COMPETITOR</sql>
+
+	<insert id="insert" parameterType="ComPetitor" useGeneratedKeys="true" keyProperty="id">
+		insert into
+		<include refid="table"/>
+		(version,name,merchantName,remark,status,createDate)values(0,#{name},#{merchantName},#{remark},#{status},#{createDate})
+	</insert>
+
+	<update id="update" parameterType="ComPetitor">
+		update
+		<include refid="table" />
+		<set>
+			version = #{version}+1,
+			name = #{name},
+			merchantName = #{merchantName},
+			remark = #{remark},
+			status = #{status},
+			createDate = #{createDate}
+		</set>
+		<where>
+			id = #{id} and version = #{version}
+		</where>
+	</update>
+
+	<select id="getById" parameterType="long" resultType="ComPetitor">
+		select * from
+		<include refid="table" />
+		where id = #{id}
+	</select>
+
+	<sql id="condition_sql">
+		<if test="name != null and name !=''"> and name = #{name} </if>
+		<if test="merchantName != null and merchantName != ''"> and merchantName = #{merchantName} </if>
+		<if test="remark != null and remark != ''"> and remark = #{remark} </if>
+		<if test="status != null and status != ''"> and status = #{status} </if>
+		<if test="startDate != null and startDate != '' and endDate != '' and endDate != null">
+			and createDate between #{startDate} and CONCAT(#{endDate}, ' 23:59:59')
+		</if>
+	</sql>
+
+	<select id="listPage" parameterType="java.util.Map" resultType="ComPetitor">
+		select * from
+		<include refid="table"/>
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		<![CDATA[ order by id desc]]>
+	</select>
+	
+	<select id="listCount" parameterType="java.util.Map" resultType="int">
+		select count(1) from
+		<include refid="table"/>
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+	
+	<select id="getList" parameterType="java.util.Map" resultType="ComPetitor">
+		select * from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from
+		<include refid="table" />
+		where id = #{id}
+	</delete>
+</mapper>

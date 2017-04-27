@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dili.deliver.dao.impl.OrderDaoImpl">
+
+	<sql id="table">TB_ORDER</sql>
+
+	<insert id="insert" parameterType="Order" useGeneratedKeys="true" keyProperty="id">
+		insert into
+		<include refid="table" />
+		(
+		id, orderNum, merchantId, payType, payWay, payDate, inputDate,
+		outDate, claimData, userId, totalPrice, isUrgent, alreadReceive,
+		notReceive, orderType, remark, reason, status, version, createDate )
+		values
+		(
+		#{id}, #{orderNum}, #{merchantId}, #{payType}, #{payWay}, #{payDate},
+		#{inputDate}, #{outDate}, #{claimData}, #{userId}, #{totalPrice},
+		#{isUrgent}, #{alreadReceive}, #{notReceive}, #{orderType}, #{remark},
+		#{reason}, #{status}, 0, #{createDate} )
+	</insert>
+
+	<!-- 更新:version+1 实现乐观锁 -->
+	<update id="update" parameterType="Order">
+		update
+		<include refid="table" />
+		<set>
+			version = #{version}+1 ,
+			<if test="orderNum != null">orderNum = #{orderNum}, </if>
+			<if test="merchantId != null">merchantId = #{merchantId}, </if>
+			<if test="payType != null">payType = #{payType}, </if>
+			<if test="payWay != null">payWay = #{payWay}, </if>
+			<if test="payDate != null">payDate = #{payDate}, </if>
+			<if test="inputDate != null">inputDate = #{inputDate}, </if>
+			<if test="outDate != null">outDate = #{outDate}, </if>
+			<if test="claimData != null">claimData = #{claimData}, </if>
+			<if test="userId != null">userId = #{userId}, </if>
+			<if test="totalPrice != null">totalPrice = #{totalPrice}, </if>
+			<if test="isUrgent != null">isUrgent = #{isUrgent}, </if>
+			<if test="alreadReceive != null">alreadReceive = #{alreadReceive}, </if>
+			<if test="notReceive != null">notReceive = #{notReceive}, </if>
+			<if test="orderType != null">orderType = #{orderType}, </if>
+			<if test="remark != null">remark = #{remark}, </if>
+			<if test="reason != null">reason = #{reason}, </if>
+			<if test="status != null">status = #{status}, </if>
+			<if test="createDate != null">createDate = #{createDate}</if>
+		</set>
+		<where>
+			id = #{id} and version = #{version}
+		</where>
+	</update>
+
+	<!-- 逻辑删除 -->
+	<delete id="deleteById" parameterType="long">
+		update
+		<include refid="table" />
+		set status = 101
+		where id = #{id}
+	</delete>
+
+	<select id="getById" parameterType="long" resultType="Order">
+		select * from
+		<include refid="table" />
+		where id = #{id}
+	</select>
+
+	<!-- 根据自己需求增删查询字段 -->
+	<sql id="condition_sql">
+		<if test="orderNum != null"> and orderNum = #{orderNum} </if>
+		<if test="merchantId != null"> and merchantId = #{merchantId} </if>
+		<if test="payType != null"> and payType = #{payType} </if>
+		<if test="payWay != null"> and payWay = #{payWay} </if>
+		<if test="payDate != null"> and payDate = #{payDate} </if>
+		<if test="inputDate != null"> and inputDate = #{inputDate} </if>
+		<if test="outDate != null"> and outDate = #{outDate} </if>
+		<if test="claimData != null"> and claimData = #{claimData} </if>
+		<if test="userId != null"> and userId = #{userId} </if>
+		<if test="totalPrice != null"> and totalPrice = #{totalPrice} </if>
+		<if test="isUrgent != null"> and isUrgent = #{isUrgent} </if>
+		<if test="alreadReceive != null"> and alreadReceive = #{alreadReceive} </if>
+		<if test="notReceive != null"> and notReceive = #{notReceive} </if>
+		<if test="orderType != null"> and orderType = #{orderType} </if>
+		<if test="remark != null"> and remark = #{remark} </if>
+		<if test="reason != null"> and reason = #{reason} </if>
+		<if test="status != null"> and status = #{status} </if>
+		<if test="createDate != null"> and createDate = #{createDate} </if>
+	</sql>
+
+	<!-- 根据多参数进行查询数据 -->
+	<select id="listPage" parameterType="map" resultType="Order">
+		select * from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		<![CDATA[ order by id desc]]>
+	</select>
+
+	<select id="getList" parameterType="map" resultType="Order">
+		select * from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+	
+	<select id="listCount" parameterType="map" resultType="int">
+		select count(1) from
+		<include refid="table"/>
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+</mapper>

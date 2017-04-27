@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dili.deliver.dao.impl.AreaDaoImpl">
+
+	<sql id="table">TB_AREA</sql>
+
+	<insert id="insert" parameterType="Area" useGeneratedKeys="true" keyProperty="id">
+		insert into
+		<include refid="table" />
+		(
+		id, siteName, provinceCode, cityCode, districtCode, managerId, status, version, createDate )
+		values
+		(
+		#{id}, #{siteName}, #{provinceCode}, #{cityCode}, #{districtCode}, #{managerId},
+		#{status}, 0, #{createDate} )
+	</insert>
+
+	<!-- 更新:version+1 实现乐观锁 -->
+	<update id="update" parameterType="Area">
+		update
+		<include refid="table" />
+		<set>
+			version = #{version}+1 ,
+			<if test="siteName != null">siteName = #{siteName}, </if>
+			<if test="provinceCode != null">provinceCode = #{provinceCode}, </if>
+			<if test="cityCode != null">cityCode = #{cityCode}, </if>
+			<if test="districtCode != null">districtCode = #{districtCode}, </if>
+			<if test="managerId != null">managerId = #{managerId}, </if>
+			<if test="status != null"> = #{status}, </if>
+		</set>
+		<where>
+			id = #{id} and version = #{version}
+		</where>
+	</update>
+
+	<!-- 逻辑删除 -->
+	<delete id="deleteById" parameterType="long">
+		update
+		<include refid="table" />
+		set status = 101
+		where id = #{id}
+	</delete>
+
+	<select id="getById" parameterType="long" resultMap="areaMap">
+		select a.*, u.userName as managerName from
+		<include refid="table" /> a
+		left join TB_USER u on u.id = a.managerId
+		where a.id = #{id}
+	</select>
+
+	<!-- 根据自己需求增删查询字段 -->
+	<sql id="condition_sql">
+		<if test="siteName != null"> and siteName = #{siteName} </if>
+		<if test="provinceCode != null"> and provinceCode = #{provinceCode} </if>
+		<if test="cityCode != null"> and cityCode = #{cityCode} </if>
+		<if test="districtCode != null"> and districtCode = #{districtCode} </if>
+		<if test="managerId != null"> and managerId = #{managerId} </if>
+		and status = 100
+	</sql>
+	
+	<resultMap type="Area" id="areaMap">
+		<id column="id" property="id"/>
+		<result column="siteName" property="siteName"/>
+		<result column="provinceCode" property="provinceCode"/>
+		<result column="cityCode" property="cityCode"/>
+		<result column="districtCode" property="districtCode"/>
+		<result column="managerName" property="managerName"/>
+		<result column="managerId" property="managerId"/>
+		<result column="status" property="status"/>
+		<result column="version" property="version"/>
+		<result column="createDate" property="createDate"/>
+		<collection property="deliverUser" column="{areaId = id}" javaType="ArrayList" ofType="AreaDeliveryUser" select="com.dili.deliver.dao.impl.AreaDeliveryUserDaoImpl.getList"/>
+	</resultMap>
+
+	<!-- 根据多参数进行查询数据 -->
+	<select id="listPage" parameterType="map" resultType="Area">
+		select a.*, u.userName as managerName from
+		<include refid="table" /> a
+		left join TB_USER u on u.id = a.managerId
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		<![CDATA[ order by id desc]]>
+	</select>
+
+	<select id="getList" parameterType="map" resultMap="areaMap">
+		select a.*, u.userName as managerName from
+		<include refid="table" />
+		left join TB_USER u on u.id = a.managerId
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+	
+	<select id="listCount" parameterType="map" resultType="int">
+		select count(1) from
+		<include refid="table"/>
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+</mapper>

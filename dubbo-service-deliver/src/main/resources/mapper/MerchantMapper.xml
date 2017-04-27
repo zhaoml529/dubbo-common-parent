@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dili.deliver.dao.impl.MerchantDaoImpl">
+
+	<sql id="table">TB_MERCHANT</sql>
+
+	<insert id="insert" parameterType="Merchant" useGeneratedKeys="true" keyProperty="id">
+		insert into
+		<include refid="table" />
+		(
+		id, name, areaId, address, longitude, latitude, status, version, createDate )
+		values
+		(
+		#{id}, #{name}, #{areaId}, #{address}, #{longitude} #{latitude}, #{status}, 0, #{createDate} )
+	</insert>
+
+	<!-- 更新:version+1 实现乐观锁 -->
+	<update id="update" parameterType="Merchant">
+		update
+		<include refid="table" />
+		<set>
+			version = #{version}+1 ,
+			<if test="name != null">name = #{name}, </if>
+			<if test="areaId != null">areaId = #{areaId}, </if>
+			<if test="address != null">address = #{address}, </if>
+			<if test="status != null">status = #{status}, </if>
+			<if test="createDate != null">createDate = #{createDate}</if>
+		</set>
+		<where>
+			id = #{id} and version = #{version}
+		</where>
+	</update>
+
+	<!-- 逻辑删除 -->
+	<delete id="deleteById" parameterType="long">
+		update
+		<include refid="table" />
+		set status = 101
+		where id = #{id}
+	</delete>
+
+	<select id="getById" parameterType="long" resultType="Merchant">
+		select * from
+		<include refid="table" />
+		where id = #{id}
+	</select>
+
+	<!-- 根据自己需求增删查询字段 -->
+	<sql id="condition_sql">
+		<if test="name != null"> and name = #{name} </if>
+		<if test="areaId != null"> and areaId = #{areaId} </if>
+		<if test="address != null"> and address = #{address} </if>
+		<if test="status != null"> and status = #{status} </if>
+		<if test="createDate != null"> and createDate = #{createDate} </if>
+	</sql>
+
+	<!-- 根据多参数进行查询数据 -->
+	<select id="listPage" parameterType="map" resultType="Merchant">
+		select * from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		<![CDATA[ order by id desc]]>
+	</select>
+
+	<select id="getList" parameterType="map" resultType="Merchant">
+		select * from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+	
+	<select id="listCount" parameterType="map" resultType="int">
+		select count(1) from
+		<include refid="table"/>
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+</mapper>

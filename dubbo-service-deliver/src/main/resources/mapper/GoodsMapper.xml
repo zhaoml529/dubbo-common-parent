@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dili.deliver.dao.impl.GoodsDaoImpl">
+
+	<sql id="table">TB_GOODS</sql>
+
+	<insert id="insert" parameterType="Goods">
+		insert into
+		<include refid="table" />
+		(
+		goodsName, goodsCode, specification, unit, unitPrice, status, version,
+		createDate )
+		values
+		(
+		#{goodsName}, #{goodsCode}, #{specification}, #{unit}, #{unitPrice},
+		#{status}, 0, #{createDate} )
+	</insert>
+
+	<!-- 更新:version+1 实现乐观锁 -->
+	<update id="update" parameterType="Goods">
+		update
+		<include refid="table" />
+		<set>
+			version = #{version}+1 ,
+			<if test="goodsName != null">goodsName = #{goodsName}, </if>
+			<if test="goodsCode != null">goodsCode = #{goodsCode}, </if>
+			<if test="specification != null">specification = #{specification}, </if>
+			<if test="unit != null">unit = #{unit}, </if>
+			<if test="unitPrice != null">unitPrice = #{unitPrice}, </if>
+			<if test="status != null">status = #{status}, </if>
+			<if test="createDate != null">createDate = #{createDate}</if>
+		</set>
+		<where>
+			id = #{id} and version = #{version}
+		</where>
+	</update>
+
+	<!-- 逻辑删除 -->
+	<delete id="deleteById" parameterType="long">
+		update
+		<include refid="table" />
+		set status = 101
+		where id = #{id}
+	</delete>
+
+	<select id="getById" parameterType="long" resultType="Goods">
+		select * from
+		<include refid="table" />
+		where id = #{id}
+	</select>
+
+	<!-- 根据自己需求增删查询字段 -->
+	<sql id="condition_sql">
+		<if test="goodsName != null"> and goodsName = #{goodsName} </if>
+		<if test="goodsCode != null"> and goodsCode = #{goodsCode} </if>
+		<if test="specification != null"> and specification = #{specification} </if>
+		and status = 100
+	</sql>
+
+	<!-- 根据多参数进行查询数据 -->
+	<select id="listPage" parameterType="map" resultType="Goods">
+		select * from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		<![CDATA[ order by id desc]]>
+	</select>
+
+	<select id="getList" parameterType="map" resultType="Goods">
+		select * from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+	
+	<select id="listCount" parameterType="map" resultType="int">
+		select count(1) from
+		<include refid="table"/>
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+</mapper>
