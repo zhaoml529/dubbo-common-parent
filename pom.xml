@@ -16,14 +16,18 @@
 	<dubbo-common-web.version>1.0-SNAPSHOT</dubbo-common-web.version>
 	
 	<!-- facade projects -->
+	<dubbo-facade-base.version>1.0-SNAPSHOT</dubbo-facade-base.version>
 	<dubbo-facade-user.version>1.0-SNAPSHOT</dubbo-facade-user.version>
 	<dubbo-facade-log.version>1.0-SNAPSHOT</dubbo-facade-log.version>
 	<dubbo-facade-activiti.version>1.0-SNAPSHOT</dubbo-facade-activiti.version>
+	<dubbo-facade-deliver.version>1.0-SNAPSHOT</dubbo-facade-deliver.version>
 	
 	<!-- service projects -->
+	<dubbo-service-base.version>1.0-SNAPSHOT</dubbo-service-base.version>
 	<dubbo-service-user.version>1.0-SNAPSHOT</dubbo-service-user.version>
 	<dubbo-service-log.version>1.0-SNAPSHOT</dubbo-service-log.version>
 	<dubbo-service-activiti.version>1.0-SNAPSHOT</dubbo-service-activiti.version>
+	<dubbo-service-deliver.version>1.0-SNAPSHOT</dubbo-service-deliver.version>
 	
 	<!-- web projects -->
 	<dubbo-web-base.version>1.0-SNAPSHOT</dubbo-web-base.version>
@@ -51,6 +55,8 @@
 	<jackson.version>2.5.3</jackson.version>
 	<fastdfs.version>1.25</fastdfs.version>
 	<activiti.version>5.18.0</activiti.version>
+	<velocity-version>1.7</velocity-version>
+	<velocity-tools-version>2.0</velocity-tools-version>
   </properties>
   
   <distributionManagement>
@@ -266,7 +272,12 @@
 		    <artifactId>springfox-swagger2</artifactId>
 		    <version>2.6.1</version>
 		</dependency>
-
+		
+		<dependency>
+		    <groupId>io.springfox</groupId>
+		    <artifactId>springfox-swagger-ui</artifactId>
+		    <version>2.6.1</version>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
 		<dependency>
@@ -275,18 +286,6 @@
 		    <version>0.7.0</version>
 		</dependency>
 
-				
-		
-		
-		<!-- shiro 权限管理  end-->
-	
-		<!--begin web -->
-		<!-- <dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>${servlet.version}</version>
-		</dependency> -->
-		
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>servlet-api</artifactId>
@@ -321,17 +320,6 @@
 			<version>${fastdfs.version}</version>
 		</dependency>
 		
-		<!-- http://stackoverflow.com/questions/26825276/spring-4-restcontroller-json-characteristics-not-acceptable-according-to-the-re -->
-		<!-- <dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-core-asl</artifactId>
-			<version>1.9.13</version>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.13</version>
-		</dependency> -->
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
@@ -361,7 +349,7 @@
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.0.1</version>
+			<version>2.5</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
@@ -383,6 +371,11 @@
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
 			<version>1.1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+			<version>1.10</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
@@ -439,6 +432,65 @@
 		    <version>${activiti.version}</version>
 		</dependency>
 		<!--end activiti -->
+		
+		<dependency>
+			<artifactId>velocity</artifactId>
+            <groupId>org.apache.velocity</groupId>
+			<version>${velocity-version}</version>
+		</dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-tools</artifactId>
+            <version>${velocity-tools-version}</version>
+            <exclusions>
+            	<exclusion>
+            		<artifactId>dom4j</artifactId>
+            		<groupId>dom4j</groupId>
+            	</exclusion>
+            	<exclusion>
+            		<artifactId>oro</artifactId>
+            		<groupId>oro</groupId>
+            	</exclusion>
+            	<exclusion>
+            		<artifactId>sslext</artifactId>
+            		<groupId>sslext</groupId>
+            	</exclusion>
+            	<exclusion>
+            		<artifactId>struts-core</artifactId>
+            		<groupId>org.apache.struts</groupId>
+            	</exclusion>
+            	<exclusion>
+            		<artifactId>struts-taglib</artifactId>
+            		<groupId>org.apache.struts</groupId>
+            	</exclusion>
+            	<exclusion>
+            		<artifactId>struts-tiles</artifactId>
+            		<groupId>org.apache.struts</groupId>
+            	</exclusion>
+            	<exclusion>
+            		<artifactId>commons-validator</artifactId>
+            		<groupId>commons-validator</groupId>
+            	</exclusion>
+            	<exclusion>
+            		<artifactId>commons-beanutils</artifactId>
+            		<groupId>commons-beanutils</groupId>
+            	</exclusion>
+            	<exclusion>
+            		<artifactId>commons-chain</artifactId>
+            		<groupId>commons-chain</groupId>
+            	</exclusion>
+            	<exclusion>
+            		<artifactId>commons-collections</artifactId>
+            		<groupId>commons-collections</groupId>
+            	</exclusion>
+            </exclusions>
+        </dependency>
+        <!-- xss-html-filter -> https://github.com/finn-no/xss-html-filter -->
+	    <dependency>
+		   <groupId>net.sf.xss-html-filter</groupId>
+		   <artifactId>xss-html-filter</artifactId>
+		   <version>1.5</version>
+		 </dependency>
 	  </dependencies>
   </dependencyManagement>
   
@@ -469,5 +521,9 @@
   	<module>dubbo-service-log</module>
   	<module>dubbo-facade-activiti</module>
   	<module>dubbo-service-activiti</module>
+  	<module>dubbo-facade-base</module>
+  	<module>dubbo-service-base</module>
+  	<module>dubbo-facade-deliver</module>
+  	<module>dubbo-service-deliver</module>
   </modules>
 </project>

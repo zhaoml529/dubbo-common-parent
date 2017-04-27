@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zml.base.dao.impl.DistrictDaoImpl">
+
+	<sql id="table">TB_DISTRICT</sql>
+
+	<insert id="insert" parameterType="District">
+		insert into
+		<include refid="table" />
+		(
+		id, districtName, districtCode, parentCode, districtType, status,
+		version, createDate )
+		values
+		(
+		#{id}, #{districtName}, #{districtCode}, #{parentCode}, #{districtType},
+		#{status}, 0, #{createDate} )
+	</insert>
+
+	<!-- 更新:version+1 实现乐观锁 -->
+	<update id="update" parameterType="District">
+		update
+		<include refid="table" />
+		<set>
+			version = #{version}+1 ,
+			<if test="districtName != null">districtName = #{districtName}, </if>
+			<if test="districtCode != null">districtCode = #{districtCode}, </if>
+			<if test="parentCode != null">parentCode = #{parentCode}, </if>
+			<if test="districtType != null">districtType = #{districtType}, </if>
+			<if test="status != null">status = #{status}, </if>
+			<if test="createDate != null">createDate = #{createDate}</if>
+		</set>
+		<where>
+			id = #{id} and version = #{version}
+		</where>
+	</update>
+
+	<!-- 逻辑删除 -->
+	<delete id="deleteById" parameterType="long">
+		update
+		<include refid="table" />
+		set status = 101
+		where id = #{id}
+	</delete>
+
+	<select id="getById" parameterType="long" resultType="District">
+		select * from
+		<include refid="table" />
+		where id = #{id}
+	</select>
+
+	<!-- 根据自己需求增删查询字段 -->
+	<sql id="condition_sql">
+		<if test="districtName != null"> and districtName = #{districtName} </if>
+		<if test="districtCode != null"> and districtCode = #{districtCode} </if>
+		<if test="parentCode != null"> and parentCode = #{parentCode} </if>
+		<if test="districtType != null"> and districtType = #{districtType} </if>
+		<if test="status != null"> and status = #{status} </if>
+	</sql>
+
+	<!-- 根据多参数进行查询数据 -->
+	<select id="listPage" parameterType="map" resultType="District">
+		select * from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		<![CDATA[ order by id desc]]>
+	</select>
+
+	<select id="getList" parameterType="map" resultType="District">
+		select * from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+</mapper>
