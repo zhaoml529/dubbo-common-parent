@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.ibatis.jdbc.SqlRunner;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -87,6 +88,20 @@ public class BaseDaoImpl<T extends BaseEntity> extends SqlSessionDaoSupport impl
 		if (entity != null && entity.getId() != null && result > 0) {
 			return entity.getId();
 		}
+
+		return result;
+	}
+	
+	public long insert(List<T> list) {
+
+		if (CollectionUtils.isEmpty(list)) {
+			return 0;
+		}
+
+		int result = sessionTemplate.insert(getStatement(SQL_BATCH_INSERT), list);
+
+		if (result <= 0)
+			throw ServiceException.DB_INSERT_RESULT_0;
 
 		return result;
 	}

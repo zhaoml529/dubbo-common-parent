@@ -16,6 +16,8 @@ public interface BaseDao<T> {
 	
 	public long insert(T entity);
 	
+	public long insert(List<T> list);
+	
 	public long update(T entity);
 	
 	public long deleteById(long id);
