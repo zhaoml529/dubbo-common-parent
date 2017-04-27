@@ -46,6 +46,16 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     
+    <!-- XSS过滤 -->
+   	<filter>
+		<filter-name>xssFilter</filter-name>
+		<filter-class>com.zml.common.web.xss.XssFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>xssFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+    
 	<!--DispatcherServlet -->
 	<servlet>
 		<servlet-name>spring-mvc</servlet-name>
@@ -72,7 +82,7 @@
 	    </init-param>
 	    <init-param>
 	        <param-name>allowMethods</param-name>
-	        <param-value>GET,POST,PUT,DELETE</param-value>
+	        <param-value>GET,POST,PUT,DELETE,OPTIONS</param-value>
 	    </init-param>
 	    <init-param>
 	        <param-name>allowCredentials</param-name>

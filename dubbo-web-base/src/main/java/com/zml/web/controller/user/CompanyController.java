@@ -79,7 +79,7 @@ public class CompanyController extends BaseController {
 		Message message = new Message();
 		try {
 			if(result.hasErrors()) {
-				message.setValidFail(super.loadFieldError(result.getFieldErrors()));
+				message.setValidFail(super.loadFieldError(result));
 			} else {
 				company.setId(id);
 				this.companyService.updateCompany(company);

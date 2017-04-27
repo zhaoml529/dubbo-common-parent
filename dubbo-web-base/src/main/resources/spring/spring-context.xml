@@ -23,6 +23,9 @@
     <context:component-scan base-package="com.zml.common.utils.cache.redis" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
     </context:component-scan>
+    <context:component-scan base-package="com.zml.common.web.utils" use-default-filters="true">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
     <!-- 只扫描controller日志aop, aop:aspectj-autoproxy要配置在和控制层在同一个上下文中,即spring-mvc.xml-->
     <context:component-scan base-package="com.zml.log.aop.controller" use-default-filters="true">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
@@ -35,7 +38,7 @@
     
 	<!-- <import resource="classpath:spring/spring-activemq.xml" /> -->
 	<import resource="classpath:dubbo/spring-dubbo-consumer.xml" />
-	<import resource="classpath:redis/spring-context-jedis-cluster.xml"/>
-	<!-- <import resource="classpath:redis/spring-context-jedis-single.xml"/> -->
+	<!-- <import resource="classpath:redis/spring-context-jedis-cluster.xml"/> -->
+	<import resource="classpath:redis/spring-context-jedis-single.xml"/>
     
 </beans>

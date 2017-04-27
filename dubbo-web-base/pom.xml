@@ -45,6 +45,19 @@
 		</exclusions>
 	</dependency>
 	
+	<!-- 考虑，可以把log加入base中 -->
+	<dependency>
+		<groupId>com.zml</groupId>
+		<artifactId>dubbo-facade-base</artifactId>
+		<version>${dubbo-facade-base.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.zml</groupId>
+		<artifactId>dubbo-facade-deliver</artifactId>
+		<version>${dubbo-facade-deliver.version}</version>
+	</dependency>
+	
 	<!-- dubbo required jars start -->
     <dependency>
         <groupId>io.netty</groupId>

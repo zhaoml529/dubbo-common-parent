@@ -78,6 +78,16 @@
         <property name="cookieMaxAge" value="3600"/>
         <property name="defaultLocale" value="zh_CN"/>
     </bean>
+    
+   	<!--springmvc 4.2以上开始支持 - 跨域请求配置;过滤器实现：com.zml.common.web.filter.CorsFilter -->
+	<mvc:cors>
+		<mvc:mapping path="/api/**"
+			allowed-origins="*"
+			allowed-methods="GET,POST,PUT,DELETE,OPTIONS"
+			allowed-headers="Origin,X-Requested-With,Accept,Content-Type,Authorization"
+			allow-credentials="false"
+			max-age="86400"/>
+	</mvc:cors>
 	
 	<!-- 直接配置bean代表所有请求都拦截，mvc:interceptor代表有更细粒度的控制 -->
     <mvc:interceptors>
@@ -87,22 +97,13 @@
         </bean>
         <!-- token验证拦截器 -->
         <mvc:interceptor>
-        	<mvc:mapping path="/**"/>
-        	<mvc:exclude-mapping path="/login"/>
+        	<mvc:mapping path="/api/**"/>
+        	<mvc:exclude-mapping path="/api/login"/>
         	<bean class="com.zml.common.web.interceptor.AuthorizationInterceptor"/>
         </mvc:interceptor>
         <!-- 权限验证拦截器 -->
         <bean class="com.zml.common.web.interceptor.PermissionInterceptor"></bean>
     </mvc:interceptors>
-	
-	<!--springmvc 4.2以上开始支持 - 跨域请求配置;过滤器实现：com.zml.common.web.filter.CorsFilter -->
-	<mvc:cors>
-		<mvc:mapping path="/**"
-			allowed-origins="*"
-			allowed-methods="GET,POST,PUT,DELETE,OPTIONS"
-			allowed-headers="Origin,X-Requested-With,Accept,Content-Type,Authorization"
-			allow-credentials="true"/>
-	</mvc:cors>
 	
 	<!--静态资源默认servlet配置
     	1、加入对静态资源的处理:js,css,gif,png
@@ -117,13 +118,14 @@
 	<mvc:resources mapping="/dist/**" location="/dist/" cache-period="8640000"/>
 	<mvc:resources mapping="/fonts/**" location="/fonts/" cache-period="8640000"/>
 	<mvc:resources mapping="/tpls/**" location="/tpls/" cache-period="8640000"/>
+	<mvc:resources mapping="/swagger-ui/**" location="/swagger-ui/" cache-period="8640000"/>
 	
 	<!--视图处理器-->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="contentType" value="text/html;charset=utf-8" />
         <property name="prefix" value="/WEB-INF/view/"/>
         <property name="suffix" value=".jsp"/>
-    </bean>
+    </bean> -->
     
 </beans>

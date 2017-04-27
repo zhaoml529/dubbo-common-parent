@@ -10,8 +10,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -56,8 +54,8 @@ public class UserController extends BaseController {
 	@ApiImplicitParam(value = "用户id", name = "id", paramType = "path", required = true, dataType = "long")
 	
 	@ControllerLog(content = "查询用户详情", operationType = OperateLogTypeEnum.QUERYA)
-	@Permission("user:view:detail")
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Permission("user:detail")
+	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
 	public Message getDetail(@PathVariable("id") long id) {
 		Message message = new Message();
 		User user = this.userService.getUserById(id);
@@ -71,14 +69,11 @@ public class UserController extends BaseController {
 	 * @return
 	 */
 	@ControllerLog(content = "查询所用用户列表", operationType = OperateLogTypeEnum.QUERYA)
-	@Permission("user:view:list")
+	@Permission("user:list")
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
     public Message listAllUsers() {
 		Message message = new Message();
         List<User> users = this.userService.getAllUser();
-        if(users.isEmpty()){
-        	message.setStatusCode(HttpStatus.NO_CONTENT.value());
-        }
         message.setMessage("获取列表成功！");
         message.setData(users);
         return message;    }
@@ -88,11 +83,11 @@ public class UserController extends BaseController {
 	 * @param param
 	 * @return
 	 */
-	@Permission("user:view:list")
+	@Permission("user:list")
 	@RequestMapping(value = "/listUser", method = RequestMethod.POST)
 	public Message listUserPage(@RequestBody Parameter<User> param) {
 		Message message = new Message();
-		super.setDataPermission(param.getParamMap());	// 设置数据权限
+		//super.setDataPermission(param.getParamMap());	// 设置数据权限
 		Page page = this.userService.getUserPage(param);
 		message.setMessage("获取列表成功！");
         message.setData(page.getRecordList());
@@ -114,11 +109,13 @@ public class UserController extends BaseController {
 		this.userService.addUser(user);
 		//this.logSave("添加用户成功！");
 		message.setMessage("添加用户成功！");
+		message.setSuc();
 		return message;
 	}
 	
 	/**
 	 * 更新用户信息
+	 * @Valid验证前台传过来的参数是否合法
 	 * @param id
 	 * @param user
 	 * @return
@@ -130,9 +127,10 @@ public class UserController extends BaseController {
 		Message message = new Message();
 		// 相关字段是否验证失败
 		if(result.hasErrors()) {
-			message.setValidFail(super.loadFieldError(result.getFieldErrors()));
+			message.setValidFail(super.loadFieldError(result));
 		} else {
 			this.userService.updateUser(user);
+			message.setMessage("更新成功！");
 			message.setSuc();
 		}
         return message;

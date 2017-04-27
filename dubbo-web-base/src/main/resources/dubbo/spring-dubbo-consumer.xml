@@ -19,18 +19,31 @@
 	<!-- 生成远程服务代理，可以和本地bean一样使用userFacade -->
 	<!-- 用户服务接口 -->
 	<dubbo:reference retries="0" interface="com.zml.user.service.IUserService" id="userService" check="false"/>
-	
-	<!-- 公司服务接口 -->
 	<dubbo:reference retries="0" interface="com.zml.user.service.ICompanyService" id="companyService" check="false"/>
-	
+	<dubbo:reference retries="0" interface="com.zml.user.service.IDepartmentService" id="departmentService" check="false"/>
+	<dubbo:reference retries="0" interface="com.zml.user.service.IPostService" id="postService" check="false"/>
 	<dubbo:reference retries="0" interface="com.zml.user.service.IRoleService" id="roleService" check="false"/>
-	
 	<dubbo:reference retries="0" interface="com.zml.user.service.IRoleAndResourceService" id="rarService" check="false"/>
-	
+	<dubbo:reference retries="0" interface="com.zml.user.service.IResourceService" id="ResourceService" check="false"/>
 	<dubbo:reference retries="0" interface="com.zml.user.service.IDataPermissionService" id="dataPermissionService" check="false"/>
 	
 	<!-- 操作日志服务接口 -->
 	<!-- 如果通过context:component-scan扫描到有需要注入(消费)的service则此处必须配置消费者 -->
 	<dubbo:reference retries="0" interface="com.zml.log.service.IUserOperateLogService" id="userOperateLogService" check="false"/>
 	<dubbo:reference retries="0" interface="com.zml.log.service.ISystemExceptionLogService" id="systemExceptionLogService" check="false"/>
+	
+	
+	<!-- 送货员服务接口 -->
+	<dubbo:reference retries="0" interface="com.dili.deliver.service.IGoodsService" id="goodsService" check="false"/>
+	<dubbo:reference retries="0" interface="com.dili.deliver.service.IOrderGoodsService" id="orderGoodsService" check="false"/>
+	<dubbo:reference retries="0" interface="com.dili.deliver.service.IOrderService" id="orderService" check="false"/>
+	<dubbo:reference retries="0" interface="com.dili.deliver.service.IAreaService" id="areaService" check="false"/>
+	<dubbo:reference retries="0" interface="com.dili.deliver.service.IMerchantService" id="merchantService" check="false"/>
+	<dubbo:reference retries="0" interface="com.dili.deliver.service.IComplainService" id="complainService" check="false"/>
+	<dubbo:reference retries="0" interface="com.dili.deliver.service.IComPetitorService" id="comPetitorService" check="false"/>
+	
+	<!-- 公共服务接口 -->
+	<dubbo:reference retries="0" interface="com.zml.base.service.ISysGeneratorService" id="sysGeneratorService" check="false"/>
+	<dubbo:reference retries="0" interface="com.zml.base.service.IDistrictService" id="districtService" check="false"/>
+	
 </beans>  

@@ -1,5 +1,12 @@
 package com.zml.web.controller.user;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,8 +100,12 @@ public class LoginController  extends BaseController {
 		if(permissions.isEmpty()) {
 			// 根据用户编制号获取权限字符串列表
 			permissions = this.userService.getPermissionByUserId(userId);
-			// 将权限列表放入缓存
-			this.stringRedis.setCacheList(CacheConstant.USER_PERMISSION_KEY + userId, permissions);
+			if(!permissions.isEmpty()) {
+				// 将权限列表放入缓存
+				this.stringRedis.setCacheList(CacheConstant.USER_PERMISSION_KEY + userId, permissions);
+			} else {
+				permissions = Collections.emptyList();
+			}
 		}
 		return permissions;
 	}
