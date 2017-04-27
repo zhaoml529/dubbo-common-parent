@@ -24,6 +24,7 @@ import org.apache.commons.lang3.StringUtils;
  * 3.Access-Control-Allow-Credentials：是否允许请求带有验证信息，若要获取客户端域下的cookie时，需要将其设置为true。给一个带有withCredentials的请求发送响应的时候,服务器端必须指定允许请求的域名,不能使用'*'.
  * 4.Access-Control-Allow-Headers：允许服务端访问的客户端请求头，多个请求头用逗号分割，例如：Content-Type。
  * 5.Access-Control-Expose-Headers：允许客户端访问的服务端响应头，多个响应头用逗号分割。
+ * 6.Access-Control-Max-Age：预检请求的缓存时间（秒），即在这个时间段里，对于相同的跨域请求不会再预检了
  * 
  * 注：CORS规范中定义Access-Control-Allow-Origin只允许两种取值，要么为*，要么为具体的域名，也就是说，不支持同时配置多个域名。
  * 为了解决跨多个域的问题，需要在代码中做一些处理，这里将Filter初始化参数(allowOrigin)作为一个域名的集合（用逗号分隔），

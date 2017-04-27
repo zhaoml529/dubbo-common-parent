@@ -58,7 +58,7 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
 					if(permissions.contains(permission.value())) {
 						return true;	// 拥有权限
 					} else {
-						response.sendError(HttpStatus.FORBIDDEN.value(), "没有权限！");
+						response.sendError(HttpStatus.FORBIDDEN.value(), "没有权限！");	// 有跨域问题，日后解决
 						return false;	// 没有权限
 					}
 				} else {

@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -160,9 +161,9 @@ public class BaseController {
 	 * @param list
 	 * @return
 	 */
-	protected List<FieldErrorMessage> loadFieldError(List<FieldError> list) {
+	protected List<FieldErrorMessage> loadFieldError(BindingResult result) {
 		List<FieldErrorMessage> errorList = new ArrayList<FieldErrorMessage>();
-		for(FieldError fieldError : list) {
+		for(FieldError fieldError : result.getFieldErrors()) {
 			FieldErrorMessage fieldErrorMessage = new FieldErrorMessage(); 
 			fieldErrorMessage.setEntryName(fieldError.getObjectName());
 			fieldErrorMessage.setFieldName(fieldError.getField());
