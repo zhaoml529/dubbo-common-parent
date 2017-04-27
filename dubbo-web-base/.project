@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>dubbo-web-user</name>
+	<name>dubbo-web-base</name>
 	<comment></comment>
 	<projects>
 		<project>dubbo-commo-config</project>

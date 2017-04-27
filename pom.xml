@@ -26,7 +26,7 @@
 	<dubbo-service-activiti.version>1.0-SNAPSHOT</dubbo-service-activiti.version>
 	
 	<!-- web projects -->
-	<dubbo-web-user.version>1.0-SNAPSHOT</dubbo-web-user.version>
+	<dubbo-web-base.version>1.0-SNAPSHOT</dubbo-web-base.version>
 	<dubbo-web-html.version>1.0-SNAPSHOT</dubbo-web-html.version>
 	
 	<!-- system version -->
@@ -463,7 +463,7 @@
   	<module>dubbo-common-web</module>
   	<module>dubbo-facade-user</module>
   	<module>dubbo-service-user</module>
-  	<module>dubbo-web-user</module>
+  	<module>dubbo-web-base</module>
   	<module>dubbo-web-html</module>
   	<module>dubbo-facade-log</module>
   	<module>dubbo-service-log</module>
