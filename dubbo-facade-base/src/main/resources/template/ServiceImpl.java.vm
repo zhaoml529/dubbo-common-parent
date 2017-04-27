@@ -1,0 +1,51 @@
+package ${package}.${classname}.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import ${package}.${classname}.dao.I${className}Dao;
+import ${package}.${classname}.entity.${className};
+import ${package}.${classname}.service.I${className}Service;
+import ${package}.${classname}.exceptions.${className}ServiceException;
+import com.zml.common.page.Page;
+import com.zml.common.page.Parameter;
+
+
+@Service("${classname}Service")
+public class ${className}ServiceImpl implements I${className}Service {
+
+	@Autowired
+	private I${className}Dao ${classname}Dao;
+	
+	@Override
+	public ${className} getById(${pk.attrType} ${pk.attrname}) throws ${className}ServiceException {
+		return this.${classname}Dao.getById(${pk.attrname});
+	}
+	
+	@Override
+	public Page getListPage(Parameter<${className}> param) throws ${className}ServiceException {
+		param.initPage();	// 初始化分页参数
+		Page page = this.${classname}Dao.listPage(param.getPageParam(), param.getParamMap());
+		return page;
+	}
+	
+	@Transactional(rollbackFor = Exception.class, readOnly = false)
+	@Override
+	public Long save(${className} ${classname}) throws ${className}ServiceException {
+		return this.${classname}Dao.insert(${classname});
+	}
+	
+	@Transactional(rollbackFor = Exception.class, readOnly = false)
+	@Override
+	public void update(${className} ${classname}) throws ${className}ServiceException {
+		this.${classname}Dao.update(${classname});
+	}
+	
+	@Transactional(rollbackFor = Exception.class, readOnly = false)
+	@Override
+	public void delete(${pk.attrType} ${pk.attrname}) throws ${className}ServiceException {
+		this.${classname}Dao.deleteById(${pk.attrname});
+	}
+	
+}

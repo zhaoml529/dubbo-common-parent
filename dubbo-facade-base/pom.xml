@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.zml</groupId>
+    <artifactId>dubbo-common-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <relativePath>../../dubbo-common-parent</relativePath>
+  </parent>
+  
+  <artifactId>dubbo-facade-base</artifactId>
+  <version>${dubbo-facade-base.version}</version>
+  <name>dubbo-facade-base</name>
+  
+  <properties>
+  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <dependencies>
+	<dependency>
+		<groupId>com.zml</groupId>
+		<artifactId>dubbo-common</artifactId>
+		<version>${dubbo-common.version}</version>
+	</dependency>
+	<dependency>
+		<artifactId>velocity</artifactId>
+        <groupId>org.apache.velocity</groupId>
+	</dependency>
+    <dependency>
+        <groupId>org.apache.velocity</groupId>
+        <artifactId>velocity-tools</artifactId>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <finalName>dubbo-facade-base</finalName>
+  </build>
+</project>

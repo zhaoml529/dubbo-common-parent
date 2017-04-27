@@ -1,0 +1,37 @@
+package ${package}.exceptions;
+
+import com.zml.common.exceptions.ServiceException;
+
+/**
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+public class ${className}ServiceException extends ServiceException {
+	/**
+	 * 错误编码需要根据实际编码规则修改
+	 */
+	public static final ${className}ServiceException ADD_${tableName}_ERR = new  ${className}ServiceException(10020001, "添加失败！");
+	
+	public static final ${className}ServiceException UPDATE_${tableName}_ERR = new  ${className}ServiceException(10020002, "修改失败！");
+	
+	public static final ${className}ServiceException DELETE_${tableName}_ERR = new  ${className}ServiceException(10020003, "删除失败！");
+	
+	public ${className}ServiceException() {
+		
+	}
+	
+	public ${className}ServiceException(int code, String msgFormat, Object... args) {
+		super(code, msgFormat, args);
+	}
+	
+	public ${className}ServiceException(int code, String msg) {
+		super(code, msg);
+	}
+	
+	public static ${className}ServiceException create(int code, String msg) {
+		return new ${className}ServiceException(code, msg);
+	}
+	
+}

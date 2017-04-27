@@ -1,0 +1,40 @@
+package ${package}.entity;
+
+import java.util.Date;
+import com.zml.common.entity.BaseEntity;
+#if(${hasBigDecimal})
+import java.math.BigDecimal;
+#end
+
+
+/**
+ * $!{comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+public class ${className} extends BaseEntity {
+	
+#foreach ($column in $columns)
+#if($column.columnName != "id" && $column.columnName != "version" && $column.columnName != "createDate")
+	private $column.attrType $column.attrname;		// $!column.comments
+#elseif($column.columnName == "status")
+	private $column.attrType $column.attrname = 100;		// $!column.comments
+#end
+#end
+#end
+
+#foreach ($column in $columns)
+#if($column.columnName != "id" && $column.columnName != "version" && $column.columnName != "createDate")
+
+	public void set${column.attrName}($column.attrType $column.attrname) {
+		this.$column.attrname = $column.attrname;
+	}
+	
+	public $column.attrType get${column.attrName}() {
+		return $column.attrname;
+	}
+#end
+#end
+}

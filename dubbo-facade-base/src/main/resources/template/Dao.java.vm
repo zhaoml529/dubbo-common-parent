@@ -1,0 +1,15 @@
+package ${package}.dao;
+
+import ${package}.core.dao.BaseDao;
+import ${package}.${classname}.entity.${className};
+
+/**
+ * $!{comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+public interface I${className}Dao extends BaseDao<${className}> {
+	
+}

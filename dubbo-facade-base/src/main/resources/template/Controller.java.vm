@@ -1,0 +1,138 @@
+package ${package}.web.controller.${classname};
+
+import java.util.List;
+import java.util.Map;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import ${package}.common.annotation.ControllerLog;
+import ${package}.common.enums.OperateLogTypeEnum;
+import ${package}.common.page.Page;
+import ${package}.common.page.Parameter;
+import ${package}.common.web.annotation.CurrentUser;
+import ${package}.common.web.annotation.Permission;
+import ${package}.common.web.base.BaseController;
+import ${package}.common.web.entity.Message;
+
+import ${package}.entity.${className};
+import ${package}.user.exceptions.${className}ServiceException;
+import ${package}.service.I${className}Service;
+
+
+/**
+ * $!{comments}控制器
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+@RestController
+@RequestMapping("/api")
+public class ${className}Controller extends BaseController {
+
+	@Autowired
+	private I${className}Service ${classname}Service;
+	
+	/**
+	 * 分页获取列表
+	 * @param param
+	 * @return
+	 */
+	@Permission("${pathName}:list")
+	@RequestMapping(value = "/${classname}/list", method = RequestMethod.POST)
+	public Message list(@RequestBody Parameter<${className}> param) {
+		Message message = new Message();
+		//super.setDataPermission(param.getParamMap());	// 设置数据权限
+		Page page = this.${classname}Service.getListPage(param);
+		message.setMessage("获取列表成功！");
+        message.setData(page.getRecordList());
+        message.setTotalCount(page.getTotalCount());
+        return message;
+	}
+	
+	/**
+	 * 详情
+	 * @param ${pk.attrname}
+	 * @return
+	 */
+	@ControllerLog(content = "查询详情信息", operationType = OperateLogTypeEnum.QUERYA)
+	@Permission("${pathName}:detail")
+	@RequestMapping(value = "/${pathName}/{${pk.attrname}}", method = RequestMethod.GET)
+	public Message detail(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}) {
+		Message message = new Message();
+		${className} ${classname} = this.${classname}Service.getById(${pk.attrname});
+		message.setData(${classname});
+		return message;
+		
+	}
+	
+	/**
+	 * 添加
+	 * @param ${classname}
+	 * @param result
+	 * @return
+	 */
+	@ControllerLog(content = "添加", operationType = OperateLogTypeEnum.ADD)
+	@Permission("${pathName}:save")
+	@RequestMapping(value = "/${pathName}", method = RequestMethod.POST)
+	public Message save(@Valid @RequestBody ${className} ${classname}, BindingResult result) {
+		Message message = new Message();
+		if(result.hasErrors()) {
+			message.setValidFail(super.loadFieldError(result));
+		} else {
+			this.${classname}Service.save(${classname});
+			message.setMessage("添加成功！");
+			message.setSuc();
+		}
+		return message;
+	}
+	
+	/**
+	 * 更新
+	 * @Valid验证前台传过来的参数是否合法
+	 * @param ${pk.attrname}
+	 * @param ${classname}
+	 * @return
+	 */
+	@ControllerLog(content = "更新", operationType = OperateLogTypeEnum.UPDATE)
+	@Permission("${classname}:update")
+	@RequestMapping(value = "/${pathName}", method = RequestMethod.PUT)
+    public Message update(@Valid @RequestBody ${className} ${classname}, BindingResult result) {
+		Message message = new Message();
+		// 相关字段是否验证失败
+		if(result.hasErrors()) {
+			message.setValidFail(super.loadFieldError(result));
+		} else {
+			this.${classname}Service.update(${classname});
+			message.setMessage("更新成功！");
+			message.setSuc();
+		}
+        return message;
+    }
+	
+	/**
+	 * 根据id删除
+	 * @param id
+	 * @return
+	 */
+	@ControllerLog(content = "删除", operationType = OperateLogTypeEnum.DELETE)
+	@Permission("${classname}:delete")
+	@RequestMapping(value = "/${pathName}/{${pk.attrname}}", method = RequestMethod.DELETE)
+    public Message delete(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}) {
+		Message message = new Message();
+		this.${classname}Service.delete(${pk.attrname});
+		message.setMessage("删除成功！");
+    	message.setSuc();
+        return message;
+    }
+	
+}

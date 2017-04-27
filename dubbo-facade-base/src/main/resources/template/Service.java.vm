@@ -1,0 +1,29 @@
+package ${package}.service;
+
+import java.util.List;
+
+import ${package}.common.page.Page;
+import ${package}.common.page.Parameter;
+import ${package}.${classname}.entity.${className};
+import ${package}.${classname}.exceptions.${className}ServiceException;
+
+/**
+ * $!{comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+public interface I${className}Service {
+	
+	public ${className} getById(${pk.attrType} ${pk.attrname}) throws ${className}ServiceException;
+	
+	public Page getListPage(Parameter<${className}> param) throws ${className}ServiceException;
+	
+	public Long save(${className} ${classname}) throws ${className}ServiceException;
+	
+	public void update(${className} ${classname}) throws ${className}ServiceException;
+	
+	public void delete(${pk.attrType} ${pk.attrname}) throws ${className}ServiceException;
+	
+}
