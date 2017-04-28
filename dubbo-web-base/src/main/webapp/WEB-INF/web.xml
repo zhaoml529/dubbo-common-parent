@@ -73,12 +73,12 @@
 	</servlet-mapping>
 	
 	<!-- 跨域请求过滤器， 使用springmvc实现 -->
-    <!-- <filter>
+    <filter>
 	    <filter-name>corsFilter</filter-name>
 	    <filter-class>com.zml.common.web.filter.CorsFilter</filter-class>
 	    <init-param>
 	        <param-name>allowOrigin</param-name>
-	        <param-value>http://localhost:8112,http://localhost:8117</param-value>
+	        <param-value>*</param-value>
 	    </init-param>
 	    <init-param>
 	        <param-name>allowMethods</param-name>
@@ -90,13 +90,13 @@
 	    </init-param>
 	    <init-param>
 	        <param-name>allowHeaders</param-name>
-	        <param-value>Content-Type,Authorization</param-value>
+	        <param-value>Origin,X-Requested-With,Accept,Content-Type,Authorization</param-value>
 	    </init-param>
 	</filter>
 	<filter-mapping>
 	    <filter-name>corsFilter</filter-name>
 	    <url-pattern>/*</url-pattern>
-	</filter-mapping> -->
+	</filter-mapping>
 	
 	<!-- 验证码过滤器需要放到Shiro之后 因为Shiro将包装HttpSession 如果不，可能造成两次的sesison id 不一样 -->
 <!--     <filter>
