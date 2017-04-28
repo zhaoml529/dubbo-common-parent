@@ -76,8 +76,7 @@ app.service('userService', ['$http', '$q', 'host',function($http, $q, host) {
 	    	$http({
                 method: "put",
                 data: angular.toJson(params),//JsonData = {"id":1,"value":"hello"}
-                url: host+"/user/"+user.id,
-                headers: { "Content-Type": "application/json" }
+                url: host+"/user"
             }).success(function (d) { 
             	deferred.resolve(d);
             });
