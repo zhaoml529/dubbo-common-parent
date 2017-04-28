@@ -177,4 +177,12 @@ public class User extends BaseEntity {
 		this.deptId = deptId;
 	}
 
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+
 }
