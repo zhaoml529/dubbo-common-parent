@@ -29,10 +29,8 @@ import com.zml.common.utils.DateUtils;
 
 /**
  * 代码生成器   工具类
- * 
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2016年12月19日 下午11:40:24
+ * @author zhaomingliang
+ * @date 2017年4月20日
  */
 public class GenUtils {
 
