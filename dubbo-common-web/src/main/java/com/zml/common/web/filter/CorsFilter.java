@@ -43,14 +43,16 @@ public class CorsFilter implements Filter {
     private String allowCredentials;
     private String allowHeaders;
     private String exposeHeaders;
+    private String maxAge;
 	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		allowOrigin = filterConfig.getInitParameter("allowOrigin");
-        allowMethods = filterConfig.getInitParameter("allowMethods");
-        allowCredentials = filterConfig.getInitParameter("allowCredentials");
-        allowHeaders = filterConfig.getInitParameter("allowHeaders");
-        exposeHeaders = filterConfig.getInitParameter("exposeHeaders");
+		this.allowOrigin = filterConfig.getInitParameter("allowOrigin");
+		this.allowMethods = filterConfig.getInitParameter("allowMethods");
+		this.allowCredentials = filterConfig.getInitParameter("allowCredentials");
+		this.allowHeaders = filterConfig.getInitParameter("allowHeaders");
+		this.exposeHeaders = filterConfig.getInitParameter("exposeHeaders");
+		this.maxAge = filterConfig.getInitParameter("maxAge");
 		
 	}
 	
@@ -68,17 +70,20 @@ public class CorsFilter implements Filter {
                 }
             }
         }
-        if (StringUtils.isNotEmpty(allowMethods)) {
-            response.setHeader("Access-Control-Allow-Methods", allowMethods);
+        if (StringUtils.isNotEmpty(this.allowMethods)) {
+            response.setHeader("Access-Control-Allow-Methods", this.allowMethods);
         }
-        if (StringUtils.isNotEmpty(allowCredentials)) {
-            response.setHeader("Access-Control-Allow-Credentials", allowCredentials);
+        if (StringUtils.isNotEmpty(this.allowCredentials)) {
+            response.setHeader("Access-Control-Allow-Credentials", this.allowCredentials);
         }
-        if (StringUtils.isNotEmpty(allowHeaders)) {
-            response.setHeader("Access-Control-Allow-Headers", allowHeaders);
+        if (StringUtils.isNotEmpty(this.allowHeaders)) {
+            response.setHeader("Access-Control-Allow-Headers", this.allowHeaders);
         }
-        if (StringUtils.isNotEmpty(exposeHeaders)) {
-            response.setHeader("Access-Control-Expose-Headers", exposeHeaders);
+        if (StringUtils.isNotEmpty(this.exposeHeaders)) {
+            response.setHeader("Access-Control-Expose-Headers", this.exposeHeaders);
+        }
+        if (StringUtils.isNotEmpty(this.maxAge)) {
+        	response.setHeader("Access-Control-Max-Age", this.maxAge);
         }
         chain.doFilter(req, res);
 	}

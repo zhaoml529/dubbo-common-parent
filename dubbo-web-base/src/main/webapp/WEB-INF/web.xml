@@ -92,6 +92,10 @@
 	        <param-name>allowHeaders</param-name>
 	        <param-value>Origin,X-Requested-With,Accept,Content-Type,Authorization</param-value>
 	    </init-param>
+	    <init-param>
+	        <param-name>maxAge</param-name>
+	        <param-value>86400</param-value>
+	    </init-param>
 	</filter>
 	<filter-mapping>
 	    <filter-name>corsFilter</filter-name>
