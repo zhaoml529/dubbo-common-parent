@@ -78,7 +78,7 @@
 	    <filter-class>com.zml.common.web.filter.CorsFilter</filter-class>
 	    <init-param>
 	        <param-name>allowOrigin</param-name>
-	        <param-value>*</param-value>
+	        <param-value>http://localhost:8061,http://localhost:8117</param-value>
 	    </init-param>
 	    <init-param>
 	        <param-name>allowMethods</param-name>

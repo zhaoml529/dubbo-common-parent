@@ -20,6 +20,9 @@
 	<context:component-scan base-package="com.zml.web.controller" use-default-filters="false">
 	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
+	<context:component-scan base-package="com.zml.common" use-default-filters="false">
+	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
 	
     <!-- 添加 Spring AOP 权限注解的支持，走CGLIB类代理。 -->
     <!-- AOP拦截controller时此配置必须和controller在同一个context中, 否则会拦截不到 -->
@@ -80,14 +83,14 @@
     </bean>
     
    	<!--springmvc 4.2以上开始支持 - 跨域请求配置;过滤器实现：com.zml.common.web.filter.CorsFilter -->
-	<mvc:cors>
+	<!-- <mvc:cors>
 		<mvc:mapping path="/api/**"
 			allowed-origins="*"
 			allowed-methods="GET,POST,PUT,DELETE,OPTIONS"
 			allowed-headers="Origin,X-Requested-With,Accept,Content-Type,Authorization"
 			allow-credentials="false"
 			max-age="86400"/>
-	</mvc:cors>
+	</mvc:cors> -->
 	
 	<!-- 直接配置bean代表所有请求都拦截，mvc:interceptor代表有更细粒度的控制 -->
     <mvc:interceptors>
