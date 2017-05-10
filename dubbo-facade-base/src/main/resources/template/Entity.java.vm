@@ -23,7 +23,6 @@ public class ${className} extends BaseEntity {
 	private $column.attrType $column.attrname = 100;		// $!column.comments
 #end
 #end
-#end
 
 #foreach ($column in $columns)
 #if($column.columnName != "id" && $column.columnName != "version" && $column.columnName != "createDate")
