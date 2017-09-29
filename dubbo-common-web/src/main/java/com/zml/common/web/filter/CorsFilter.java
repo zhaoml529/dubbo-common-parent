@@ -30,6 +30,11 @@ import org.apache.commons.lang3.StringUtils;
  * 为了解决跨多个域的问题，需要在代码中做一些处理，这里将Filter初始化参数(allowOrigin)作为一个域名的集合（用逗号分隔），
  * 只需从当前请求中获取Origin请求头，就知道是从哪个域中发出的请求，若该请求在以上允许的域名集合中，
  * 则将其放入Access-Control-Allow-Origin响应头，这样跨多个域的问题就轻松解决了。
+ *
+ * 我们都知道，在发同域请求时，浏览器会将cookie自动加在request header中。但大家是否遇到过这样的场景：在发送跨域请求时，cookie并没有自动加在request header中。
+ * 造成这个问题的原因是：在CORS标准中做了规定，默认情况下，浏览器在发送跨域请求时，不能发送任何认证信息（credentials）如"cookies"和"HTTP authentication schemes"。除非xhr.withCredentials为true（xhr对象有一个属性叫withCredentials，默认值为false）。
+ * 所以根本原因是cookies也是一种认证信息，在跨域请求中，client端必须手动设置xhr.withCredentials=true，且server端也必须允许request能携带认证信息（即response header中包含Access-Control-Allow-Credentials:true），这样浏览器才会自动将cookie加在request header中。
+ * 另外，要特别注意一点，一旦跨域request能够携带认证信息，server端一定不能将Access-Control-Allow-Origin设置为*，而必须设置为请求页面的域名。
  * 
  * spring mvc 从4.2版本开始增加了对CORS的支持 <mvc:cors> or @CrossOrigin, 所以打算采用
  * @Description
