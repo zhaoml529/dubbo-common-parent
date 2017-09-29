@@ -20,6 +20,7 @@
   <!-- 过虑日志中的变量 -->
   <profiles>
 	  <profile>
+		  <id>log4j</id>
 		  <build>
 			 <filters>
 				<filter>WEB-INF/classes/log4j.properties</filter>
@@ -147,7 +148,6 @@
 					<configuration>
 						<type>jar</type>
 						<includeTypes>jar</includeTypes>
-						<useUniqueVersions>false</useUniqueVersions>
 						<outputDirectory>
 							${project.build.directory}/lib
 						</outputDirectory>
