@@ -37,7 +37,6 @@ import org.apache.commons.lang3.StringUtils;
  * 另外，要特别注意一点，一旦跨域request能够携带认证信息，server端一定不能将Access-Control-Allow-Origin设置为*，而必须设置为请求页面的域名。
  * 
  * spring mvc 从4.2版本开始增加了对CORS的支持 <mvc:cors> or @CrossOrigin, 所以打算采用
- *
  * @Description
  * @author zhaomingliang
  * @date 2017年3月9日
