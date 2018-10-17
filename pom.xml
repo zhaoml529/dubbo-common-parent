@@ -52,7 +52,7 @@
 	<!-- <servlet.version>3.1.0</servlet.version> -->
 	<servlet.version>6.0.45</servlet.version>
 	<fastjson.version>1.2.7</fastjson.version>
-	<jackson.version>2.5.3</jackson.version>
+	<jackson.version>2.9.6</jackson.version>
 	<fastdfs.version>1.25</fastdfs.version>
 	<activiti.version>5.18.0</activiti.version>
 	<velocity-version>1.7</velocity-version>
