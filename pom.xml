@@ -35,7 +35,7 @@
 	
 	<!-- system version -->
 	<zkclient.version>0.1</zkclient.version>
-	<spring.version>4.2.8.RELEASE</spring.version>
+	<spring.version>4.3.18.RELEASE</spring.version>
 	<mybatis.version>3.2.7</mybatis.version>
 	<mybatis-spring.version>1.2.2</mybatis-spring.version>
 	<mysql.driver.version>5.1.32</mysql.driver.version>
